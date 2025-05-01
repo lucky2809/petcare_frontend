@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 
+console.log("import.meta.env.VITE_APP_BACKEND_URL", import.meta.env.VITE_APP_BACKEND_URL, import.meta.env)
 function SignUp() {
 const [formData, setFormData] = useState({})
 
