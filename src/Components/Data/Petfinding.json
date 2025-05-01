@@ -1,0 +1,73 @@
+{
+    "catData" : [
+        {
+            "img" : "https://dbw3zep4prcju.cloudfront.net/animal/f48c0c18-92bd-476f-b99d-60d051b9d317/image/c93b65b6-40b1-469a-8411-7b77545a42df.jpg?versionId=JESF2xXHNIBUJfk0jKFCljEv8YA8mtKu&bust=1741478573&width=450",
+            "heading" : "Bandit"
+           
+        },
+        {
+            "img" : "https://dbw3zep4prcju.cloudfront.net/animal/1590eb19-4191-41fd-a119-c17894e90843/image/57f62956-4cc5-4d30-86aa-20b7c3727965.jpg?versionId=OY6JKtfnPrw6hGsvtALIeArGPemFlMTn&bust=1737328273&width=450",
+            "heading" : "Echo"
+     
+        },
+        {
+            "img" : "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/75171564/1/?bust=1743130270&width=450",
+            "heading" : "Mowgi."
+         
+        },
+        {
+            "img" : "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/75245832/1/?bust=1741949538&width=450",
+            "heading" : "Carrotina"
+         
+        },
+        {
+            "img" : "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/30004191/1/?bust=1408321848&width=450",
+            "heading" : "Bella"
+        
+        },
+        {
+            "img" : "https://dbw3zep4prcju.cloudfront.net/animal/ea3c4f69-f385-4ff6-9a2a-35cca5016977/image/7369d221-e304-4c0d-8d50-b573154a7472.jpeg?versionId=qrDU_1hsVpsbCU8uIiTQMaL.nlTfqw1M&bust=1727018995&width=450",
+            "heading" : "Pelosa"
+           
+        },
+        {
+            "img" : "https://images.unsplash.com/photo-1585137173132-cf49e10ad27d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGVyc2lhbiUyMGNhdHxlbnwwfHwwfHx8MA%3D%3D",
+            "heading" : "Bombleybee Boy"
+         
+        },
+        {
+            "img" : "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/75245832/1/?bust=1741949538&width=450",
+            "heading" : "Pelosa"
+         
+        },
+        {
+            "img" : "https://plus.unsplash.com/premium_photo-1661546379151-380b344dc3f1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bWFpbmUlMjBjb29uJTIwY2F0fGVufDB8fDB8fHww",
+            "heading" : "Thor"
+            
+        }
+
+    ],
+    "Data" : [
+        {
+            "img" : "https://dbw3zep4prcju.cloudfront.net/animal/f48c0c18-92bd-476f-b99d-60d051b9d317/image/c93b65b6-40b1-469a-8411-7b77545a42df.jpg?versionId=JESF2xXHNIBUJfk0jKFCljEv8YA8mtKu&bust=1741478573&width=450",
+            "heading" : "Bandit"
+           
+        },
+        {
+            "img" : "https://dbw3zep4prcju.cloudfront.net/animal/1590eb19-4191-41fd-a119-c17894e90843/image/57f62956-4cc5-4d30-86aa-20b7c3727965.jpg?versionId=OY6JKtfnPrw6hGsvtALIeArGPemFlMTn&bust=1737328273&width=450",
+            "heading" : "Echo"
+     
+        },
+        {
+            "img" : "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/75171564/1/?bust=1743130270&width=450",
+            "heading" : "Mowgi."
+         
+        },
+        {
+            "img" : "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/75245832/1/?bust=1741949538&width=450",
+            "heading" : "Carrotina"
+         
+        }
+
+    ]
+}

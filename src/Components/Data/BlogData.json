@@ -1,0 +1,88 @@
+{
+    "blogData" : [
+        {
+            "img" : "https://cdn.pixabay.com/photo/2021/07/14/09/14/siberian-cat-6465485_1280.jpg",
+            "heading" : "Labrador Retriever : Labs make the ultimate family companion and love outdoor adventures.",
+            "description" : "Labrador Retrievers are known for their friendly, outgoing personalities, making them excellent family dogs and versatile workers as service and search-and-rescue dogs. ",
+            "postData" : "12 March 2025"
+        },
+        {
+            "img" : "https://cdn.pixabay.com/photo/2024/03/07/10/38/simba-8618301_1280.jpg",
+            "heading" : "German Shepherd : they’re excellent protectors, working dogs, and loyal family members.",
+            "description" : "German Shepherds are intelligent, loyal, and courageous dogs, known for their herding instincts and versatility, making them excellent family pets and working dogs",
+            "postData" : "12 March 2025"
+        },
+        {
+            "img" : "https://th.bing.com/th/id/OIP.IPMkh9HWXVxGyEGbjLWx2gHaE7?rs=1&pid=ImgDetMain",
+            "heading" : "Golden Retriever : Goldens bring joy with their loving nature and friendly demeanor relative.",
+            "description" : "Golden Retrievers, known for their golden coats and gentle nature, are intelligent, loyal, and easy to train, making them excellent family dogs and versatile working companions",
+            "postData" : "12 March 2025"
+        },
+        {
+            "img" : "https://img.freepik.com/free-photo/isolated-shot-ginger-kitten-sitting-front-white-looking-right_181624-45937.jpg?uid=R167309508&ga=GA1.1.1966480882.1738846517&semt=ais_hybrid&w=740",
+            "heading" : "French Bulldog :  these small dogs are big on personality and perfect for apartment ",
+            "description" : "If you love fluffy, affectionate, and downright royal-looking cats, the Persian cat might just st..",
+            "postData" : "12 March 2025"
+        },
+        {
+            "img" : "https://img.freepik.com/premium-photo/portrait-american-shorthair-cat-colored-wall_212190-592.jpg?uid=R167309508&ga=GA1.1.1966480882.1738846517&semt=ais_hybrid&w=740",
+            "heading" : "Poodle : Poodles shine with their smarts and stylish, curly coats.",
+            "description" : "If you love fluffy, affectionate, and downright royal-looking cats, the Persian cat might just st..",
+            "postData" : "12 March 2025"
+        },
+        {
+            "img" : "https://img.freepik.com/free-photo/closeup-shot-one-ginger-cat-hugging-licking-other-isolated-white-wall_181624-32893.jpg?uid=R167309508&ga=GA1.1.1966480882.1738846517&semt=ais_hybrid&w=740",
+            "heading" : "Beagle : Beagles are merry hounds, perfect for families and adventure seekers.",
+            "description" : "If you love fluffy, affectionate, and downright royal-looking cats, the Persian cat might just st..",
+            "postData" : "12 March 2025"
+        },
+        {
+            "img" : "https://images.unsplash.com/photo-1585137173132-cf49e10ad27d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGVyc2lhbiUyMGNhdHxlbnwwfHwwfHx8MA%3D%3D",
+            "heading" : "Persian Cat: Graceful Felines with Luxurious Coats and Gentle Dispositions.",
+            "description" : "If you love fluffy, affectionate, and downright royal-looking cats, the Persian cat might just st..",
+            "postData" : "12 March 2025"
+        },
+        {
+            "img" : "https://images.unsplash.com/photo-1592652426689-4e4f12c4aef5?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8c2lhbWVzZSUyMGNhdHxlbnwwfHwwfHx8MA%3D%3D",
+            "heading" : "Siamese Cat: Elegant, Vocal Companions with Striking Blue Eyes",
+            "description" : "If you love fluffy, affectionate, and downright royal-looking cats, the Persian cat might just st..",
+            "postData" : "12 March 2025"
+        },
+        {
+            "img" : "https://plus.unsplash.com/premium_photo-1661546379151-380b344dc3f1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bWFpbmUlMjBjb29uJTIwY2F0fGVufDB8fDB8fHww",
+            "heading" : "Maine Coon: Majestic Giants with Playful Personalities and Fluffy Tails",
+            "description" : "If you love fluffy, affectionate, and downright royal-looking cats, the Persian cat might just st..",
+            "postData" : "12 March 2025"
+        }
+
+    ],
+
+    "CurrentBlog" : [
+        
+        {
+            "img" : "https://images.unsplash.com/photo-1543055484-ac8fe612bf31?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bWFpbmUlMjBjb29uJTIwY2F0fGVufDB8fDB8fHww",
+            "heading" : "Maine Coon: Gentle Giants with Friendly and Intelligent Temperaments",
+            "description" : " a large, gentle cat breed is known for its long thick, waterproof coat large tufted ears and dog-like personality, making them excellent family pets."
+           
+        },
+            {
+                "img" : "https://images.unsplash.com/photo-1621446682704-ea3755b8382b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHNpYW1lc2UlMjBjYXR8ZW58MHx8MHx8fDA%3D",
+                "heading" : "Siamese Cat: Vocal Companions with Striking Blue Eyes and Sleek Bodies",
+                "description" : "Siamese cats, originating from Thailand are known for their distinctive pointed coloring blue eyes and intelligent social personalities often described as doglike in their affection."
+               
+            },
+            {
+                "img" : "https://img.freepik.com/free-photo/adorable-kitty-with-monochrome-wall-her_23-2148955136.jpg?uid=R167309508&ga=GA1.1.1966480882.1738846517&semt=ais_hybrid&w=740",
+                "heading" : "Chihuahua : Chihuahuas pack a big personality into a tiny, lovable frame.",
+                "description" : "IChihuahuas despite their small size are energetic and loyal dogs who love attention making them great companions and lap dogs relatives."
+           
+            },
+            {
+                "img" : "https://images.unsplash.com/photo-1543055484-ac8fe612bf31?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bWFpbmUlMjBjb29uJTIwY2F0fGVufDB8fDB8fHww",
+                "heading" : "Maine Coon: Gentle Giants with Friendly and Intelligent Temperaments",
+                "description" : " a large, gentle cat breed is known for its long thick, waterproof coat large tufted ears and dog-like personality, making them excellent family pets."
+               
+            }
+        
+    ]
+}

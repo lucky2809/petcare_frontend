@@ -1,0 +1,63 @@
+{
+    "groomingData": [
+        {
+            "image": "public/dog-bath.png",
+            "paregraph": "Spa Bath"
+        },
+        {
+            "image": "/public/grooming.png",
+            "paregraph": "Full Grooming"
+        },
+        {
+            "image": "/public/nail-clipper_9716888.png",
+            "paregraph": "Nail Clipping"
+        },
+        {
+            "image": "/public/dog_10667046.png",
+            "paregraph": "Stylish Hair Cut"
+        },
+        {
+            "image": "/public/destressing.png",
+            "paregraph": "DeStressing Massage"
+        },
+        {
+            "image": "/public/ear-cleaning_1499504.webp",
+            "paregraph": "Knots/Mats Removal"
+        },
+        {
+            "image": "/public/Anti-tick.png",
+            "paregraph": "Anti-Tick Treatment"
+        }
+    ],
+
+    "GroomingCart": [
+        {
+            "heading": "Bath Butter",
+            "subHeading": "Spa Bath",
+            "Available_service" :["Bath","Blow Dry","Conditioning","Teeth Cleaning","Nail Clipping","Combing/Brushing","Ear & Eye Cleaning","Paw massage"],
+            "orignal_Price": 999,
+            "final_Price" : 899
+
+        },
+        {
+            "heading": "Festive Bonanza",
+            "subHeading": "Advanced Grooming",
+            "orignal_Price": 1699,
+            "final_Price" : 1299,
+            "Available_service" :["Shampo Bath","Blow Dry","Full body haircut & style","Conditioning","Nail clipping"," Eyes cleaning","Paw massage","Perfume"],
+            "more_service" : ["Oral hygiene","Sanitray training","Under pow trim"]
+
+        },
+        {
+            "heading": "Pooch Perfect",
+            "subHeading": "Full Service-Master Touch",
+            "orignal_Price": 1999,
+            "final_Price" : 1499,
+            "Available_service" :["Bath","Blow Dry","Conditioning","Teeth Cleaning","Nail Clipping","Combing/Brushing","Ear & Eye Cleaning","Paw massage"],
+            "more_service" : ["Oral hygiene","Sanitray training","Under pow trim"]
+
+
+
+        }
+    ]
+}
