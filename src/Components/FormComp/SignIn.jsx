@@ -26,7 +26,7 @@ function SignIn() {
             if (fetchData.ok) {
                 localStorage.setItem("accessToken", data.token)
                 alert(JSON.stringify(data.massage))
-                navigate("/home")
+                navigate("/")
             } else {
                 console.log("somthing went wrong ..!")
             }
