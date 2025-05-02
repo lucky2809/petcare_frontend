@@ -8,7 +8,17 @@ import BoardingStepper from './BoardingStepper.';
 import { useDispatch, useSelector } from 'react-redux';
 import { setBoardingDetails, setOwnerDetails, setPetDetails } from '../../store/petServices/actions';
 import { useNavigate } from 'react-router-dom';
-
+import 'leaflet/dist/leaflet.css';
+import {
+    MapContainer,
+    TileLayer,
+    Marker,
+    Polyline,
+    useMap,
+    useMapEvents,
+    Tooltip,
+    Popup,
+} from "react-leaflet";
 
 
 const Age = [
@@ -241,14 +251,14 @@ function BoardingForm() {
                                         <label className='text-md font-sans w-10 font-semibold' htmlFor="">DEPART</label>
                                     </div>
                                     <div className='w-full flex'>
-                                        <select value={boardingFormData.date} onChange={handleBoardingDetailsChange}  className='w-full p-3 outline-0' name="from_date" id="">
+                                        <select value={boardingFormData.date} onChange={handleBoardingDetailsChange} className='w-full p-3 outline-0' name="from_date" id="">
                                             {dates.map((date) => {
                                                 return (
                                                     <option className='p-3 text-2xl'>{date}</option>
                                                 )
                                             })}
                                         </select>
-                                        <select value={boardingFormData.from_time} onChange={handleBoardingDetailsChange}  className='w-full p-3 outline-0' name="from_time" id="">
+                                        <select value={boardingFormData.from_time} onChange={handleBoardingDetailsChange} className='w-full p-3 outline-0' name="from_time" id="">
                                             {timeSlots.map((time) => (
                                                 <option value={time} key={time}>{time}</option>
                                             ))}
@@ -331,6 +341,17 @@ function BoardingForm() {
 
                 <div className='Second border-1 w-full'>
 
+                    <MapContainer center={[20.5937, 78.9629]} zoom={13} scrollWheelZoom={false} style={{flex:1, height:"100%"}}>
+                        {/* <TileLayer
+                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        /> */}
+                        <Marker position={[20.5937, 78.9629]}>
+                            <Popup>
+                                A pretty CSS3 popup. <br /> Easily customizable.
+                            </Popup>
+                        </Marker>
+                    </MapContainer>
                 </div>
 
             </div>

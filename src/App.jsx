@@ -16,6 +16,7 @@ import Bloges from './Components/Bloges';
 import PetGrooming from './Components/Pages/PetGrooming';
 import PetBoarding from './Components/Pages/PetBoarding';
 import PetTaxi from './Components/Pages/PetTaxi';
+import 'leaflet/dist/leaflet.css';
 
 // aPP.JSX
 function App() {

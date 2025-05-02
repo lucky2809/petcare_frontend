@@ -16,7 +16,6 @@ function Navbar() {
             <p className="h-15 w-15 "><img className='h-full w-full object-cover' src={`${import.meta.env.BASE_URL}logo.png`} alt="" /> </p>
             <div className='leading-none'>
               <p className='text-md font-bold w-25'>TOE BEANS APARTMENT</p>
-              {/* <p className='text-lg font-semibold font-serif m-0 p-0'>APARTMENT</p> */}
             </div>
             </div>
             <ul className="un-order-list flex gap-10 items-center  max-sm:hidden font-medium text-[15px]" >

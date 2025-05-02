@@ -86,7 +86,14 @@ function SignIn() {
 
                 <div className='sign-in  h-[97%]'>
                     <div className='w-full font-semibold flex justify-between items-center'>
-                        <span className='text-2xl'>Petpy.in</span>
+                        <span className='text-2xl'>
+                            <div className='flex gap-2 items-center w-100'>
+                                <p className="h-15 w-15 "><img className='h-full w-full object-cover' src={`${import.meta.env.BASE_URL}logo.png`} alt="" /> </p>
+                                <div className='leading-none'>
+                                    <p className='text-sm font-bold w-25'>TOE BEANS APARTMENT</p>
+                                </div>
+                            </div>
+                        </span>
                         <span className=''>If you don't have an account <Link to={"/"} style={{ color: "blue" }}>sign up</Link></span>
 
                     </div>
@@ -94,7 +101,7 @@ function SignIn() {
                         <h1 className='heading text-4xl font-bold text-black w-96 max-sm:w-full'>Sign in to Petpy.<span className='text-green-400'>in</span> </h1>
 
                         <label className='flex flex-col  gap-1 w-96 mt-10 max-sm:w-full'>
-                            <label for="text" className=' font-semibold text-[18px]' >Gamil or UserName</label>
+                            <label for="text" className=' font-semibold text-[18px]' >Gmail or UserName</label>
                             <input ref={email} type='text' className='p-2 border-2 border-black rounded-md  max-sm:w-full' placeholder='Enter username' />
                         </label>
 
