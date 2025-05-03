@@ -14,8 +14,6 @@ import {
     TileLayer,
     Marker,
     Polyline,
-    useMap,
-    useMapEvents,
     Tooltip,
     Popup,
 } from "react-leaflet";
@@ -339,21 +337,19 @@ function BoardingForm() {
 
                 </div>
 
-                <div className='Second border-1 w-full'>
-
-                    <MapContainer center={[20.5937, 78.9629]} zoom={13} scrollWheelZoom={false} style={{flex:1, height:"100%"}}>
-                        {/* <TileLayer
-                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                        /> */}
-                        <Marker position={[20.5937, 78.9629]}>
-                            <Popup>
-                                A pretty CSS3 popup. <br /> Easily customizable.
-                            </Popup>
-                        </Marker>
-                    </MapContainer>
-                </div>
-
+             <div className='Second border-1 w-full'>
+    <MapContainer center={[27.1767, 78.0081]} zoom={13} scrollWheelZoom={false} style={{ flex: 1, height: "100%" }}>
+        <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <Marker position={[27.1767, 78.0081]}>
+            <Popup>
+                A pretty CSS3 popup. <br /> Easily customizable.
+            </Popup>
+        </Marker>
+    </MapContainer>
+</div>
             </div>
         </div>
     )
