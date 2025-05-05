@@ -10,7 +10,7 @@ function Navbar() {
     return (
       <>
    
-        <header className="header w-full sticky top-0 px-15 bg-slate-100 max-sm:px-2 z-50  ">
+        <header className="header w-full sticky top-0 px-15 bg-slate-100 max-sm:px-2 z-1001  ">
           <nav className="navbar flex justify-between items-center    p-2 py-4  border-b border-slate-300 max-sm:py-4 text-black">
             <div className='flex gap-2 items-center'>
             <p className="h-15 w-15 "><img className='h-full w-full object-cover' src={`${import.meta.env.BASE_URL}logo.png`} alt="" /> </p>

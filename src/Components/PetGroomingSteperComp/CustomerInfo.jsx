@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { AnimatedCard } from '../StyledComponents/Styled'
 import { TextField } from '@mui/material'
 
-function CustomerInfo() {
+function CustomerInfo({isPetTaxi}) {
     return (
         <Fragment>
             <AnimatedCard className='service pb-4  w-full  flex flex-col justify-center h-full gap-4 items-center  px-10'>

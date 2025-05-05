@@ -27,6 +27,10 @@ const Age = [
     { label: '3 Year - 4 Year' },
     { label: 'More Than 4 Year' },
 ]
+const PetType =[
+    {label: 'Cat'},
+    {label: 'Dog'}
+]
 
 
 const MyInput = ({ label = "", helperText = "", type = "" }) => {
@@ -289,16 +293,21 @@ function BoardingForm() {
                                             renderInput={(params) => <TextField {...params} label="Age Of Your Pet" size='small' value={petFormData.pet_age} onChange={handlePetDetailsChange} name="pet_age" />}
                                         />
                                     </div>
-
+                                    <div>
+                                    <Autocomplete
+                                            disablePortal
+                                            defaultValue={PetType[0].label}
+                                            options={PetType}
+                                            sx={{
+                                                minWidth: 115
+                                            }}
+                                            renderInput={(params) => <TextField {...params}  size='small' value={petFormData.pet_type} onChange={handlePetDetailsChange} name="pet_type" />}
+                                        />
+                                    </div>
                                     <div>
                                         <TextField sx={{
 
                                         }} value={petFormData.pet_breed} onChange={handlePetDetailsChange} name="pet_breed" label="Breed Of Your Pet" variant="outlined" size='small' />
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className='w-full pr-9'>
-                                        <textarea value={petFormData.pet_description} onChange={handlePetDetailsChange} name="pet_description" type="text" placeholder='Type Your Text' className='border-1 border-gray-400 rounded-md w-full p-2' rows={3} />
                                     </div>
                                 </div>
                             </div>
@@ -340,7 +349,7 @@ function BoardingForm() {
              <div className='Second border-1 w-full'>
     <MapContainer center={[27.1767, 78.0081]} zoom={13} scrollWheelZoom={false} style={{ flex: 1, height: "100%" }}>
         <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Marker position={[27.1767, 78.0081]}>

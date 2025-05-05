@@ -14,6 +14,7 @@ import AllServiceSection from '../PetGroomingSteperComp/AllServiceSecttion';
 import Additional from '../PetGroomingSteperComp/Additional';
 import CustomerInfo from '../PetGroomingSteperComp/CustomerInfo';
 import PetTaxiCard from '../petTaxi/PetTaxiCard';
+import { useNavigate } from 'react-router-dom';
 
 
 export const StepContext = createContext()
@@ -21,7 +22,7 @@ export const StepContext = createContext()
 export default function BoardingStepper() {
 
 
-
+  const navigate = useNavigate()
   const theme = useTheme();
   const [activeStep, setActiveStep] = useState(0);
   const [isPetTaxi, setIsPetTaxi] = useState(true)
@@ -29,6 +30,10 @@ export default function BoardingStepper() {
 
 
   const handleNext = () => {
+    if (activeStep === maxSteps - 1) {
+        navigate("/petboarding")
+      return
+    }
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
@@ -68,19 +73,19 @@ export default function BoardingStepper() {
         },
         {
 
-          component: < CustomerInfo />
+          component: < CustomerInfo isPetTaxi={isPetTaxi} />
         },
       ]
 
     }
 
-    if (isPetTaxi) {
-      taxiSteps = [
-        {
-          component: <PetTaxiCard />
-        },
-      ]
-    }
+    // if (isPetTaxi) {
+    //   taxiSteps = [
+    //     {
+    //       component: <PetTaxiCard />
+    //     },
+    //   ]
+    // }
 
     return [...steps, ...taxiSteps, ...groomingSteps]
 
@@ -123,9 +128,9 @@ export default function BoardingStepper() {
             color='black'
             size="small"
             onClick={handleNext}
-            disabled={activeStep === maxSteps - 1}
+          // disabled={activeStep === maxSteps - 1}
           >
-            Next
+            {activeStep === maxSteps - 1 ? "Proceed" : "Next"}
             {theme.direction === 'rtl' ? (
               <KeyboardArrowLeft />
             ) : (
