@@ -1,6 +1,8 @@
 export const ADD_PET_DETAILS = "ADD_PET_DETAILS"
 export const ADD_OWNER_DETAILS = "ADD_OWNER_DETAILS"
 export const ADD_BOARDING_DETAILS = "ADD_BOARDING_DETAILS"
+export const ADD_TAXI_DETAILS = "ADD_TAXI_DETAILS"
+
 
  
 export const setPetDetails = (payload) => {
@@ -23,3 +25,11 @@ export const setBoardingDetails = (payload) => {
         payload
     }
 }
+
+export const setTaxiDetails = (payload) => {
+    return{
+        type: ADD_TAXI_DETAILS,
+        payload
+    }
+}
+

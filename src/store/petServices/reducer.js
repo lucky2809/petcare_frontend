@@ -1,4 +1,4 @@
-import { ADD_BOARDING_DETAILS, ADD_OWNER_DETAILS, ADD_PET_DETAILS } from "./actions"
+import { ADD_BOARDING_DETAILS, ADD_OWNER_DETAILS, ADD_PET_DETAILS, ADD_TAXI_DETAILS } from "./actions"
 
 
 
@@ -22,6 +22,9 @@ const initialState = {
 
         case ADD_BOARDING_DETAILS:
             return { ...state, ...{ boardingDetails: action.payload } }
+        case ADD_TAXI_DETAILS:
+            return { ...state, ...{ taxiDetails: action.payload } }
+
 
         default:
             return state

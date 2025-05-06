@@ -1,12 +1,12 @@
 import { Icon } from '@iconify/react/dist/iconify.js'
 import { Autocomplete, Avatar, Box, Button, Container, FormControlLabel, Paper, Radio, RadioGroup, TextField, Typography, Card, CardContent, ButtonBase, Modal } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Map, Pets, CalendarToday, AccessTime, Style, Fullscreen } from "@mui/icons-material";
 import { AnimatedCard } from '../StyledComponents/Styled';
 import MYStepper from '../PetGroomingSteperComp/Stepper';
-import BoardingStepper from './BoardingStepper.';
+// import BoardingStepper from '../petBoarding/BoardingStepper';
 import { useDispatch, useSelector } from 'react-redux';
-import { setBoardingDetails, setOwnerDetails, setPetDetails } from '../../store/petServices/actions';
+import { setTaxiDetails, setOwnerDetails, setPetDetails } from '../../store/petServices/actions';
 import { useNavigate } from 'react-router-dom';
 import 'leaflet/dist/leaflet.css';
 import {
@@ -14,9 +14,23 @@ import {
     TileLayer,
     Marker,
     Polyline,
+    useMap,
+    useMapEvents,
     Tooltip,
-    Popup,
 } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import L from "leaflet";
+import { Popup } from "react-leaflet";
+// To make marker icons show correctly in Leaflet
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+    iconRetinaUrl:
+        "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png",
+    iconUrl:
+        "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
+    shadowUrl:
+        "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
+});
 
 
 const Age = [
@@ -27,63 +41,150 @@ const Age = [
     { label: '3 Year - 4 Year' },
     { label: 'More Than 4 Year' },
 ]
-const PetType =[
-    {label: 'Cat'},
-    {label: 'Dog'}
+const PetType = [
+    { label: 'Cat' },
+    { label: 'Dog' }
 ]
 
-
-const MyInput = ({ label = "", helperText = "", type = "" }) => {
-    return <TextField
-        label={label}
-        helperText={helperText}
-        type={type}
-
-        InputLabelProps={{
-            className: "-mt-2",
-            sx: { fontSize: "1rem" },  // adjust lable font size
-            '& .MuiInputBase-input': {
-                color: 'green'
-            },
-            '& .Muifocused + .MuiFormhelpetText-root': {
-                color: 'blue'
-            },
-        }}
-        FormHelperTextProps={{
-            sx: { color: 'red' }   // helper text style
-        }}
-        inputProps={{
-            sx: {
-                backgroundColor: 'transperent',
-                fontSize: '1rem',
-                height: '40px',
-                padding: '0px',
-            }
-        }}
-        sx={{
-            my: 1.5,   // outer spacing
-            '& .MuiInputBase-input': {
-                color: 'green'
-            }, '& .MuiInputLabel-formControl': {
-                padding: '0px'
-            },
-        }}
-
-    >
-    </TextField>
-}
+const ClickToSetEndPos = ({ setStartPos, setDestination }) => {
+    useMapEvents({
+        click(e) {
+            const { lat, lng } = e.latlng;
+            setStartPos({ lat, lng });
+            setDestination("Go to")
+        }
+    });
+    return null;
+};
 
 
-function BoardingForm() {
+const FlyToLocation = ({ position }) => {
+    const map = useMap();
+    useEffect(() => {
+        if (position) {
+            map.setView(position, 13);
+        }
+    }, [position, map]);
+    return null;
+};
+
+
+function PetTaxiForm() {
     const ownerFormData = useSelector((state) => state.PetReducer.ownerDetails)
     const petFormData = useSelector((state) => state.PetReducer.petDetails)
-    const boardingFormData = useSelector((state) => state.PetReducer.boardingDetails)
+    const taxiFormData = useSelector((state) => state.PetReducer.taxiDetails)
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [open, setOpen] = useState(false);
 
     const [schedule, setSchedule] = useState("")
+    const [value, setValue] = useState("male")
+
+    const [startPos, setStartPos] = useState({
+        "lat": 27.2028182,
+        "lng": 78.0414463
+    });
+    const [endPos, setEndPos] = useState(null);
+    const [destination, setDestination] = useState("Pet Shop")
+    const [suggestions, setSuggestions] = useState([]);
+    const [route, setRoute] = useState([]);
+    const [distance, setDistance] = useState("");
+    const [query, setQuery] = useState("")
+
+    const startPopupRef = useRef();
+    const endPopupRef = useRef();
+
+    // Debounce utility
+    const debounceRef = useRef();
+    console.log("endPos", endPos)
+
+    useEffect(() => {
+        if (startPopupRef.current) {
+            startPopupRef.current._source.openPopup();
+        }
+    }, [startPos]);
+
+    useEffect(() => {
+        if (endPopupRef.current) {
+            endPopupRef.current._source.openPopup();
+        }
+    }, [endPos]);
+
+    const debouncedFetchSuggestions = useCallback((value) => {
+        setQuery(value);
+
+        if (debounceRef.current) clearTimeout(debounceRef.current);
+
+        debounceRef.current = setTimeout(async () => {
+            if (value.length < 3) {
+                setSuggestions([]);
+                return;
+            }
+
+            const res = await fetch(
+                `https://nominatim.openstreetmap.org/search?format=json&q=${value}`
+            );
+            const data = await res.json();
+            const results = data.map((item) => ({
+                label: item.display_name,
+                lat: parseFloat(item.lat),
+                lon: parseFloat(item.lon),
+            }));
+
+            setSuggestions(results);
+        }, 500); // debounce delay
+    }, []);
+    console.log("results", suggestions)
+    // Get current location as start
+    useEffect(() => {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                const { latitude, longitude } = position.coords;
+                setEndPos({ lat: latitude, lng: longitude });
+
+            });
+        }
+    }, []);
+
+
+    // Fetch route using OSRM
+    const fetchRoute = async () => {
+        // if (!endPos && query) {
+        //     await handleSearch(query, setEndPos);
+        // }
+        if (!startPos || !endPos) return;
+
+        const url = `https://router.project-osrm.org/route/v1/driving/${startPos.lng},${startPos.lat};${endPos.lng},${endPos.lat}?overview=full&geometries=geojson`;
+        const res = await fetch(url);
+        const data = await res.json();
+
+        if (data.routes?.length) {
+            const routeCoords = data.routes[0].geometry.coordinates.map((pt) => [
+                pt[1],
+                pt[0],
+            ]);
+            setRoute(routeCoords);
+            setDistance((data.routes[0].distance / 1000).toFixed(2) + " km");
+        }
+    };
+
+    const NominatimSearch = async (query) => {
+        const res = await fetch(
+            `https://nominatim.openstreetmap.org/search?format=json&q=${query}`
+        );
+        return await res.json();
+    };
+
+    const handleSearch = async (query, setFunc) => {
+        const results = await NominatimSearch(query);
+        if (results.length > 0) {
+            const { lat, lon } = results[0];
+            setFunc({ lat: parseFloat(lat), lng: parseFloat(lon) });
+        }
+    };
+
+
     const handlerOption = (e) => {
         // e.priventDefoult()
         const value = e.target.value
@@ -155,12 +256,12 @@ function BoardingForm() {
     }
     console.log("petFormData", petFormData)
 
-    const handleBoardingDetailsChange = (e) => {
+    const handletaxiDetailsChange = (e) => {
         const { name, value } = e.target
         console.log("{ name, value }", { name, value })
-        dispatch(setBoardingDetails({ ...boardingFormData, ...{ [name]: value } }))
+        dispatch(setTaxiDetails({ ...taxiFormData, ...{ [name]: value } }))
     }
-    console.log("boardingFormData", boardingFormData)
+    console.log("taxiFormData", taxiFormData)
 
 
     const handleOpen = () => {
@@ -215,20 +316,71 @@ function BoardingForm() {
                     <div className='flex flex-col gap-5'>
                         <div className=' px-5 flex flex-col gap-3'>
                             <div className='p-2'>
-                                <h1 className='text-xl font-semibold'>Boarding</h1>
+                                <h1 className='text-xl font-semibold'>PET TAXI</h1>
                             </div>
-                            <div className='flex justify-between gap-10 items-center px-2 bg-slate-100'>
+                            <div style={{ padding: "1rem" }}>
+                                {/* <h3>Set Destination</h3> */}
+                                <Autocomplete
+                                    freeSolo
+                                    disableClearable
+                                    options={suggestions}
+                                    getOptionLabel={(option) => typeof option === 'string' ? option : option.label}
+                                    filterOptions={(x) => x} // disable internal filtering, rely on API
+                                    value={query}
+                                    onInputChange={(e, value, reason) => {
+                                        if (reason === 'input') {
+                                            setQuery(value);
+                                            debouncedFetchSuggestions(value);
+                                        }
+                                    }}
+                                    onChange={(e, value) => {
+                                        if (value && typeof value !== 'string') {
+                                            setEndPos({ lat: value.lat, lng: value.lon });
+                                            setQuery(value.label); // display label in input
+                                        } else if (typeof value === 'string') {
+                                            // If user typed and pressed enter
+                                            handleSearch(value, setEndPos);
+                                        }
+                                    }}
+                                    renderInput={(params) => (
+                                        <TextField
+                                            {...params}
+                                            // sx={{
+                                            //     input: { color: "black" },
+                                            //     label: { color: "black" },
+                                            //     '.MuiOutlinedInput-notchedOutline': {
+                                            //         borderColor: 'black'
+                                            //     }
+                                            // }}
+                                            label="End location"
+                                            color="primary"
+                                            variant="outlined"
+                                            size="small"
+                                            fullWidth
+                                            className='w-full p-3 outline-0'
+                                        />
+                                    )}
+                                />
+
+                                <br />
+                                <button onClick={fetchRoute} style={{ marginTop: "1rem" }}>
+                                    Get Route
+                                </button>
+                                {distance && <p>Distance: {distance}</p>}
+                            </div>
+                            {/* <div className='flex justify-between gap-10 items-center px-2 bg-slate-100'>
                                 <div className='w-10'>
-                                    <label className='text-md font-semibold w-10 ' htmlFor="">FROM</label>
+                                    <label className='text-md font-semibold w-10 ' htmlFor="">TO</label>
                                 </div>
                                 <div className='w-full'>
-                                    <input value={boardingFormData.from_address} onChange={handleBoardingDetailsChange} name="from_address" type="text" className='w-full p-3 outline-0' placeholder='Serach Pickup location' />
+                                    <input value={taxiFormData.from_address} onChange={handletaxiDetailsChange} name="from_address" type="text" className='w-full p-3 outline-0' placeholder='Search Pickup location' />
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
 
+
                         <div className='px-5 flex flex-col gap-5'>
-                            <div className='flex justify-between px-2 gap-10 items-center bg-slate-100'>
+                            {/* <div className='flex justify-between px-2 gap-10 items-center bg-slate-100'>
                                 <div className='w-10'>
                                     <label className='text-md font-sans w-10 font-semibold' htmlFor="">WHEN</label>
                                 </div>
@@ -238,7 +390,7 @@ function BoardingForm() {
                                         <option value="Schedule">Schedule</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div> */}
 
                             {
                                 schedule === "Schedule" ? <div className='date-time flex justify-between px-2 gap-10 items-center bg-slate-100 '>
@@ -246,14 +398,14 @@ function BoardingForm() {
                                         <label className='text-md font-sans w-10 font-semibold' htmlFor="">DEPART</label>
                                     </div>
                                     <div className='w-full flex'>
-                                        <select value={boardingFormData.date} onChange={handleBoardingDetailsChange} className='w-full p-3 outline-0' name="from_date" id="">
+                                        <select value={taxiFormData.date} onChange={handletaxiDetailsChange} className='w-full p-3 outline-0' name="from_date" id="">
                                             {dates.map((date) => {
                                                 return (
                                                     <option className='p-3 text-2xl'>{date}</option>
                                                 )
                                             })}
                                         </select>
-                                        <select value={boardingFormData.from_time} onChange={handleBoardingDetailsChange} className='w-full p-3 outline-0' name="from_time" id="">
+                                        <select value={taxiFormData.from_time} onChange={handletaxiDetailsChange} className='w-full p-3 outline-0' name="from_time" id="">
                                             {timeSlots.map((time) => (
                                                 <option value={time} key={time}>{time}</option>
                                             ))}
@@ -287,14 +439,14 @@ function BoardingForm() {
                                         />
                                     </div>
                                     <div>
-                                    <Autocomplete
+                                        <Autocomplete
                                             disablePortal
                                             defaultValue={PetType[0].label}
                                             options={PetType}
                                             sx={{
                                                 minWidth: 115
                                             }}
-                                            renderInput={(params) => <TextField {...params}  size='small' value={petFormData.pet_type} onChange={handlePetDetailsChange} name="pet_type" />}
+                                            renderInput={(params) => <TextField {...params} size='small' value={petFormData.pet_type} onChange={handlePetDetailsChange} name="pet_type" />}
                                         />
                                     </div>
                                     <div>
@@ -325,7 +477,7 @@ function BoardingForm() {
                                     <div className='content  h-full w-full'>
                                         <div className='w-full flex justify-end'> <Icon fontSize={40} icon={"basil:cross-solid"} onClick={handleClose} /> </div >
                                         {/* stepper components */}
-                                        <BoardingStepper />
+                                        <taxiStepper />
 
                                     </div>
 
@@ -339,22 +491,37 @@ function BoardingForm() {
 
                 </div>
 
-             <div className='Second border-1 w-full'>
-    <MapContainer center={[27.1767, 78.0081]} zoom={13} scrollWheelZoom={false} style={{ flex: 1, height: "100%" }}>
-        <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <Marker position={[27.1767, 78.0081]}>
-            <Popup>
-                A pretty CSS3 popup. <br /> Easily customizable.
-            </Popup>
-        </Marker>
-    </MapContainer>
-</div>
+                <div className='Second border-1 w-full'>
+
+                    <MapContainer
+                        center={startPos || [20.5937, 78.9629]} // fallback center (India)
+                        zoom={13}
+                        style={{ flex: 1, height: "100%" }}
+                    >
+                        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                        {startPos && (
+                            <Marker position={startPos}>
+                                <Tooltip direction="bottom" offset={[-15, 25]} opacity={1} permanent>
+                                    {destination}
+                                </Tooltip>
+                            </Marker>
+                        )}
+                        {endPos && (
+                            <Marker position={endPos}>
+                                <Tooltip direction="bottom" offset={[-15, 25]} opacity={1} permanent>
+                                    You
+                                </Tooltip>
+                            </Marker>
+                        )}
+                        {route.length > 0 && <Polyline positions={route} color="blue" />}
+                        <FlyToLocation position={startPos} />
+                        {/* onclick feature for setStartPos position */}
+                        <ClickToSetEndPos setStartPos={setStartPos} setDestination={setDestination} />
+                    </MapContainer>
+                </div>
             </div>
         </div>
     )
 }
 
-export default BoardingForm
+export default PetTaxiForm
