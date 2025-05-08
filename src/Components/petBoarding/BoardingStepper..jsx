@@ -15,12 +15,15 @@ import Additional from '../PetGroomingSteperComp/Additional';
 import CustomerInfo from '../PetGroomingSteperComp/CustomerInfo';
 import PetTaxiCard from '../petTaxi/PetTaxiCard';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 export const StepContext = createContext()
 
 export default function BoardingStepper() {
-
+  const ownerFormData = useSelector((state) => state.PetReducer.ownerDetails)
+  const petFormData = useSelector((state) => state.PetReducer.petDetails)
+  const boardingFormData = useSelector((state) => state.PetReducer.boardingDetails)
 
   const navigate = useNavigate()
   const theme = useTheme();
@@ -31,7 +34,7 @@ export default function BoardingStepper() {
 
   const handleNext = () => {
     if (activeStep === maxSteps - 1) {
-        navigate("/petboarding")
+      navigate("/petboarding")
       return
     }
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -44,6 +47,38 @@ export default function BoardingStepper() {
   const petProps = {
     handleNext,
     isPetGrooming, isPetTaxi, setIsPetGrooming, setIsPetTaxi     // props ko object me bej skte hai 
+  }
+
+  const addBooking = async () => {
+
+    const payload = {
+      ...ownerFormData,
+      boardingDetails: boardingFormData,
+      petDetails: petFormData
+
+    }
+    try {
+      const URL = `${import.meta.env.VITE_APP_BACKEND_URL}/bookingdetails`
+      const fetchData = await fetch(URL, {
+        method : "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      const resp = await fetchData.json()
+      alert(JSON.stringify(resp))
+    } catch (err) {
+      console.log("Incorect Details", err)
+    }
+    console.log(payload)
+  }
+
+  const handleSubmit = async () => {
+
+    if (isPetTaxi) {
+      navigate("/pettaxi")
+    } else {
+      await addBooking()
+    }
   }
 
   const generateExtraSteps = (isPetGrooming, isPetTaxi) => {
@@ -127,13 +162,14 @@ export default function BoardingStepper() {
           <Button
             color='black'
             size="small"
-            onClick={handleNext}
+            // onClick={handleNext}
+            onClick= {activeStep === "Proceed" ? addBooking : handleNext}
           // disabled={activeStep === maxSteps - 1}
           >
             {activeStep === maxSteps - 1 ? "Proceed" : "Next"}
             {theme.direction === 'rtl' ? (
               <KeyboardArrowLeft />
-            ) : (
+            ) : ( 
               <KeyboardArrowRight />
             )}
           </Button>

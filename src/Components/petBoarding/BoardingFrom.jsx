@@ -27,9 +27,15 @@ const Age = [
     { label: '3 Year - 4 Year' },
     { label: 'More Than 4 Year' },
 ]
-const PetType =[
-    {label: 'Cat'},
-    {label: 'Dog'}
+const PetType = [
+    { label: 'Cat' },
+    { label: 'Dog' }
+]
+const selectOptions = [
+    { label: "Indian Billi" },
+    { label: "Spotted Cat" },
+    { label: "Rusty-Spotted Cat" },
+
 ]
 
 
@@ -148,10 +154,16 @@ function BoardingForm() {
     }
     console.log("ownerFormData", ownerFormData)
 
-    const handlePetDetailsChange = (e) => {
+    const handlePetDetailsChange = (e, val, key) => {
         const { name, value } = e.target
-        console.log("{ name, value }", { name, value })
-        dispatch(setPetDetails({ ...petFormData, ...{ [name]: value } }))
+        console.log("{ name, value }", { name, value , key, val})
+        if(key) {
+            dispatch(setPetDetails({ ...petFormData, ...{ [key]: val.label } }))
+
+        } else {
+            dispatch(setPetDetails({ ...petFormData, ...{ [name]: value } }))
+
+        }
     }
     console.log("petFormData", petFormData)
 
@@ -193,7 +205,7 @@ function BoardingForm() {
 
                                 <TextField sx={{
                                     width: 300,
-                                }} value={ownerFormData.last_name} onChange={handleOwnerDetailsChange} name="last_namae" label="Last Name" variant="outlined" size='small' />
+                                }} value={ownerFormData.last_name} onChange={handleOwnerDetailsChange} name="last_name" label="Last Name" variant="outlined" size='small' />
                             </div>
                             <div className='p-5 flex justify-between w-full '>
                                 <TextField sx={{
@@ -201,7 +213,7 @@ function BoardingForm() {
                                     width: 300,
 
 
-                                }} value={ownerFormData.email_address} onChange={handleOwnerDetailsChange} name="email_address" label="Email Address" variant="outlined" size='small' />
+                                }} value={ownerFormData.email_address} onChange={handleOwnerDetailsChange} name="email" label="Email Address" variant="outlined" size='small' />
                                 <TextField sx={{
 
                                     width: 300,
@@ -283,24 +295,41 @@ function BoardingForm() {
                                             sx={{
                                                 minWidth: 200
                                             }}
+                                            value={petFormData.pet_age} 
+                                            onChange={(e, val) => handlePetDetailsChange(e, val, "pet_age")} 
+                                            name="pet_age"
                                             renderInput={(params) => <TextField {...params} label="Age Of Your Pet" size='small' value={petFormData.pet_age} onChange={handlePetDetailsChange} name="pet_age" />}
                                         />
                                     </div>
                                     <div>
-                                    <Autocomplete
+                                        <Autocomplete
                                             disablePortal
                                             defaultValue={PetType[0].label}
                                             options={PetType}
                                             sx={{
                                                 minWidth: 115
                                             }}
-                                            renderInput={(params) => <TextField {...params}  size='small' value={petFormData.pet_type} onChange={handlePetDetailsChange} name="pet_type" />}
+                                            renderInput={(params) => <TextField {...params} size='small' value={petFormData.pet_type} onChange={handlePetDetailsChange} name="pet_type" />}
                                         />
                                     </div>
-                                    <div>
-                                        <TextField sx={{
-
-                                        }} value={petFormData.pet_breed} onChange={handlePetDetailsChange} name="pet_breed" label="Breed Of Your Pet" variant="outlined" size='small' />
+                                    <div className=''>
+                                        <Autocomplete
+                                            disablePortal
+                                            required
+                                            // size="small" name="Size" 
+                                            options={selectOptions}
+                                            sx={{
+                                                minWidth: 200,
+                                                '& .Mui-focused.MuiAutocomplete-input': {
+                                                    color: "blue"
+                                                },
+                                            }}
+                                            value={petFormData.pet_breed}
+                                            onChange={(e, val) => handlePetDetailsChange(e, val, "pet_breed")}
+                                            name="pet_breed"
+                                            renderInput={(params) => <TextField   {...params} label="Breed Of Your Pet" size='small' />}
+                                        />
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -308,6 +337,7 @@ function BoardingForm() {
                     </div>
 
                     <div className='flex justify-end p-10'>
+
                         <Button onClick={handleOpen}>Proceed</Button>
                     </div>
                     <div>
@@ -339,19 +369,19 @@ function BoardingForm() {
 
                 </div>
 
-             <div className='Second border-1 w-full'>
-    <MapContainer center={[27.1767, 78.0081]} zoom={13} scrollWheelZoom={false} style={{ flex: 1, height: "100%" }}>
-        <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <Marker position={[27.1767, 78.0081]}>
-            <Popup>
-                A pretty CSS3 popup. <br /> Easily customizable.
-            </Popup>
-        </Marker>
-    </MapContainer>
-</div>
+                <div className='Second border-1 w-full'>
+                    <MapContainer center={[27.1767, 78.0081]} zoom={13} scrollWheelZoom={false} style={{ flex: 1, height: "100%" }}>
+                        <TileLayer
+                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />
+                        <Marker position={[27.1767, 78.0081]}>
+                            <Popup>
+                                A pretty CSS3 popup. <br /> Easily customizable.
+                            </Popup>
+                        </Marker>
+                    </MapContainer>
+                </div>
             </div>
         </div>
     )

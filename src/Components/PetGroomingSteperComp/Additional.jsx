@@ -3,9 +3,14 @@ import { Autocomplete, TextField } from '@mui/material'
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import React, { Fragment } from 'react'
 import { AnimatedCard } from '../StyledComponents/Styled'
+import { useDispatch, useSelector } from 'react-redux';
+import { setPetDetails } from '../../store/petServices/actions';
 
 
 export default function Additional() {
+
+    const petFormData = useSelector((state) => state.PetReducer.petDetails)
+    const dispatch = useDispatch()
 
     const selectOptions = [
         { label: "Indian Billi" },
@@ -20,9 +25,22 @@ export default function Additional() {
         { label: "1 year - 2 year" },
         { label: "2 year - 3 year" },
         { label: "More than - 3 year" },
-
-
     ]
+
+    
+
+    const handlePetDetailsChange = (e, val, key) => {
+            const { name, value } = e.target
+            console.log("{ name, value }", { name, value , key, val})
+            if(key) {
+                dispatch(setPetDetails({ ...petFormData, ...{ [key]: val.label } }))
+    
+            } else {
+                dispatch(setPetDetails({ ...petFormData, ...{ [name]: value } }))
+    
+            }
+        }
+
     return (
         <Fragment>
 
@@ -42,9 +60,12 @@ export default function Additional() {
                                     color: "blue"
                                 },
                             }}
-                            renderInput={(params) => <TextField {...params} label="Breed Of Your Pet" />}
+                            value={petFormData.pet_breed} 
+                            onChange={(e, val) => handlePetDetailsChange(e, val, "pet_breed")}
+                            name="pet_breed"
+                            renderInput={(params) => <TextField  {...params} label="Breed Of Your Pet" />}
                         />
-                        <TextField id="outlined-basic" label="Name of your pet" variant="outlined" sx={{ width: "100%", }} />
+                        <TextField value={petFormData.pet_name} onChange={handlePetDetailsChange} name="pet_name" id="outlined-basic" label="Name of your pet" variant="outlined" sx={{ width: "100%", }} />
                     </div>
                     <Autocomplete
                         disablePortal
@@ -59,7 +80,10 @@ export default function Additional() {
                                 color: "blue"
                             },
                         }}
-                        renderInput={(params) => <TextField {...params} label="Age Of Pet" />
+                        value={petFormData.pet_age} 
+                        onChange={(e, val) => handlePetDetailsChange(e, val, "pet_age")} 
+                        name="pet_age"
+                        renderInput={(params) => <TextField  {...params} label="Age Of Pet" />
                         }
                     />
 

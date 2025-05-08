@@ -68,7 +68,7 @@ function Navbar() {
           {/* <nav className="res-nav  max-sm:border  max-sm:border-red-600  max-sm:p-2  max-sm:absolute  max-sm:mt-[-60px]  max-sm:h-full w-full"></nav> */}
         </header>
         
-        <header className="absolute w-full h-96 border border-blue-600   mt-10 p-2 border-none">
+        <header className="absolute w-full h-96 border border-blue-600   mt-10 p-2 border-none min-sm:hidden">
           {toggleBtn == true ? 
             <nav className="res-nav w-full h-96  text-white border flex  justify-center items-center border-slate-300 rounded-md bg-black z-30 absolute">
             <ul className="un-order-list-resp w-full flex flex-col justify-center items-center gap-5 ">

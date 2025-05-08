@@ -3,10 +3,16 @@ import { Link } from 'react-router-dom'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import { Button } from '@mui/material'
 import { AnimatedCard } from '../StyledComponents/Styled'
+import { useDispatch, useSelector } from 'react-redux'
+import { setBoardingDetails } from '../../store/petServices/actions'
 
 
 
 function Header() {
+
+
+        const boardingFormData = useSelector((state) => state.PetReducer.boardingDetails)
+        const dispatch = useDispatch()
 
     const [toggle, setToggle] = useState(false)
     const [select, setSelect] = useState({ pet: "petbording" })
@@ -22,7 +28,13 @@ function Header() {
         let updatevalue = { ...select, ...obj }
         setSelect(updatevalue)
     }
-
+    
+    const handleOwnerDetailsChange = (e) => {
+        const { name, value } = e.target
+        console.log("{ name, value }", { name, value })
+        dispatch(setBoardingDetails({ ...boardingDetails, ...{ [name]: value } }))
+    }
+    console.log("boardingFormData", boardingFormData)
 
 
     return (
@@ -55,7 +67,7 @@ function Header() {
                                 <div className=' rounded-lg flex max-sm:flex-col min-2xl:flex min-2xl:flex-col min-2xl:items-center gap-1 px-10  bg-white w-full'>
                                     <div className='flex flex-col w-full  min-2xl:flex min-2xl:gap-2'>
                                         <label htmlFor="" className='text-xl font-semibold max-sm:text-lg'>Boarding Near</label>
-                                        <input type="address" className='px-2 border border-slate-500 outline-green-400 text-xl py-1 min-2xl:px-6 min-2xl:py-2 w-full hover:bg-sky-100  ' placeholder='India' />
+                                        <input value={boardingFormData.from_address} onChange={handleOwnerDetailsChange} name='from_address' type="address" className='px-2 border border-slate-500 outline-green-400 text-xl py-1 min-2xl:px-6 min-2xl:py-2 w-full hover:bg-sky-100  ' placeholder='India' />
                                     </div>
                                     <div className='w-full flex flex-col min-2xl:flex min-2xl:gap-2'>
                                         <label htmlFor="" className='text-xl font-semibold max-sm:text-lg'>For These Days</label>
