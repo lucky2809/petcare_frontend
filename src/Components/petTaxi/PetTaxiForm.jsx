@@ -6,9 +6,11 @@ import { AnimatedCard } from '../StyledComponents/Styled';
 import MYStepper from '../PetGroomingSteperComp/Stepper';
 // import BoardingStepper from '../petBoarding/BoardingStepper';
 import { useDispatch, useSelector } from 'react-redux';
-import { setTaxiDetails, setOwnerDetails, setPetDetails } from '../../store/petServices/actions';
+import { setTaxiDetails, setOwnerDetails, setPetDetails, handleRemovePet, ADD_PET_DETAILS } from '../../store/petServices/actions';
 import { useNavigate } from 'react-router-dom';
 import 'leaflet/dist/leaflet.css';
+import ControlPointIcon from '@mui/icons-material/ControlPoint';
+
 import {
     MapContainer,
     TileLayer,
@@ -45,6 +47,12 @@ const PetType = [
     { label: 'Cat' },
     { label: 'Dog' }
 ]
+const selectOptions = [
+    { label: "Indian Billi" },
+    { label: "Spotted Cat" },
+    { label: "Rusty-Spotted Cat" },
+
+]
 
 const ClickToSetEndPos = ({ setStartPos, setDestination }) => {
     useMapEvents({
@@ -71,7 +79,7 @@ const FlyToLocation = ({ position }) => {
 
 function PetTaxiForm() {
     const ownerFormData = useSelector((state) => state.PetReducer.ownerDetails)
-    const petFormData = useSelector((state) => state.PetReducer.petDetails)
+    const petForms = useSelector((state) => state.PetReducer.petDetails)
     const taxiFormData = useSelector((state) => state.PetReducer.taxiDetails)
 
     const dispatch = useDispatch()
@@ -249,12 +257,27 @@ function PetTaxiForm() {
     }
     console.log("ownerFormData", ownerFormData)
 
-    const handlePetDetailsChange = (e) => {
-        const { name, value } = e.target
-        console.log("{ name, value }", { name, value })
-        dispatch(setPetDetails({ ...petFormData, ...{ [name]: value } }))
-    }
-    console.log("petFormData", petFormData)
+ const handlePetDetailsChange = (index, e, val, key) => {
+         const updatedPets = [...petForms];
+         const updatedPet = { ...updatedPets[index] }; // ✅ clone the specific object
+ 
+         if (key) {
+             updatedPet[key] = val?.label || '';
+         } else {
+             const { name, value } = e.target;
+             updatedPet[name] = value;
+         }
+ 
+         updatedPets[index] = updatedPet;
+         dispatch({ type: ADD_PET_DETAILS, payload: updatedPets });
+     };
+ 
+     console.log("petFormData", petForms)
+     const handleAddPet = () => {
+         const newPet = { pet_name: '', pet_age: null, pet_type: '', pet_breed: null };
+         dispatch({ type: ADD_PET_DETAILS, payload: [...petForms, newPet] });
+     };
+ 
 
     const handletaxiDetailsChange = (e) => {
         const { name, value } = e.target
@@ -421,40 +444,71 @@ function PetTaxiForm() {
                             <h1 className='text-xl font-semibold px-2'>Pets Details</h1>
                         </div>
                         <div>
-                            <div className='px-5 justify-between w-full flex flex-col gap-5'>
-                                <div className='flex gap-5'>
-                                    <div>
-                                        <TextField sx={{
-
-                                        }} value={petFormData.pet_name} onChange={handlePetDetailsChange} name="pet_name" label="Name Of Pet" variant="outlined" size='small' />
-                                    </div>
-                                    <div>
+                        {petForms.map((pet, index) => (
+                                <div key={index} className="px-5 py-3  rounded flex flex-col gap-5">
+                                    <div className="flex gap-5 items-center">
+                                        <TextField
+                                            value={pet.pet_name}
+                                            onChange={(e) => handlePetDetailsChange(index, e)}
+                                            name="pet_name"
+                                            label="Name Of Pet"
+                                            variant="outlined"
+                                            size="small"
+                                        />
                                         <Autocomplete
                                             disablePortal
                                             options={Age}
-                                            sx={{
-                                                minWidth: 200
-                                            }}
-                                            renderInput={(params) => <TextField {...params} label="Age Of Your Pet" size='small' value={petFormData.pet_age} onChange={handlePetDetailsChange} name="pet_age" />}
+                                            sx={{ minWidth: 200 }}
+                                            value={pet.pet_age}
+                                            onChange={(e, val) => handlePetDetailsChange(index, e, val, "pet_age")}
+                                            renderInput={(params) => (
+                                                <TextField {...params} label="Age Of Your Pet" size="small" />
+                                            )}
                                         />
-                                    </div>
-                                    <div>
                                         <Autocomplete
                                             disablePortal
-                                            defaultValue={PetType[0].label}
                                             options={PetType}
-                                            sx={{
-                                                minWidth: 115
-                                            }}
-                                            renderInput={(params) => <TextField {...params} size='small' value={petFormData.pet_type} onChange={handlePetDetailsChange} name="pet_type" />}
+                                            value={pet.pet_type}
+                                            onChange={(e, val) => handlePetDetailsChange(index, e, val, "pet_type")}
+                                            sx={{ minWidth: 115 }}
+                                            renderInput={(params) => (
+                                                <TextField {...params} size="small" label="Pet Type" />
+                                            )}
                                         />
-                                    </div>
-                                    <div>
-                                        <TextField sx={{
+                                        <Autocomplete
+                                            disablePortal
+                                            options={selectOptions}
+                                            sx={{ minWidth: 200 }}
+                                            value={pet.pet_breed}
+                                            onChange={(e, val) => handlePetDetailsChange(index, e, val, "pet_breed")}
+                                            renderInput={(params) => (
+                                                <TextField {...params} label="Breed Of Your Pet" size="small" />
+                                            )}
+                                        />
 
-                                        }} value={petFormData.pet_breed} onChange={handlePetDetailsChange} name="pet_breed" label="Breed Of Your Pet" variant="outlined" size='small' />
+                                        {petForms.length > 1 && (
+                                            <Button onClick={() => dispatch(handleRemovePet(index))} color="error" variant="outlined">
+                                                Remove
+                                            </Button>
+                                        )}
+
                                     </div>
+
                                 </div>
+                            ))}
+
+                            <div className=' flex justify-end mx-7'>
+                                <Button
+                                    startIcon={<ControlPointIcon />
+                                    }
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={handleAddPet}
+                                    className=""
+                                >
+                                    Add Pet
+
+                                </Button>
                             </div>
                         </div>
                     </div>

@@ -5,7 +5,7 @@ import Home from './Components/Pages/Home'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ForgetPassword from './Components/FormComp/ForgetPassword';
 import AddnewPassword from './Components/FormComp/AddnewPasswoed';
-import PetDetails from './Components/Pages/PetDetails';
+import PetDetails from './Components/Pages/PetDetails2';
 import SignUp from './Components/FormComp/SignUp';
 import SignIn from './Components/FormComp/SignIn';
 import PetFinding from './Components/Pages/PetFinding';

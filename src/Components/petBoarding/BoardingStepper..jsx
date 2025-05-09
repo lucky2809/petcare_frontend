@@ -15,7 +15,8 @@ import Additional from '../PetGroomingSteperComp/Additional';
 import CustomerInfo from '../PetGroomingSteperComp/CustomerInfo';
 import PetTaxiCard from '../petTaxi/PetTaxiCard';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { handleToggleModal, setActiveStepAction } from '../../store/petServices/actions';
 
 
 export const StepContext = createContext()
@@ -24,10 +25,13 @@ export default function BoardingStepper() {
   const ownerFormData = useSelector((state) => state.PetReducer.ownerDetails)
   const petFormData = useSelector((state) => state.PetReducer.petDetails)
   const boardingFormData = useSelector((state) => state.PetReducer.boardingDetails)
+  const activeStep = useSelector((state) => state.PetReducer.activeStep)
 
+
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const theme = useTheme();
-  const [activeStep, setActiveStep] = useState(0);
+  // const [activeStep, setActiveStep] = useState(0);
   const [isPetTaxi, setIsPetTaxi] = useState(true)
   const [isPetGrooming, setIsPetGrooming] = useState(true)
 
@@ -37,11 +41,11 @@ export default function BoardingStepper() {
       navigate("/petboarding")
       return
     }
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    dispatch(setActiveStepAction(activeStep + 1));
   };
 
   const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    dispatch(setActiveStepAction(activeStep - 1))
   };
 
   const petProps = {
@@ -60,7 +64,7 @@ export default function BoardingStepper() {
     try {
       const URL = `${import.meta.env.VITE_APP_BACKEND_URL}/bookingdetails`
       const fetchData = await fetch(URL, {
-        method : "POST",
+        method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       })
@@ -73,6 +77,9 @@ export default function BoardingStepper() {
   }
 
   const handleSubmit = async () => {
+    // close modal & default step 0 on modal open
+    dispatch(handleToggleModal(false))
+    dispatch(setActiveStepAction(0))
 
     if (isPetTaxi) {
       navigate("/pettaxi")
@@ -127,8 +134,6 @@ export default function BoardingStepper() {
   }
 
   const steps = generateExtraSteps(isPetGrooming, isPetTaxi)
-
-
   const maxSteps = steps.length;
 
   return (
@@ -163,13 +168,13 @@ export default function BoardingStepper() {
             color='black'
             size="small"
             // onClick={handleNext}
-            onClick= {activeStep === "Proceed" ? addBooking : handleNext}
+            onClick={activeStep === maxSteps - 1 ? handleSubmit : handleNext}
           // disabled={activeStep === maxSteps - 1}
           >
             {activeStep === maxSteps - 1 ? "Proceed" : "Next"}
             {theme.direction === 'rtl' ? (
               <KeyboardArrowLeft />
-            ) : ( 
+            ) : (
               <KeyboardArrowRight />
             )}
           </Button>

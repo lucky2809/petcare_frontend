@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { AnimatedCard } from '../StyledComponents/Styled'
 import { TextField } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { setOwnerDetails } from '../../store/petServices/actions'
+import { setBoardingDetails, setOwnerDetails } from '../../store/petServices/actions'
 
 function CustomerInfo({isPetTaxi}) {
         const ownerFormData = useSelector((state) => state.PetReducer.ownerDetails)

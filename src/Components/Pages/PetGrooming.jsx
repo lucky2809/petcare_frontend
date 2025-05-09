@@ -7,7 +7,8 @@ import GroomingCart from "../Data/GroomingSevice.json"
 import BlogCurrent from './BlogCurrent'
 import { Box, Button, Modal } from '@mui/material'
 import MYStepper from '../PetGroomingSteperComp/Stepper'
-import { AnimatedCard, AnimatedWrapper,AnimatedLeftWrapper } from '../StyledComponents/Styled'
+import { AnimatedCard, AnimatedWrapper, AnimatedLeftWrapper } from '../StyledComponents/Styled'
+import { useSelector } from 'react-redux'
 
 
 
@@ -18,6 +19,8 @@ function PetGrooming() {
     const [addvanceGroisTure, setAddvanceGroisTure] = useState()
     const [poochIsTure, setPochIsTure] = useState()
     const [modal, setModal] = useState(false)
+
+    const activeStep = useSelector((state) => state.PetReducer.activeStep)
 
     const getHeaderColor = (index) => {
         switch (index) {
@@ -116,25 +119,26 @@ function PetGrooming() {
                         }
 
                         <div className='sticky z-100'>
-                        <Modal sx={{ height: screen, display: 'flex', justifyContent: "center", alignItems: 'center', px: 30 }}
-                            open={modal}
+                            <Modal sx={{ height: screen, display: 'flex', justifyContent: "center", alignItems: 'center', px: 30 }}
+                                open={modal}
                             // onClose={handleClose}
-                        >
-                            <AnimatedCard className='h-[500px] w-full'>
-                            <Box sx={{ height: "500px", width: "100%", bgcolor: "white", outline: 0, display: "flex", }}>
-                                <div className='img-section min-w-[40%] h-full'>
-                                    <img className='h-full w-full object-cover' src="https://t4.ftcdn.net/jpg/02/66/72/41/360_F_266724172_Iy8gdKgMa7XmrhYYxLCxyhx6J7070Pr8.jpg" alt="" />
-                                </div>
-                                <div className='content  h-full w-full'>
-                                    <div className='w-full flex justify-end'> <Icon fontSize={40} icon={"basil:cross-solid"} onClick={() => setModal(false)} /> </div >
-                                    {/* stepper components */}
-                                    <MYStepper />
+                            >
+                                <AnimatedCard className='h-[500px] w-full'>
+                                    <Box sx={{ height: "500px", width: "100%", bgcolor: "white", outline: 0, display: "flex", }}>
+                                        {activeStep !== 3 && <div className='img-section min-w-[40%] h-full'>
+                                            <img className='h-full w-full object-cover' src="https://t4.ftcdn.net/jpg/02/66/72/41/360_F_266724172_Iy8gdKgMa7XmrhYYxLCxyhx6J7070Pr8.jpg" alt="" />
+                                        </div>
+                                        }
+                                        <div className='content  h-full w-full'>
+                                            <div className='w-full flex justify-end'> <Icon fontSize={40} icon={"basil:cross-solid"} onClick={() => setModal(false)} /> </div >
+                                            {/* stepper components */}
+                                            <MYStepper />
 
-                                </div>
+                                        </div>
 
-                            </Box>
-                            </AnimatedCard>
-                        </Modal>
+                                    </Box>
+                                </AnimatedCard>
+                            </Modal>
                         </div>
 
                     </div>

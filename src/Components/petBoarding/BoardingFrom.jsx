@@ -6,9 +6,10 @@ import { AnimatedCard } from '../StyledComponents/Styled';
 import MYStepper from '../PetGroomingSteperComp/Stepper';
 import BoardingStepper from './BoardingStepper.';
 import { useDispatch, useSelector } from 'react-redux';
-import { setBoardingDetails, setOwnerDetails, setPetDetails } from '../../store/petServices/actions';
+import { ADD_PET_DETAILS, handleRemovePet, handleToggleModal, setActiveStepAction, setBoardingDetails, setOwnerDetails, setPetDetails } from '../../store/petServices/actions';
 import { useNavigate } from 'react-router-dom';
 import 'leaflet/dist/leaflet.css';
+import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import {
     MapContainer,
     TileLayer,
@@ -17,26 +18,8 @@ import {
     Tooltip,
     Popup,
 } from "react-leaflet";
+import PetDetails from '../FormComp/PetDetails';
 
-
-const Age = [
-    { label: '3 - 6 Months' },
-    { label: '6 Months - 1 Year' },
-    { label: '1 Year - 2 Year' },
-    { label: '2 Year - 3 Year' },
-    { label: '3 Year - 4 Year' },
-    { label: 'More Than 4 Year' },
-]
-const PetType = [
-    { label: 'Cat' },
-    { label: 'Dog' }
-]
-const selectOptions = [
-    { label: "Indian Billi" },
-    { label: "Spotted Cat" },
-    { label: "Rusty-Spotted Cat" },
-
-]
 
 
 const MyInput = ({ label = "", helperText = "", type = "" }) => {
@@ -82,12 +65,12 @@ const MyInput = ({ label = "", helperText = "", type = "" }) => {
 
 function BoardingForm() {
     const ownerFormData = useSelector((state) => state.PetReducer.ownerDetails)
-    const petFormData = useSelector((state) => state.PetReducer.petDetails)
     const boardingFormData = useSelector((state) => state.PetReducer.boardingDetails)
-
+    const activeStep = useSelector((state) => state.PetReducer.activeStep)
+    const open = useSelector((state) => state.PetReducer.isOpen)
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const [open, setOpen] = useState(false);
+    // const [open, setOpen] = useState(false);
 
     const [schedule, setSchedule] = useState("")
     const handlerOption = (e) => {
@@ -142,10 +125,10 @@ function BoardingForm() {
 
 
 
-    const handleChangeGender = (e) => {
-        setValue(e.target.value)
-    }
-    // console.log("Value", value)
+    // const handleChangeGender = (e) => {
+    //     setValue(e.target.value)
+    // }
+    // // console.log("Value", value)
 
     const handleOwnerDetailsChange = (e) => {
         const { name, value } = e.target
@@ -154,18 +137,17 @@ function BoardingForm() {
     }
     console.log("ownerFormData", ownerFormData)
 
-    const handlePetDetailsChange = (e, val, key) => {
-        const { name, value } = e.target
-        console.log("{ name, value }", { name, value , key, val})
-        if(key) {
-            dispatch(setPetDetails({ ...petFormData, ...{ [key]: val.label } }))
+    // const handlePetDetailsChange = (e, val, key) => {
+    //     const { name, value } = e.target
+    //     console.log("{ name, value }", { name, value , key, val})
+    //     if(key) {
+    //         dispatch(setPetDetails({ ...petFormData, ...{ [key]: val.label } }))
 
-        } else {
-            dispatch(setPetDetails({ ...petFormData, ...{ [name]: value } }))
+    //     } else {
+    //         dispatch(setPetDetails({ ...petFormData, ...{ [name]: value } }))
 
-        }
-    }
-    console.log("petFormData", petFormData)
+    //     }
+    // }
 
     const handleBoardingDetailsChange = (e) => {
         const { name, value } = e.target
@@ -176,10 +158,10 @@ function BoardingForm() {
 
 
     const handleOpen = () => {
-        setOpen(true);
+        dispatch(handleToggleModal(true))
     };
     const handleClose = () => {
-        setOpen(false);
+        dispatch(handleToggleModal(false))
     };
 
     return (
@@ -280,65 +262,12 @@ function BoardingForm() {
                         <div className='p-5 flex flex-col gap-5'>
                             <h1 className='text-xl font-semibold px-2'>Pets Details</h1>
                         </div>
-                        <div>
-                            <div className='px-5 justify-between w-full flex flex-col gap-5'>
-                                <div className='flex gap-5'>
-                                    <div>
-                                        <TextField sx={{
-
-                                        }} value={petFormData.pet_name} onChange={handlePetDetailsChange} name="pet_name" label="Name Of Pet" variant="outlined" size='small' />
-                                    </div>
-                                    <div>
-                                        <Autocomplete
-                                            disablePortal
-                                            options={Age}
-                                            sx={{
-                                                minWidth: 200
-                                            }}
-                                            value={petFormData.pet_age} 
-                                            onChange={(e, val) => handlePetDetailsChange(e, val, "pet_age")} 
-                                            name="pet_age"
-                                            renderInput={(params) => <TextField {...params} label="Age Of Your Pet" size='small' value={petFormData.pet_age} onChange={handlePetDetailsChange} name="pet_age" />}
-                                        />
-                                    </div>
-                                    <div>
-                                        <Autocomplete
-                                            disablePortal
-                                            defaultValue={PetType[0].label}
-                                            options={PetType}
-                                            sx={{
-                                                minWidth: 115
-                                            }}
-                                            renderInput={(params) => <TextField {...params} size='small' value={petFormData.pet_type} onChange={handlePetDetailsChange} name="pet_type" />}
-                                        />
-                                    </div>
-                                    <div className=''>
-                                        <Autocomplete
-                                            disablePortal
-                                            required
-                                            // size="small" name="Size" 
-                                            options={selectOptions}
-                                            sx={{
-                                                minWidth: 200,
-                                                '& .Mui-focused.MuiAutocomplete-input': {
-                                                    color: "blue"
-                                                },
-                                            }}
-                                            value={petFormData.pet_breed}
-                                            onChange={(e, val) => handlePetDetailsChange(e, val, "pet_breed")}
-                                            name="pet_breed"
-                                            renderInput={(params) => <TextField   {...params} label="Breed Of Your Pet" size='small' />}
-                                        />
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <PetDetails />
                     </div>
 
                     <div className='flex justify-end p-10'>
 
-                        <Button onClick={handleOpen}>Proceed</Button>
+                        <Button onClick={handleOpen} variant="contained" color="primary">Proceed</Button>
                     </div>
                     <div>
                         <Modal sx={{ height: screen, display: 'flex', justifyContent: "center", alignItems: 'center', px: 30 }}
@@ -349,9 +278,9 @@ function BoardingForm() {
                         >
                             <AnimatedCard className='h-[500px] w-full'>
                                 <Box sx={{ height: "500px", width: "100%", bgcolor: "white", outline: 0, display: "flex", }}>
-                                    <div className='img-section min-w-[40%] h-full'>
+                                    {activeStep !== 3 && <div className='img-section min-w-[30%] h-full'>
                                         <img className='h-full w-full object-cover' src="https://t4.ftcdn.net/jpg/02/66/72/41/360_F_266724172_Iy8gdKgMa7XmrhYYxLCxyhx6J7070Pr8.jpg" alt="" />
-                                    </div>
+                                    </div>}
                                     <div className='content  h-full w-full'>
                                         <div className='w-full flex justify-end'> <Icon fontSize={40} icon={"basil:cross-solid"} onClick={handleClose} /> </div >
                                         {/* stepper components */}

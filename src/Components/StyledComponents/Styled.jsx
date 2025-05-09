@@ -31,7 +31,7 @@ const Animation = keyframes`   //
 }
 `
 
-export const AnimatedCard = styled.h1`
+export const AnimatedCard = styled.div`
 animation: ${Animation} 0.8s ease-out
 `
 

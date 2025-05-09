@@ -2,34 +2,52 @@ export const ADD_PET_DETAILS = "ADD_PET_DETAILS"
 export const ADD_OWNER_DETAILS = "ADD_OWNER_DETAILS"
 export const ADD_BOARDING_DETAILS = "ADD_BOARDING_DETAILS"
 export const ADD_TAXI_DETAILS = "ADD_TAXI_DETAILS"
+export const REMOVE_PET_DETAIL = "REMOVE_PET_DETAIL"
+export const SET_ACTIVE_STEP = "SET_ACTIVE_STEP"
+export const SET_TOGGLE_MODAL = "SET_TOGGLE_MODAL"
 
-
- 
 export const setPetDetails = (payload) => {
-    return{
+    return {
         type: ADD_PET_DETAILS,
         payload
     }
 }
 
 export const setOwnerDetails = (payload) => {
-    return{
+    return {
         type: ADD_OWNER_DETAILS,
         payload
     }
 }
 
 export const setBoardingDetails = (payload) => {
-    return{
+    return {
         type: ADD_BOARDING_DETAILS,
         payload
     }
 }
 
 export const setTaxiDetails = (payload) => {
-    return{
+    return {
         type: ADD_TAXI_DETAILS,
         payload
     }
 }
 
+export const handleRemovePet = (index) => {
+    return { type: REMOVE_PET_DETAIL, payload: index };
+};
+
+export const setActiveStepAction = (payload) => {
+    return {
+        type: SET_ACTIVE_STEP,
+        payload
+    }
+}
+
+export const handleToggleModal = (payload) => {
+    return {
+        type: SET_TOGGLE_MODAL,
+        payload
+    }
+}

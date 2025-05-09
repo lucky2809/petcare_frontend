@@ -1,21 +1,26 @@
-import { ADD_BOARDING_DETAILS, ADD_OWNER_DETAILS, ADD_PET_DETAILS, ADD_TAXI_DETAILS } from "./actions"
-
-
+import { ADD_BOARDING_DETAILS, ADD_OWNER_DETAILS, ADD_PET_DETAILS, ADD_TAXI_DETAILS, REMOVE_PET_DETAIL, SET_ACTIVE_STEP, SET_TOGGLE_MODAL } from "./actions"
 
 const initialState = {
-    petDetails: [],
+    petDetails: [{ pet_name: '', pet_age: null, pet_type: '', pet_breed: null }],
     boardingDetails: {},
     taxiDetails: {},
-    ownerDetails: {}
+    ownerDetails: {},
+    activeStep: 0,
+    isOpen: false
 }
 
-
- const PetReducer = (state = initialState, action) => {
+const PetReducer = (state = initialState, action) => {
 
     switch (action.type) {
 
         case ADD_PET_DETAILS:
             return { ...state, ...{ petDetails: action.payload } }
+
+        case REMOVE_PET_DETAIL:
+            const updatedPetDetails = state.petDetails.filter(
+                (_, i) => i !== action.payload
+            );
+            return { ...state, petDetails: updatedPetDetails };
 
         case ADD_OWNER_DETAILS:
             return { ...state, ...{ ownerDetails: action.payload } }
@@ -24,7 +29,10 @@ const initialState = {
             return { ...state, ...{ boardingDetails: action.payload } }
         case ADD_TAXI_DETAILS:
             return { ...state, ...{ taxiDetails: action.payload } }
-
+        case SET_ACTIVE_STEP:
+            return { ...state, ...{ activeStep: action.payload } }
+        case SET_TOGGLE_MODAL:
+            return { ...state, ...{ isOpen: action.payload } }
 
         default:
             return state
