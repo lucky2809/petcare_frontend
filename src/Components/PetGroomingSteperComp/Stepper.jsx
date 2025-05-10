@@ -12,24 +12,39 @@ import ServiceSection from './ServiceSection';
 import AllServiceSecttion from './AllServiceSecttion';
 import Additional from './Additional';
 import CustomerInfo from './CustomerInfo';
+import { useDispatch, useSelector } from 'react-redux';
+import { setActiveStepAction } from '../../store/petServices/actions';
 
 export const StepContext = createContext()
 
 export default function MYStepper() {
 
-
+  const activeStep = useSelector((state) => state.PetReducer.activeStep)
+    const dispatch = useDispatch()
+  
 
   const theme = useTheme();
-  const [activeStep, setActiveStep] = React.useState(0);
+  // const [activeStep, setActiveStep] = React.useState(0);
 
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
+  // const handleNext = () => {
+  //   setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  // };
 
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
+  // const handleBack = () => {
+  //   setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  // };
+    const handleNext = () => {
+      if (activeStep === maxSteps - 1) {
+        navigate("/petboarding")
+        return
+      }
+      dispatch(setActiveStepAction(activeStep + 1));
+    };
+  
+    const handleBack = () => {
+      dispatch(setActiveStepAction(activeStep - 1))
+    };
 
 
   const steps = [

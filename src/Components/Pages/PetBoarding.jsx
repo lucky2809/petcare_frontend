@@ -3,7 +3,7 @@ import BoardingForm from '../petBoarding/BoardingFrom'
 import Navbar from '../NavComp/Navbar'
 
 function PetBoarding() {
-  return (
+  return (    
     <div>
         <Navbar />
         <BoardingForm />
