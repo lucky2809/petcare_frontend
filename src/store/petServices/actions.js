@@ -3,6 +3,7 @@ export const ADD_OWNER_DETAILS = "ADD_OWNER_DETAILS"
 export const ADD_BOARDING_DETAILS = "ADD_BOARDING_DETAILS"
 export const ADD_TAXI_DETAILS = "ADD_TAXI_DETAILS"
 export const REMOVE_PET_DETAIL = "REMOVE_PET_DETAIL"
+export const ADD_GROOMING_DETAILS = "ADD_GROOMING_DETAILS"
 export const SET_ACTIVE_STEP = "SET_ACTIVE_STEP"
 export const SET_TOGGLE_MODAL = "SET_TOGGLE_MODAL"
 
@@ -48,6 +49,13 @@ export const setActiveStepAction = (payload) => {
 export const handleToggleModal = (payload) => {
     return {
         type: SET_TOGGLE_MODAL,
+        payload
+    }
+}
+
+export const setGroomingDetails = (payload) => {
+    return {
+        type: ADD_GROOMING_DETAILS,
         payload
     }
 }

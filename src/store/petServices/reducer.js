@@ -1,12 +1,14 @@
-import { ADD_BOARDING_DETAILS, ADD_OWNER_DETAILS, ADD_PET_DETAILS, ADD_TAXI_DETAILS, REMOVE_PET_DETAIL, SET_ACTIVE_STEP, SET_TOGGLE_MODAL } from "./actions"
+import { ADD_BOARDING_DETAILS, ADD_GROOMING_DETAILS, ADD_OWNER_DETAILS, ADD_PET_DETAILS, ADD_TAXI_DETAILS, REMOVE_PET_DETAIL, SET_ACTIVE_STEP, SET_TOGGLE_MODAL } from "./actions"
 
 const initialState = {
     petDetails: [{ pet_name: '', pet_age: null, pet_type: '', pet_breed: null }],
     boardingDetails: {},
     taxiDetails: {},
     ownerDetails: {},
+    groomingDetails: { },
     activeStep: 0,
     isOpen: false
+
 }
 
 const PetReducer = (state = initialState, action) => {
@@ -33,6 +35,8 @@ const PetReducer = (state = initialState, action) => {
             return { ...state, ...{ activeStep: action.payload } }
         case SET_TOGGLE_MODAL:
             return { ...state, ...{ isOpen: action.payload } }
+        case ADD_GROOMING_DETAILS:
+            return { ...state, ...{ groomingDetails: action.payload } }
 
         default:
             return state

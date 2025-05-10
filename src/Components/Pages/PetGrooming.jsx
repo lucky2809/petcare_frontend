@@ -8,7 +8,8 @@ import BlogCurrent from './BlogCurrent'
 import { Box, Button, Modal } from '@mui/material'
 import MYStepper from '../PetGroomingSteperComp/Stepper'
 import { AnimatedCard, AnimatedWrapper, AnimatedLeftWrapper } from '../StyledComponents/Styled'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { handleToggleModal, setActiveStepAction, setGroomingDetails } from '../../store/petServices/actions'
 
 
 
@@ -16,11 +17,16 @@ import { useSelector } from 'react-redux'
 
 
 function PetGrooming() {
+
+    const open = useSelector((state) => state.PetReducer.isOpen)
+    const activeStep = useSelector((state) => state.PetReducer.activeStep)
+    const groomingData = useSelector((state) => state.PetReducer.groomingDetails)
+
     const [addvanceGroisTure, setAddvanceGroisTure] = useState()
     const [poochIsTure, setPochIsTure] = useState()
     const [modal, setModal] = useState(false)
+    const dispatch = useDispatch()
 
-    const activeStep = useSelector((state) => state.PetReducer.activeStep)
 
     const getHeaderColor = (index) => {
         switch (index) {
@@ -30,6 +36,20 @@ function PetGrooming() {
                 return "texl-6xl"
         }
     }
+
+
+
+
+
+    const handleOpen = (service, price) => {
+        dispatch(setActiveStepAction(0))
+        dispatch(handleToggleModal(true))
+        dispatch(setGroomingDetails({ ...groomingData, ...{ service, price} }))
+
+    };
+    const handleClose = () => {
+        dispatch(handleToggleModal(false))
+    };
 
     return (
         <Fragment>
@@ -73,7 +93,7 @@ function PetGrooming() {
                                               ${index === 0 ? "bg-cyan-100 text-cyan-400" : ""} ${index === 1 ? "bg-slate-400/20 text-slate-500" : ""} ${index === 2 ? "text-orange-300 bg-orange-200/30" : ""}
                                               `}>{item.heading}
                                         </span>
-                                        <p className='font-semibold text-[17px]  mt-3'>{item.subHeading}</p>
+                                        <p className='font-semibold text-[17px]  mt-3' >{item.subHeading}</p>
                                         <p className='price-wrapper flex gap-2  px-5 py-3'>
                                             <s className='font-bold text-slate-500'>RS{item.orignal_Price}</s>
                                             <span className='price font-bold '>RS {item.final_Price}</span>
@@ -111,7 +131,7 @@ function PetGrooming() {
                                                         background: "black",
                                                     }
                                                 }
-                                            } onClick={() => setModal(true)}>Book Appointment</Button>
+                                            } onClick={() => handleOpen(item.subHeading, item.final_Price)}>Book Appointment</Button>
                                         </div>
                                     </AnimatedCard>
                                 )
@@ -120,17 +140,17 @@ function PetGrooming() {
 
                         <div className='sticky z-100'>
                             <Modal sx={{ height: screen, display: 'flex', justifyContent: "center", alignItems: 'center', px: 30 }}
-                                open={modal}
+                                open={open}
                             // onClose={handleClose}
                             >
                                 <AnimatedCard className='h-[500px] w-full'>
                                     <Box sx={{ height: "500px", width: "100%", bgcolor: "white", outline: 0, display: "flex", }}>
-                                        {activeStep !== 2 && <div className='img-section min-w-[40%] h-full'>
+                                        {activeStep !== 1 && <div className='img-section min-w-[40%] h-full'>
                                             <img className='h-full w-full object-cover' src="https://t4.ftcdn.net/jpg/02/66/72/41/360_F_266724172_Iy8gdKgMa7XmrhYYxLCxyhx6J7070Pr8.jpg" alt="" />
                                         </div>
                                         }
                                         <div className='content  h-full w-full'>
-                                            <div className='w-full flex justify-end'> <Icon fontSize={40} icon={"basil:cross-solid"} onClick={() => setModal(false)} /> </div >
+                                            <div className='w-full flex justify-end'> <Icon fontSize={40} icon={"basil:cross-solid"} onClick={handleClose} /> </div >
                                             {/* stepper components */}
                                             <MYStepper />
 

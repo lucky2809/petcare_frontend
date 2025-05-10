@@ -13,14 +13,20 @@ import AllServiceSecttion from './AllServiceSecttion';
 import Additional from './Additional';
 import CustomerInfo from './CustomerInfo';
 import { useDispatch, useSelector } from 'react-redux';
-import { setActiveStepAction } from '../../store/petServices/actions';
+import { handleToggleModal, setActiveStepAction } from '../../store/petServices/actions';
+import { useNavigate } from 'react-router-dom';
 
 export const StepContext = createContext()
 
 export default function MYStepper() {
 
-  const activeStep = useSelector((state) => state.PetReducer.activeStep)
+    const ownerFormData = useSelector((state) => state.PetReducer.ownerDetails)
+    const petFormData = useSelector((state) => state.PetReducer.petDetails)
+    const boardingFormData = useSelector((state) => state.PetReducer.boardingDetails)
+    const activeStep = useSelector((state) => state.PetReducer.activeStep)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+  
   
 
   const theme = useTheme();
@@ -34,6 +40,39 @@ export default function MYStepper() {
   // const handleBack = () => {
   //   setActiveStep((prevActiveStep) => prevActiveStep - 1);
   // };
+
+        const addBooking = async () => {
+      
+          const payload = {
+            ...ownerFormData,
+            boardingDetails: boardingFormData,
+            petDetails: petFormData
+      
+          }
+          try {
+            const URL = `${import.meta.env.VITE_APP_BACKEND_URL}/bookingdetails`
+            const fetchData = await fetch(URL, {
+              method: "POST",
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            })
+            const resp = await fetchData.json()
+            alert(JSON.stringify(resp))
+          } catch (err) {
+            console.log("Incorect Details", err)
+          }
+          console.log(payload)
+        }
+      
+        const handleSubmit = async () => {
+          // close modal & default step 0 on modal open
+          dispatch(handleToggleModal(false))
+          dispatch(setActiveStepAction(0))
+            await addBooking()
+          
+        }
+
+
     const handleNext = () => {
       if (activeStep === maxSteps - 1) {
         navigate("/petboarding")
@@ -52,11 +91,11 @@ export default function MYStepper() {
       // label: 'Service Section',
       component: <ServiceSection />
     },
-    {
-      // label: 'Create an ad group',
-      component: <AllServiceSecttion />
+    // {
+    //   // label: 'Create an ad group',
+    //   component: <AllServiceSecttion />
 
-    },
+    // },
     {
       // label: 'Create an ad',
       component: <Additional />
@@ -103,11 +142,11 @@ export default function MYStepper() {
             size="small"
 
             variant='outlined'
-            onClick={handleNext}
-            disabled={activeStep === maxSteps - 1}
+            onClick={activeStep === maxSteps - 1 ? handleSubmit : handleNext}
+            // disabled={activeStep === maxSteps - 1}
           >
             {/* { maxSteps.length < 2 ?? */}
-            Next
+            {activeStep === maxSteps - 1 ? "Proceed" : "Next"}
 
             {theme.direction === 'rtl' ? (
               <KeyboardArrowLeft />
