@@ -17,3 +17,14 @@ html{
     background-color: rgb(4, 51, 4);
     
 } */
+
+
+
+.odd-row {
+  background-color: #f5f5f5 !important; /* Change this to your desired color */
+}
+/* .custom-header .MuiDataGrid-columnHeaders {
+  background-color: black;
+  color: white;
+  font-weight: bold;
+} */

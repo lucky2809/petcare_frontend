@@ -1,1 +1,7 @@
 @import "tailwindcss";
+
+
+.inactive-row {
+  background-color: #ffebee; /* light red */
+  color: #c62828; /* dark red text */
+}

@@ -17,6 +17,7 @@ import PetGrooming from './Components/Pages/PetGrooming';
 import PetBoarding from './Components/Pages/PetBoarding';
 import PetTaxi from './Components/Pages/PetTaxi';
 import 'leaflet/dist/leaflet.css';
+import BookingDetailsTable from './Components/TableComp/BookingDetailsTable';
 
 // aPP.JSX
 function App() {
@@ -43,6 +44,7 @@ function App() {
           <Route path='/petgrooming' element={< PetGrooming />} />
           <Route path='/petboarding' element={< PetBoarding />} />
           <Route path='/pettaxi' element={< PetTaxi />} />
+          <Route path='/bookingdetailstable' element={< BookingDetailsTable />} />
 
         </Routes>
       </BrowserRouter>
