@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { createContext } from 'react';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
@@ -17,12 +16,11 @@ import PetTaxiCard from '../petTaxi/PetTaxiCard';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleToggleModal, setActiveStepAction } from '../../store/petServices/actions';
-import { toast } from 'react-toastify';
 
 
 export const StepContext = createContext()
 
-export default function BoardingStepper() {
+export default function TaxiStepper() {
   const ownerFormData = useSelector((state) => state.PetReducer.ownerDetails)
   const petFormData = useSelector((state) => state.PetReducer.petDetails)
   const boardingFormData = useSelector((state) => state.PetReducer.boardingDetails)
@@ -33,7 +31,7 @@ export default function BoardingStepper() {
   const navigate = useNavigate()
   const theme = useTheme();
   // const [activeStep, setActiveStep] = useState(0);
-  const [isPetTaxi, setIsPetTaxi] = useState(true)
+  const [isPetBoarding, setIsPetBoarding] = useState(true)
   const [isPetGrooming, setIsPetGrooming] = useState(true)
 
 
@@ -51,7 +49,7 @@ export default function BoardingStepper() {
 
   const petProps = {
     handleNext,
-    isPetGrooming, isPetTaxi, setIsPetGrooming, setIsPetTaxi     // props ko object me bej skte hai 
+    isPetGrooming, isPetBoarding, setIsPetGrooming, setIsPetBoarding     // props ko object me bej skte hai 
   }
 
   const addBooking = async () => {
@@ -63,7 +61,7 @@ export default function BoardingStepper() {
 
     }
     try {
-      const URL = `${import.meta.env.VITE_APP_BACKEND_URL}/booking/bookingdetails`
+      const URL = `${import.meta.env.VITE_APP_BACKEND_URL}/bookingdetails`
       const fetchData = await fetch(URL, {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
@@ -82,16 +80,14 @@ export default function BoardingStepper() {
     dispatch(handleToggleModal(false))
     dispatch(setActiveStepAction(0))
 
-    if (isPetTaxi) {
+    if (isPetBoarding) {
       navigate("/pettaxi")
     } else {
-      toast.success("Service booked sucessfully")
-      
       await addBooking()
     }
   }
 
-  const generateExtraSteps = (isPetGrooming, isPetTaxi) => {
+  const generateExtraSteps = (isPetGrooming, isPetBoarding) => {
     let steps = [
       {
         // label: 'choose service grooming or taxi',
@@ -118,13 +114,13 @@ export default function BoardingStepper() {
         },
         {
 
-          component: < CustomerInfo isPetTaxi={isPetTaxi} />
+          component: < CustomerInfo />
         },
       ]
 
     }
 
-    // if (isPetTaxi) {
+    // if (isPetBoarding) {
     //   taxiSteps = [
     //     {
     //       component: <PetTaxiCard />
@@ -136,7 +132,7 @@ export default function BoardingStepper() {
 
   }
 
-  const steps = generateExtraSteps(isPetGrooming, isPetTaxi)
+  const steps = generateExtraSteps(isPetGrooming, isPetBoarding)
   const maxSteps = steps.length;
 
   return (

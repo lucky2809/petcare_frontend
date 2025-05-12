@@ -15,19 +15,20 @@ import CustomerInfo from './CustomerInfo';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleToggleModal, setActiveStepAction } from '../../store/petServices/actions';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export const StepContext = createContext()
 
 export default function MYStepper() {
 
-    const ownerFormData = useSelector((state) => state.PetReducer.ownerDetails)
-    const petFormData = useSelector((state) => state.PetReducer.petDetails)
-    const boardingFormData = useSelector((state) => state.PetReducer.boardingDetails)
-    const activeStep = useSelector((state) => state.PetReducer.activeStep)
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-  
-  
+  const ownerFormData = useSelector((state) => state.PetReducer.ownerDetails)
+  const petFormData = useSelector((state) => state.PetReducer.petDetails)
+  const boardingFormData = useSelector((state) => state.PetReducer.boardingDetails)
+  const activeStep = useSelector((state) => state.PetReducer.activeStep)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+
 
   const theme = useTheme();
   // const [activeStep, setActiveStep] = React.useState(0);
@@ -41,49 +42,52 @@ export default function MYStepper() {
   //   setActiveStep((prevActiveStep) => prevActiveStep - 1);
   // };
 
-        const addBooking = async () => {
-      
-          const payload = {
-            ...ownerFormData,
-            boardingDetails: boardingFormData,
-            petDetails: petFormData
-      
-          }
-          try {
-            const URL = `${import.meta.env.VITE_APP_BACKEND_URL}/bookingdetails`
-            const fetchData = await fetch(URL, {
-              method: "POST",
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(payload)
-            })
-            const resp = await fetchData.json()
-            alert(JSON.stringify(resp))
-          } catch (err) {
-            console.log("Incorect Details", err)
-          }
-          console.log(payload)
-        }
-      
-        const handleSubmit = async () => {
-          // close modal & default step 0 on modal open
-          dispatch(handleToggleModal(false))
-          dispatch(setActiveStepAction(0))
-            await addBooking()
-          
-        }
+  const addBooking = async () => {
+
+    const payload = {
+      ...ownerFormData,
+      boardingDetails: boardingFormData,
+      petDetails: petFormData
+
+    }
+    try {
+      const URL = `${import.meta.env.VITE_APP_BACKEND_URL}/bookingdetails`
+      const fetchData = await fetch(URL, {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      const resp = await fetchData.json()
+      alert(JSON.stringify(resp))
+    } catch (err) {
+      console.log("Incorect Details", err)
+    }
+    console.log(payload)
+  }
+
+  const handleSubmit = async () => {
+
+    // close modal & default step 0 on modal open
+    dispatch(handleToggleModal(false))
+    dispatch(setActiveStepAction(0))
+    toast.success("Service booked sucessfully")
+    await addBooking()
+
+  }
 
 
-    const handleNext = () => {
-      if (activeStep === maxSteps - 1) {
-        navigate("/petboarding")
-        return
-      }
-      dispatch(setActiveStepAction(activeStep + 1));
-    };
-  
-    const handleBack = () => {
-      dispatch(setActiveStepAction(activeStep - 1))
-    };
+  const handleNext = () => {
+    if (activeStep === maxSteps - 1) {
+      navigate("/petboarding")
+
+      return
+    }
+    dispatch(setActiveStepAction(activeStep + 1));
+  };
+
+  const handleBack = () => {
+    dispatch(setActiveStepAction(activeStep - 1))
+  };
 
 
   const steps = [
@@ -143,7 +147,7 @@ export default function MYStepper() {
 
             variant='outlined'
             onClick={activeStep === maxSteps - 1 ? handleSubmit : handleNext}
-            // disabled={activeStep === maxSteps - 1}
+          // disabled={activeStep === maxSteps - 1}
           >
             {/* { maxSteps.length < 2 ?? */}
             {activeStep === maxSteps - 1 ? "Proceed" : "Next"}

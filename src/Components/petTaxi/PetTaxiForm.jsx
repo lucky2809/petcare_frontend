@@ -173,7 +173,7 @@ function PetTaxiForm() {
                 pt[0],
             ]);
             setRoute(routeCoords);
-            setDistance((data.routes[0].distance / 1000).toFixed(2) + " km");
+            setDistance((data.routes[0].distance / 1000).toFixed(2));
         }
     };
 
@@ -243,12 +243,6 @@ function PetTaxiForm() {
 
     const timeSlots = getTimeSlots(10, 30);
 
-
-
-    const handleChangeGender = (e) => {
-        setValue(e.target.value)
-    }
-    // console.log("Value", value)
 
     const handleOwnerDetailsChange = (e) => {
         const { name, value } = e.target
@@ -386,10 +380,12 @@ function PetTaxiForm() {
                                 />
 
                                 <br />
-                                <button onClick={fetchRoute} style={{ marginTop: "1rem" }}>
-                                    Get Route
-                                </button>
-                                {distance && <p>Distance: {distance}</p>}
+                                <Button  variant="contained" color='outlined' onClick={fetchRoute} style={{ marginTop: "1rem" }}>
+                                    Get Price
+                                </Button>
+                                {distance && <p className='mt-3 font-semibold'>Distance: {distance} KM</p>}
+                                {distance && <p className='font-bold'>Price: Rs. {(distance * 15).toFixed()} /-</p>}
+
                             </div>
                             {/* <div className='flex justify-between gap-10 items-center px-2 bg-slate-100'>
                                 <div className='w-10'>
@@ -501,7 +497,7 @@ function PetTaxiForm() {
                                 <Button
                                     startIcon={<ControlPointIcon />
                                     }
-                                    variant="contained"
+                                    variant="outlined"
                                     color="primary"
                                     onClick={handleAddPet}
                                     className=""
@@ -514,7 +510,7 @@ function PetTaxiForm() {
                     </div>
 
                     <div className='flex justify-end p-10'>
-                        <Button onClick={handleOpen}>Proceed</Button>
+                        <Button  variant="contained" color='primary' onClick={handleOpen}>Proceed</Button>
                     </div>
                     <div>
                         <Modal sx={{ height: screen, display: 'flex', justifyContent: "center", alignItems: 'center', px: 30 }}
@@ -531,7 +527,7 @@ function PetTaxiForm() {
                                     <div className='content  h-full w-full'>
                                         <div className='w-full flex justify-end'> <Icon fontSize={40} icon={"basil:cross-solid"} onClick={handleClose} /> </div >
                                         {/* stepper components */}
-                                        <taxiStepper />
+                                        {/* <TaxiStepper/> */}
 
                                     </div>
 

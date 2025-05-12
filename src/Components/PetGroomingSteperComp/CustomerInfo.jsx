@@ -4,7 +4,7 @@ import { TextField } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { setBoardingDetails, setOwnerDetails } from '../../store/petServices/actions'
 
-function CustomerInfo({isPetTaxi}) {
+function CustomerInfo() {
         const ownerFormData = useSelector((state) => state.PetReducer.ownerDetails)
         const boardingFormData = useSelector((state) => state.PetReducer.boardingDetails)
         const dispatch = useDispatch()
