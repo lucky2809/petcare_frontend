@@ -22,6 +22,8 @@ export const StepContext = createContext()
 export default function MYStepper() {
 
   const ownerFormData = useSelector((state) => state.PetReducer.ownerDetails)
+  const petType = useSelector((state) => state.PetReducer.pet_type)
+
   const petFormData = useSelector((state) => state.PetReducer.petDetails)
   const boardingFormData = useSelector((state) => state.PetReducer.boardingDetails)
   const activeStep = useSelector((state) => state.PetReducer.activeStep)
@@ -46,12 +48,12 @@ export default function MYStepper() {
 
     const payload = {
       ...ownerFormData,
-      boardingDetails: boardingFormData,
-      petDetails: petFormData
+      petDetails: petFormData,
+      pet_type : petType
 
     }
     try {
-      const URL = `${import.meta.env.VITE_APP_BACKEND_URL}/bookingdetails`
+      const URL = `${import.meta.env.VITE_APP_BACKEND_URL}/booking/bookingdetails`
       const fetchData = await fetch(URL, {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
@@ -93,7 +95,7 @@ export default function MYStepper() {
   const steps = [
     {
       // label: 'Service Section',
-      component: <ServiceSection />
+      component: <ServiceSection isDogAvailable={true} />
     },
     // {
     //   // label: 'Create an ad group',

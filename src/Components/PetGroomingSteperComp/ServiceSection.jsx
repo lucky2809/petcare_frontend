@@ -3,15 +3,20 @@ import { Icon } from '@iconify/react/dist/iconify.js'
 import { AnimatedCard } from '../StyledComponents/Styled'
 import { StepContext } from './Stepper'
 import { Checkbox } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import { setGroomingDetails, setPetType } from '../../store/petServices/actions'
 
 
 
 
-function ServiceSection({ }) {
+function ServiceSection({ isDogAvailable }) {
+    const groomingData = useSelector((state) => state.PetReducer.groomingDetails)
+    const dispatch = useDispatch()
+
     const [hoverEffect, setHoverEffect] = useState(false)
     const [hoverEffectCat, setHoverEffectCat] = useState(false)
     const [isCat, setCat] = useState(true)
-    const [isDog, setDog] = useState(true)
+    const [isDog, setDog] = useState(false)
 
 
     // const { handleNext } = useContext(StepContext)
@@ -35,12 +40,21 @@ function ServiceSection({ }) {
 
 
     const handleSelectCat = (e) => {
-        setCat(e.target.checked)
+        if (!isDogAvailable) return
+        const bool = e.target.checked
+        setCat(bool)
+        setDog(!bool)
+
+        dispatch(setPetType("cat"))
+
 
     }
 
     const handleSelectDog = (e) => {
-        setDog(e.target.checked)
+      const bool = e.target.checked
+        setCat(!bool)
+        setDog(bool)
+        dispatch(setPetType("dog"))
 
     }
 
@@ -57,21 +71,21 @@ function ServiceSection({ }) {
                         <p className='text-[12px] font-semibold text-slate-500'>3 Service Avaible</p>
                     </div>
                     <p className='text-[12px] font-semibold text-slate-500'>
-                    <Checkbox onChange={handleSelectCat} aria-label='Checkbox demo' sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }} checked={isCat} /></p>
+                        <Checkbox onChange={handleSelectCat} name='cat' value={groomingData.cat} aria-label='Checkbox demo' sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }} checked={isCat} /></p>
 
-            </div>
+                </div>
 
-            <div onMouseOver={onMouse} onMouseLeave={leaveMouse} className={`Service p-4 border shadow-sm shadow-black/15 ${isDog ? "bg-amber-50/20 border-amber-400" : "border-black/20"}  p-2 rounded-md flex  items-center gap-5 w-96`}>
-                <div className='img-section '>
-                    <Icon fontSize={35} icon={"fluent-emoji:dog-face"} />
-                </div>
-                <div className='flex justify-between items-center w-full'>
-                    <h1 className={`font-semibold text-[18px] ${hoverEffect ? "ml-2" : ""}   duration-700`}>For Dog</h1>
-                    <p className='text-[12px] font-semibold text-slate-500'>3 Service Avaible</p>
-                </div>
-                <p className='text-[12px] font-semibold text-slate-500'>
-                <Checkbox onChange={handleSelectDog} aria-label='Checkbox demo' sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }} checked={isDog} /></p>
-        </div>
+              { isDogAvailable && <div onMouseOver={onMouse} onMouseLeave={leaveMouse} className={`Service p-4 border shadow-sm shadow-black/15 ${isDog ? "bg-amber-50/20 border-amber-400" : "border-black/20"}  p-2 rounded-md flex  items-center gap-5 w-96`}>
+                    <div className='img-section '>
+                        <Icon fontSize={35} icon={"fluent-emoji:dog-face"} />
+                    </div>
+                    <div className='flex justify-between items-center w-full'>
+                        <h1 className={`font-semibold text-[18px] ${hoverEffect ? "ml-2" : ""}   duration-700`}>For Dog</h1>
+                        <p className='text-[12px] font-semibold text-slate-500'>3 Service Avaible</p>
+                    </div>
+                    <p className='text-[12px] font-semibold text-slate-500'>
+                        <Checkbox onChange={handleSelectDog} name='dog' value={groomingData.dog} aria-label='Checkbox demo' sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }} checked={isDog} /></p>
+                </div>}
 
             </AnimatedCard >
         </Fragment >

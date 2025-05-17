@@ -4,19 +4,28 @@ import { Icon } from '@iconify/react/dist/iconify.js'
 import { Button } from '@mui/material'
 import { AnimatedCard } from '../StyledComponents/Styled'
 import { useDispatch, useSelector } from 'react-redux'
-import { setBoardingDetails } from '../../store/petServices/actions'
+import { setBoardingDetails, setPetDetails } from '../../store/petServices/actions'
 
 
 
 function Header() {
 
 
-        const boardingFormData = useSelector((state) => state.PetReducer.boardingDetails)
-        const dispatch = useDispatch()
+    const ownerFormData = useSelector((state) => state.PetReducer.ownerDetails)
+    const boardingFormData = useSelector((state) => state.PetReducer.boardingDetails)
+    const petDetails = useSelector((state) => state.PetReducer.petDetails)
+
+    const dispatch = useDispatch()
 
     const [toggle, setToggle] = useState(false)
     const [select, setSelect] = useState({ pet: "petbording" })
 
+    const handleNoOfPets = (length) => {
+
+        dispatch(setPetDetails(Array.from({ length }, () => ({ pet_name: '', pet_age: null, pet_breed: null }))))
+
+
+    }
 
     const changedata = (event) => {
         let getname = event.target.name
@@ -28,11 +37,11 @@ function Header() {
         let updatevalue = { ...select, ...obj }
         setSelect(updatevalue)
     }
-    
+
     const handleOwnerDetailsChange = (e) => {
         const { name, value } = e.target
         console.log("{ name, value }", { name, value })
-        dispatch(setBoardingDetails({ ...boardingDetails, ...{ [name]: value } }))
+        dispatch(setBoardingDetails({ ...boardingFormData, ...{ [name]: value } }))
     }
     console.log("boardingFormData", boardingFormData)
 
@@ -53,7 +62,7 @@ function Header() {
                                 <Link to={"/pettaxi"}><button onClick={(event) => changedata(event)} name="pet" value={'pettaxi'} className='px-5 p-2 max-sm:p-3 border-1 rounded-sm bg-white items-center flex gap-2 text-lg min-2xl:text-xl max-sm:text-sm font-semibold'>
                                     <input onChange={(event) => changedata(event)} type="radio" name="pet" value={'pettaxi'} checked={select.pet == "pettaxi"} className='w-5 h-5' />
                                     Pet Taxi</button></Link>
-                                    <Link to={"/petgrooming"}><button onClick={(event) => changedata(event)} name="pet" value={'petgrooming'} className='px-5 p-2 max-sm:p-3 border-1 rounded-sm bg-white items-center flex gap-2 text-lg min-2xl:text-xl max-sm:text-sm font-semibold'>
+                                <Link to={"/petgrooming"}><button onClick={(event) => changedata(event)} name="pet" value={'petgrooming'} className='px-5 p-2 max-sm:p-3 border-1 rounded-sm bg-white items-center flex gap-2 text-lg min-2xl:text-xl max-sm:text-sm font-semibold'>
                                     <input onChange={(event) => changedata(event)} type="radio" name="pet" value={'petgrooming'} checked={select.pet == "petgrooming"} className='w-5 h-5' />
                                     Pet Grooming</button></Link>
                             </div>
@@ -62,42 +71,45 @@ function Header() {
 
 
                         {/* {select.pet === "petbording" ? */}
-                        
-                            <div className='max-sm:flex max-sm:flex-col gap-3'>
-                                <div className=' rounded-lg flex max-sm:flex-col min-2xl:flex min-2xl:flex-col min-2xl:items-center gap-1 px-10  bg-white w-full'>
-                                    <div className='flex flex-col w-full  min-2xl:flex min-2xl:gap-2'>
-                                        <label htmlFor="" className='text-xl font-semibold max-sm:text-lg'>Boarding Near</label>
-                                        <input value={boardingFormData.from_address} onChange={handleOwnerDetailsChange} name='from_address' type="address" className='px-2 border border-slate-500 outline-green-400 text-xl py-1 min-2xl:px-6 min-2xl:py-2 w-full hover:bg-sky-100  ' placeholder='India' />
-                                    </div>
-                                    <div className='w-full flex flex-col min-2xl:flex min-2xl:gap-2'>
-                                        <label htmlFor="" className='text-xl font-semibold max-sm:text-lg'>For These Days</label>
-                                        <div className='w-full flex items-center gap-3 min-2xl:flex min-2xl:gap-5'>
-                                            <input type="date" className='px-2 min-2xl:px-6 min-2xl:py-2 border border-slate-500 outline-green-400 max-sm:text-sm py-1 hover:bg-sky-100 w-full text-md font-semibold' placeholder="Drop Off" />
-                                            <Icon width={30} className='text-gray-300' icon={"mynaui:arrow-right"} />
-                                            <input type="date" className='px-2 min-2xl:px-6 min-2xl:py-2 border border-slate-500 outline-green-400    max-sm:text-sm py-1 hover:bg-sky-100 w-full text-md font-semibold' placeholder='Pick up' />
-                                        </div>
+
+                        <div className='max-sm:flex max-sm:flex-col gap-3'>
+                            <div className=' rounded-lg flex max-sm:flex-col min-2xl:flex min-2xl:flex-col min-2xl:items-center gap-1 px-10  bg-white w-full'>
+                                <div className='flex flex-col w-full  min-2xl:flex min-2xl:gap-2'>
+                                    <label htmlFor="" className='text-xl font-semibold max-sm:text-lg'>Boarding Near</label>
+                                    <input value={ownerFormData.address} onChange={handleOwnerDetailsChange} name='address' type="address" className='px-2 border border-slate-500 outline-green-400 text-xl py-1 min-2xl:px-6 min-2xl:py-2 w-full hover:bg-sky-100  ' placeholder='India' />
+                                </div>
+                                <div className='w-full flex flex-col min-2xl:flex min-2xl:gap-2'>
+                                    <label htmlFor="" className='text-xl font-semibold max-sm:text-lg'>For These Days</label>
+                                    <div className='w-full flex items-center gap-3 min-2xl:flex min-2xl:gap-5'>
+                                        <input type="date" className='px-2 min-2xl:px-6 min-2xl:py-2 border border-slate-500 outline-green-400 max-sm:text-sm py-1 hover:bg-sky-100 w-full text-md font-semibold' placeholder="Drop Off" />
+                                        <Icon width={30} className='text-gray-300' icon={"mynaui:arrow-right"} />
+                                        <input type="date" className='px-2 min-2xl:px-6 min-2xl:py-2 border border-slate-500 outline-green-400    max-sm:text-sm py-1 hover:bg-sky-100 w-full text-md font-semibold' placeholder='Pick up' />
                                     </div>
                                 </div>
-
-                                <div className='px-10 flex  flex-col gap-1 w-full'>
-                                    <p className='w-full text-xl font-semibold max-sm:text-lg mt-2'>How Many Pets ?</p>
-                                    <div className='w-full flex gap-7 items-center max-sm:flex-col'>
-                                        <div className=' w-full flex gap-2'>
-                                            <button id='form' className='w-full items-center p-2 max-sm:p-1 min-2xl:py-2 border-1 text-xl hover:bg-sky-100'>1</button>
-                                            <button className='w-full items-center p-2 max-sm:p-1  min-2xl:py-2 border-1 text-xl hover:bg-sky-100'>2</button>
-                                            <button className='w-full items-center p-2 max-sm:p-1 min-2xl:py-2 border-1 text-xl hover:bg-sky-100'>3+</button>
-                                        </div>
-
-                                        <div className=' w-full items-center'>
-                                            <a href={toggle? "#form" : " "}>
-                                                <button className='w-full p-2 min-2xl:py-2 text-lg min-2xl:text-2xl font-semibold rounded-lg text-white bg-green-700 hover:bg-green-950' onClick={() => setToggle(!toggle)}>Get Price</button>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-
                             </div>
-                             {/* : <div> </div> */}
+
+                            <div className='px-10 flex  flex-col gap-1 w-full'>
+                                <p className='w-full text-xl font-semibold max-sm:text-lg mt-2'>How Many Pets ?</p>
+                                <div className='w-full flex gap-7 items-center max-sm:flex-col'>
+                                    <div className=' w-full flex gap-2'>
+
+                                        <button id='form' className='w-full items-center p-2 max-sm:p-1 min-2xl:py-2 border-1 text-xl hover:bg-sky-100'>1</button>
+
+                                        <button onClick={() => handleNoOfPets(2)} className='w-full items-center p-2 max-sm:p-1  min-2xl:py-2 border-1 text-xl hover:bg-sky-100'>2</button>
+
+                                        <button onClick={() => handleNoOfPets(4)} className='w-full items-center p-2 max-sm:p-1 min-2xl:py-2 border-1 text-xl hover:bg-sky-100'>3+</button>
+                                    </div>
+
+                                    <div className=' w-full items-center'>
+                                        <a href={toggle ? "#form" : " "}>
+                                            <button className='w-full p-2 min-2xl:py-2 text-lg min-2xl:text-2xl font-semibold rounded-lg text-white bg-green-700 hover:bg-green-950' onClick={() => setToggle(!toggle)}>Get Price</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        {/* : <div> </div> */}
                         {/* } */}
 
                         <div className=' w-full absolute -top-7 max-sm:-top-7 min-2xl:-top-8 px-35 max-sm:px-6 max-lg:px-7'>
@@ -107,7 +119,7 @@ function Header() {
                                     <p>I'm looking for Service for My : </p>
                                 </div>
                                 <div className='flex gap-3 items-center'>
-                                    <input type="checkbox" className='h-5 w-5 min-2xl:h-7 min-2xl:w-7' name="" id="" checked/>
+                                    <input type="checkbox" className='h-5 w-5 min-2xl:h-7 min-2xl:w-7' name="" id="" checked />
                                     <p>Cat</p>
                                 </div>
                             </div>
@@ -130,10 +142,10 @@ function Header() {
                             </div>
                             <div className='flex justify-center items-center'>
                                 <Link to={"petboarding"}>
-                                <button className='px-2 flex gap-5 max-sm:gap-2 items-center p-1 text-lg max-sm:text-sm font-semibold rounded-lg bg-green-700 text-white hover:bg-green-950'>
-                                    <div className='flex items-center'><Icon width={20} className='text-white ' icon={"mdi:rupee"} />750/-</div>
-                                    <div><Icon width={20} className='text-white' icon={"mingcute:arrow-right-fill"} /></div>
-                                </button>
+                                    <button className='px-2 flex gap-5 max-sm:gap-2 items-center p-1 text-lg max-sm:text-sm font-semibold rounded-lg bg-green-700 text-white hover:bg-green-950'>
+                                        <div className='flex items-center'><Icon width={20} className='text-white ' icon={"mdi:rupee"} />750/-</div>
+                                        <div><Icon width={20} className='text-white' icon={"mingcute:arrow-right-fill"} /></div>
+                                    </button>
                                 </Link>
                             </div>
                         </div>
@@ -148,10 +160,10 @@ function Header() {
                             </div>
                             <div className='flex justify-center items-center'>
                                 <Link to={"petboarding"}>
-                                <button type='primary' className='px-2 flex gap-5 max-sm:gap-2 items-center p-1 text-lg max-sm:text-sm font-semibold rounded-lg bg-green-700 text-white hover:bg-green-950'>
-                                    <div className='flex items-center'><Icon width={20} className='text-white' icon={"mdi:rupee"} />550/-</div>
-                                    <div><Icon width={20} className='text-white' icon={"mingcute:arrow-right-fill"} /></div>
-                                </button>
+                                    <button type='primary' className='px-2 flex gap-5 max-sm:gap-2 items-center p-1 text-lg max-sm:text-sm font-semibold rounded-lg bg-green-700 text-white hover:bg-green-950'>
+                                        <div className='flex items-center'><Icon width={20} className='text-white' icon={"mdi:rupee"} />550/-</div>
+                                        <div><Icon width={20} className='text-white' icon={"mingcute:arrow-right-fill"} /></div>
+                                    </button>
                                 </Link>
                             </div>
                         </div>

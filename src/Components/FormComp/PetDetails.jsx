@@ -16,10 +16,10 @@ const Age = [
     { label: '3 Year - 4 Year' },
     { label: 'More Than 4 Year' },
 ]
-const PetType = [
-    { label: 'Cat' },
-    { label: 'Dog' }
-]
+// const PetType = [
+//     { label: 'Cat' },
+//     { label: 'Dog' }
+// ]
 const selectOptions = [
     { label: "Indian Billi" },
     { label: "Spotted Cat" },
@@ -34,7 +34,7 @@ function PetDetails() {
 
 
     const handlePetDetailsChange = (index, e, val, key) => {
-        const updatedPets = [...petForms];
+        let updatedPets = [...petForms];
         const updatedPet = { ...updatedPets[index] }; // ✅ clone the specific object
 
         if (key) {
@@ -50,7 +50,7 @@ function PetDetails() {
 
     console.log("petFormData", petForms)
     const handleAddPet = () => {
-        if (petForms.length >= 5) {
+        if (petForms.length >= 4) {
             toast.error("Pet Limit Reached")
             return
         }
@@ -137,7 +137,7 @@ function PetDetails() {
                                     <TextField {...params} label="Age Of Your Pet" size="small" />
                                 )}
                             />
-                            <Autocomplete
+                            {/* <Autocomplete
                                 disablePortal
                                 options={PetType}
                                 value={pet.pet_type}
@@ -146,7 +146,7 @@ function PetDetails() {
                                 renderInput={(params) => (
                                     <TextField {...params} size="small" label="Pet Type" />
                                 )}
-                            />
+                            /> */}
                             <Autocomplete
                                 disablePortal
                                 options={selectOptions}

@@ -6,6 +6,14 @@ export const REMOVE_PET_DETAIL = "REMOVE_PET_DETAIL"
 export const ADD_GROOMING_DETAILS = "ADD_GROOMING_DETAILS"
 export const SET_ACTIVE_STEP = "SET_ACTIVE_STEP"
 export const SET_TOGGLE_MODAL = "SET_TOGGLE_MODAL"
+export const SET_PET_TYPE = "SET_PET_TYPE"
+
+export const setPetType = (payload) => {
+    return {
+        type: SET_PET_TYPE,
+        payload
+    }
+}
 
 export const setPetDetails = (payload) => {
     return {

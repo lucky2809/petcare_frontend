@@ -22,45 +22,45 @@ import PetDetails from '../FormComp/PetDetails';
 
 
 
-const MyInput = ({ label = "", helperText = "", type = "" }) => {
-    return <TextField
-        label={label}
-        helperText={helperText}
-        type={type}
+// const MyInput = ({ label = "", helperText = "", type = "" }) => {
+//     return <TextField
+//         label={label}
+//         helperText={helperText}
+//         type={type}
 
-        InputLabelProps={{
-            className: "-mt-2",
-            sx: { fontSize: "1rem" },  // adjust lable font size
-            '& .MuiInputBase-input': {
-                color: 'green'
-            },
-            '& .Muifocused + .MuiFormhelpetText-root': {
-                color: 'blue'
-            },
-        }}
-        FormHelperTextProps={{
-            sx: { color: 'red' }   // helper text style
-        }}
-        inputProps={{
-            sx: {
-                backgroundColor: 'transperent',
-                fontSize: '1rem',
-                height: '40px',
-                padding: '0px',
-            }
-        }}
-        sx={{
-            my: 1.5,   // outer spacing
-            '& .MuiInputBase-input': {
-                color: 'green'
-            }, '& .MuiInputLabel-formControl': {
-                padding: '0px'
-            },
-        }}
+//         InputLabelProps={{
+//             className: "-mt-2",
+//             sx: { fontSize: "1rem" },  // adjust lable font size
+//             '& .MuiInputBase-input': {
+//                 color: 'green'
+//             },
+//             '& .Muifocused + .MuiFormhelpetText-root': {
+//                 color: 'blue'
+//             },
+//         }}
+//         FormHelperTextProps={{
+//             sx: { color: 'red' }   // helper text style
+//         }}
+//         inputProps={{
+//             sx: {
+//                 backgroundColor: 'transperent',
+//                 fontSize: '1rem',
+//                 height: '40px',
+//                 padding: '0px',
+//             }
+//         }}
+//         sx={{
+//             my: 1.5,   // outer spacing
+//             '& .MuiInputBase-input': {
+//                 color: 'green'
+//             }, '& .MuiInputLabel-formControl': {
+//                 padding: '0px'
+//             },
+//         }}
 
-    >
-    </TextField>
-}
+//     >
+//     </TextField>
+// }
 
 
 function BoardingForm() {
@@ -166,13 +166,20 @@ function BoardingForm() {
 
     return (
         <div>
-            <Button onClick={() => navigate(-1)}>Go Back</Button>
+
             <div className=' border-green-800 w-full flex justify-between'>
 
                 <div className='First w-full'>
 
-                    <div className='logo w-full flex justify-center p-2'>
-                        <h1 className="font-semibold text-2xl flex items-center gap-1 "><Icon width={42} icon={"solar:cat-outline"} className='text-4xl' /> Petpy.in  </h1>
+                    <div className='logo flex text-center items-center justify-center p-2 border-1'>
+                        <div>
+                        <Button sx={{
+                            mt: 3,
+                        }} onClick={() => navigate(-1)}><Icon width={25} icon={"fluent-mdl2:back"} className='text-4xl' /></Button>
+                        </div>
+                        <div>
+                        <h1 className="font-semibold text-2xl flex items-center gap-1 ">PET BOARDING </h1>
+                        </div>
                     </div>
                     <div className='border-1 m-2 flex flex-col gap-3'>
                         <div className='px-6 mt-3'>
@@ -195,7 +202,7 @@ function BoardingForm() {
                                     width: 300,
 
 
-                                }} value={ownerFormData.email_address} onChange={handleOwnerDetailsChange} name="email" label="Email Address" variant="outlined" size='small' />
+                                }} value={ownerFormData.email} onChange={handleOwnerDetailsChange} name="email" label="Email Address" variant="outlined" size='small' />
                                 <TextField sx={{
 
                                     width: 300,
@@ -212,18 +219,18 @@ function BoardingForm() {
                                 <h1 className='text-xl font-semibold'>Boarding</h1>
                             </div>
                             <div className='flex justify-between gap-10 items-center px-2 bg-slate-100'>
-                                <div className='w-10'>
-                                    <label className='text-md font-semibold w-10 ' htmlFor="">FROM</label>
+                                <div className='w-25 '>
+                                    <label className='text-md font-semibold w-20 ' htmlFor="">ADDRESS</label>
                                 </div>
                                 <div className='w-full'>
-                                    <input value={boardingFormData.from_address} onChange={handleBoardingDetailsChange} name="from_address" type="text" className='w-full p-3 outline-0' placeholder='Serach Pickup location' />
+                                    <input value={ownerFormData.address} onChange={handleOwnerDetailsChange} name="address" type="text" className='w-full p-3 outline-0' placeholder='Search Pickup location' />
                                 </div>
                             </div>
                         </div>
 
                         <div className='px-5 flex flex-col gap-5'>
                             <div className='flex justify-between px-2 gap-10 items-center bg-slate-100'>
-                                <div className='w-10'>
+                                <div className='w-25'>
                                     <label className='text-md font-sans w-10 font-semibold' htmlFor="">WHEN</label>
                                 </div>
                                 <div className='w-full'>
@@ -240,14 +247,14 @@ function BoardingForm() {
                                         <label className='text-md font-sans w-10 font-semibold' htmlFor="">DEPART</label>
                                     </div>
                                     <div className='w-full flex'>
-                                        <select value={boardingFormData.date} onChange={handleBoardingDetailsChange} className='w-full p-3 outline-0' name="from_date" id="">
+                                        <select value={boardingFormData.start_date} onChange={handleBoardingDetailsChange} className='w-full p-3 outline-0' name="start_date" id="">
                                             {dates.map((date) => {
                                                 return (
                                                     <option className='p-3 text-2xl'>{date}</option>
                                                 )
                                             })}
                                         </select>
-                                        <select value={boardingFormData.from_time} onChange={handleBoardingDetailsChange} className='w-full p-3 outline-0' name="from_time" id="">
+                                        <select value={boardingFormData.booking_time} onChange={handleBoardingDetailsChange} className='w-full p-3 outline-0' name="booking_time" id="">
                                             {timeSlots.map((time) => (
                                                 <option value={time} key={time}>{time}</option>
                                             ))}

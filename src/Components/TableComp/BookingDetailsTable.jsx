@@ -7,46 +7,51 @@ import Navbar from '../NavComp/Navbar';
 // import './App.css'
 
 
+const findIsBooking = (data = {}) => {
+    return (Object.values(data).length > 0) ? "Yes" : "No"
+}
+
 const columns = [
     { field: 'id', headerName: 'Booking Id', width: 120 },
-    { field: 'firstName', headerName: 'First name', width: 130 },
-    { field: 'lastName', headerName: 'Last name', width: 130 },
+    // { field: 'firstName', headerName: 'First name', width: 130 },
+    // { field: 'lastName', headerName: 'Last name', width: 130 },
+    {field: 'fullname', headerName: 'Full Name', width: 130},
     {
         field: 'phone_no',
         headerName: 'Phone No',
         type: 'number',
         width: 140,
-        
+
     },
     {
         field: 'email',
         headerName: 'Email',
-        width: 140,
+        width: 170,
     }, {
         field: 'address',
         headerName: 'Address',
         width: 140,
     },
     {
-        field: 'pet_nmae',
-        headerName: 'Pet Name',
+        field: 'no_of_pets',
+        headerName: 'No of Pets',
+    
+        width: 100,
+    },
+    {
+        field: 'pet_boarding',
+        headerName: 'Pet Boarding',
         width: 140,
     },
     {
-        field: 'pet_age',
-        headerName: 'Pet Age',
-        type: "number",
+        field: 'pet_taxi',
+        headerName: 'Pet Taxi',
+        
         width: 100,
     },
     {
-        field: 'no_of_pets',
-        headerName: 'No of Pets',
-        type: "number",
-        width: 100,
-    },
-    {
-        field: 'booking_type',
-        headerName: 'Booking For',
+        field: 'pet_grooming',
+        headerName: 'Pet Grooming',
         width: 150,
     },
     {
@@ -54,7 +59,7 @@ const columns = [
         headerName: 'Booking Start Date',
         width: 150,
     },
-     {
+    {
         field: 'booking_end_date',
         headerName: 'Booking End Date',
         width: 150,
@@ -94,38 +99,48 @@ const columns = [
 
 const paginationModel = { page: 0, pageSize: 5 };
 
-const styledHeaders = columns.map( col => ({ ...col, headerClassName: "odd-row"}))
+const styledHeaders = columns.map(col => ({ ...col, headerClassName: "odd-row" }))
 function BookingDetailsTable() {
 
     const [bookingDetails, setBookingDetails] = useState([])
 
-  const fetchDataa = async () => {
-      try{
-          const URL = `${import.meta.env.VITE_APP_BACKEND_URL}/booking/all-bookingdetails`;
-          const fetcdata = await fetch(URL, {
-            method:"GET",
-        
-          })
-          const resdata = await fetcdata.json()
-          console.log(resdata)
-          setBookingDetails(resdata.data)
+    const fetchDataa = async () => {
+        try {
+            const URL = `${import.meta.env.VITE_APP_BACKEND_URL}/booking/all-bookingdetails`;
+            const fetcdata = await fetch(URL, {
+                method: "GET",
 
-      }catch(err) {
-          console.log("error", err)
-      }
-  }
+            })
+            const resdata = await fetcdata.json()
+            console.log(resdata)
+            setBookingDetails(resdata.data)
 
-  useEffect(() => {
-      fetchDataa()
-  },[])
+        } catch (err) {
+            console.log("error", err)
+        }
+    }
 
-  const rows = bookingDetails.map((data) => {
-    return(
-    { id: data.booking_no, lastName: data.last_name, firstName: data.first_name, phone_no: data.phone_no, email: data.email, address: data.address, pet_name: data.pet_name, pet_age: data.pet_age, no_of_pets: data.no_of_pets, booking_type: data.booking_type, booking_start_date: data.booking_start_date, booking_end_date: data.booking_end_date, booking_time: data.booking_time }        
-    )
+    useEffect(() => {
+        fetchDataa()
+    }, [])
 
-  })
-  
+
+    const rows = bookingDetails.map((data) => {
+        return (
+            {
+                id: data.booking_no, 
+                // lastName: data.last_name, firstName: data.first_name, 
+                fullname: `${data.first_name} ${data.last_name}`,
+                phone_no: data.phone_no,
+                email: data.email, address: data.address || "-",
+                pet_boarding: findIsBooking(data.boardingDetails), pet_taxi: findIsBooking(data.taxiDetails),
+                no_of_pets: data?.petDetails?.length || "NA", pet_grooming: findIsBooking(data.groomingDetails),
+                booking_start_date: data.booking_start_date || "-", booking_end_date: data.booking_end_date || "-",
+                booking_time: String(data.createdAt || "-").split("T")[0] || "-"
+            }
+        )
+    })
+
     return (
         <div>
             <Navbar />
@@ -144,14 +159,21 @@ function BookingDetailsTable() {
                         sx={{
                             // border: 0,
                             '& .MuiDataGrid-columnHeader': {
-                                  // Header background color
+                                // Header background color
                                 color: 'white',               // Header text color
                                 backgroundColor: 'black !important',
                                 fontWeight: 'bold',
+                                display: 'flex',
+                                justifyContent: 'center',
+
+
                             },
 
-                            "& .MuiDataGrid-row--borderBottom .MuiDataGrid-filler" : {
+                            "& .MuiDataGrid-row--borderBottom .MuiDataGrid-filler": {
                                 backgroundColor: 'black !important',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                textAlign: 'center'
                             }
                         }}
 

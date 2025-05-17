@@ -62,6 +62,8 @@ export default function BoardingStepper() {
       petDetails: petFormData
 
     }
+
+    
     try {
       const URL = `${import.meta.env.VITE_APP_BACKEND_URL}/booking/bookingdetails`
       const fetchData = await fetch(URL, {

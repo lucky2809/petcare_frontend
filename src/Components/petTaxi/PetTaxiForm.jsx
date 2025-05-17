@@ -392,7 +392,7 @@ function PetTaxiForm() {
                                     <label className='text-md font-semibold w-10 ' htmlFor="">TO</label>
                                 </div>
                                 <div className='w-full'>
-                                    <input value={taxiFormData.from_address} onChange={handletaxiDetailsChange} name="from_address" type="text" className='w-full p-3 outline-0' placeholder='Search Pickup location' />
+                                    <input value={taxiFormData.address} onChange={handletaxiDetailsChange} name="address" type="text" className='w-full p-3 outline-0' placeholder='Search Pickup location' />
                                 </div>
                             </div> */}
                         </div>

@@ -33,7 +33,7 @@ function CustomerInfo() {
                 <TextField id="outlined-basic" value={ownerFormData.email} onChange={handleOwnerDetailsChange} name='email' label="Email" variant="outlined" sx={{ width: "100%" }} />
                 <TextField id="outlined-basic" value={ownerFormData.phone_no} onChange={handleOwnerDetailsChange} name='number' label="Number" type='number' variant="outlined" sx={{ width: "100%" }} />
                 {/* <TextField id="outlined-basic" label="OTP" type='number' variant="outlined" sx={{ width: "100%" }} /> */}
-                <TextField id="outlined-basic" value={boardingFormData.from_address} onChange={handleBoardingDetailsChange} name='from_address' label="Full Address" variant="outlined" sx={{ width: "100%", }} size='medium' />
+                <TextField id="outlined-basic" value={ownerFormData.address} onChange={handleOwnerDetailsChange} name='address' label="Full Address" variant="outlined" sx={{ width: "100%", }} size='medium' />
 
             </AnimatedCard>
         </Fragment>
