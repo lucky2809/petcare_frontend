@@ -4,7 +4,7 @@ import { Icon } from '@iconify/react/dist/iconify.js'
 import { Button } from '@mui/material'
 import { AnimatedCard } from '../StyledComponents/Styled'
 import { useDispatch, useSelector } from 'react-redux'
-import { setBoardingDetails, setPetDetails } from '../../store/petServices/actions'
+import { setBoardingDetails, setOwnerDetails, setPetDetails } from '../../store/petServices/actions'
 
 
 
@@ -20,10 +20,13 @@ function Header() {
 
     const [toggle, setToggle] = useState(false)
     const [select, setSelect] = useState({ pet: "petbording" })
+    const [petselect, setPetSelect] = useState(1)
+
 
     const handleNoOfPets = (length) => {
 
         dispatch(setPetDetails(Array.from({ length }, () => ({ pet_name: '', pet_age: null, pet_breed: null }))))
+        setPetSelect(length)
 
 
     }
@@ -42,7 +45,7 @@ function Header() {
     const handleOwnerDetailsChange = (e) => {
         const { name, value } = e.target
         console.log("{ name, value }", { name, value })
-        dispatch(setBoardingDetails({ ...ownerFormData, ...{ [name]: value } }))
+        dispatch(setOwnerDetails({ ...ownerFormData, ...{ [name]: value } }))
     }
     console.log("ownerFormData", ownerFormData)
 
@@ -66,13 +69,13 @@ function Header() {
                     <div className=' relative gap-4 w-full flex flex-col rounded-lg shadow-lg mt-12 my-6 bg-white opacity-95 py-10 '>
                         <div className=''>
                             <div className='max-sm:w-full rounded-lg flex items-center justify-between gap-4 px-10 pt-5 min-2xl:pt-10 bg-white w-fit max-sm:flex'>
-                                <button onClick={(event) => changedata(event)} name="pet" value={'petbording'} className='px-5 p-2 max-sm:p-3 border-1 rounded-sm bg-white items-center flex gap-2 text-lg min-2xl:text-xl max-sm:text-sm  font-semibold'>
+                                <button onClick={(event) => changedata(event)} name="pet" value={'petbording'} className={`px-5 p-2 max-sm:p-3 border-1 rounded-sm bg-white items-center flex gap-2 text-lg min-2xl:text-xl max-sm:text-sm  font-semibold ${select ? "border-3 border-green-700" : " "}`}>
                                     <input onChange={(event) => changedata(event)} type="radio" name="pet" value={'petbording'} checked={select.pet == "petbording"} className='w-5 h-5 ' />
                                     Pet Boarding</button>
-                                <Link to={"/pettaxi"}><button onClick={(event) => changedata(event)} name="pet" value={'pettaxi'} className='px-5 p-2 max-sm:p-3 border-1 rounded-sm bg-white items-center flex gap-2 text-lg min-2xl:text-xl max-sm:text-sm font-semibold'>
+                                <Link to={"/pettaxi"}><button onClick={(event) => changedata(event)} name="pet" value={'pettaxi'} className={`px-5 p-2 max-sm:p-3 border-1 rounded-sm bg-white items-center flex gap-2 text-lg min-2xl:text-xl max-sm:text-sm font-semibold `}>
                                     <input onChange={(event) => changedata(event)} type="radio" name="pet" value={'pettaxi'} checked={select.pet == "pettaxi"} className='w-5 h-5' />
                                     Pet Taxi</button></Link>
-                                <Link to={"/petgrooming"}><button onClick={(event) => changedata(event)} name="pet" value={'petgrooming'} className='px-5 p-2 max-sm:p-3 border-1 rounded-sm bg-white items-center flex gap-2 text-lg min-2xl:text-xl max-sm:text-sm font-semibold'>
+                                <Link to={"/petgrooming"}><button onClick={(event) => changedata(event)} name="pet" value={'petgrooming'} className={`px-5 p-2 max-sm:p-3 border-1 rounded-sm bg-white items-center flex gap-2 text-lg min-2xl:text-xl max-sm:text-sm font-semibold`}>
                                     <input onChange={(event) => changedata(event)} type="radio" name="pet" value={'petgrooming'} checked={select.pet == "petgrooming"} className='w-5 h-5' />
                                     Pet Grooming</button></Link>
                             </div>
@@ -103,11 +106,11 @@ function Header() {
                                 <div className='w-full flex gap-7 items-center max-sm:flex-col'>
                                     <div className=' w-full flex gap-2'>
 
-                                        <button id='form' className='w-full items-center p-2 max-sm:p-1 min-2xl:py-2 border-1 text-xl hover:bg-sky-100'>1</button>
+                                        <button id='form' onClick={() => handleNoOfPets(1)}  className={`w-full items-center p-2 max-sm:p-1 min-2xl:py-2 border-1 text-xl hover:bg-sky-100 ${petselect === 1 ? "bg-sky-100 border-3 border-green-700" : " "}`}>1</button>
 
-                                        <button onClick={() => handleNoOfPets(2)} className='w-full items-center p-2 max-sm:p-1  min-2xl:py-2 border-1 text-xl hover:bg-sky-100'>2</button>
+                                        <button onClick={() => handleNoOfPets(2)} className={`w-full items-center p-2 max-sm:p-1  min-2xl:py-2 border-1 text-xl hover:bg-sky-100 ${petselect === 2 ? "bg-sky-100 border-3 border-green-600" : " "}`}>2</button>
 
-                                        <button onClick={() => handleNoOfPets(4)} className='w-full items-center p-2 max-sm:p-1 min-2xl:py-2 border-1 text-xl hover:bg-sky-100'>3+</button>
+                                        <button onClick={() => handleNoOfPets(4)} className={`w-full items-center p-2 max-sm:p-1 min-2xl:py-2 border-1 text-xl hover:bg-sky-100 ${petselect === 4 ? "bg-sky-100 border-3 border-green-600" : " "}`}>3+</button>
                                     </div>
 
                                     <div className=' w-full items-center'>
