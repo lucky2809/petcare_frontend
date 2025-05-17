@@ -15,6 +15,7 @@ function Header() {
     const boardingFormData = useSelector((state) => state.PetReducer.boardingDetails)
     const petDetails = useSelector((state) => state.PetReducer.petDetails)
 
+
     const dispatch = useDispatch()
 
     const [toggle, setToggle] = useState(false)
@@ -41,9 +42,18 @@ function Header() {
     const handleOwnerDetailsChange = (e) => {
         const { name, value } = e.target
         console.log("{ name, value }", { name, value })
+        dispatch(setBoardingDetails({ ...ownerFormData, ...{ [name]: value } }))
+    }
+    console.log("ownerFormData", ownerFormData)
+
+    const handleBoardingDetailsChange = (e) => {
+        const { name, value } = e.target
+        console.log("{ name, value }", { name, value })
         dispatch(setBoardingDetails({ ...boardingFormData, ...{ [name]: value } }))
     }
     console.log("boardingFormData", boardingFormData)
+    
+
 
 
     return (
@@ -81,9 +91,9 @@ function Header() {
                                 <div className='w-full flex flex-col min-2xl:flex min-2xl:gap-2'>
                                     <label htmlFor="" className='text-xl font-semibold max-sm:text-lg'>For These Days</label>
                                     <div className='w-full flex items-center gap-3 min-2xl:flex min-2xl:gap-5'>
-                                        <input type="date" className='px-2 min-2xl:px-6 min-2xl:py-2 border border-slate-500 outline-green-400 max-sm:text-sm py-1 hover:bg-sky-100 w-full text-md font-semibold' placeholder="Drop Off" />
+                                        <input value={boardingFormData.start_date} onChange={handleBoardingDetailsChange} name='start_date' type="date" className='px-2 min-2xl:px-6 min-2xl:py-2 border border-slate-500 outline-green-400 max-sm:text-sm py-1 hover:bg-sky-100 w-full text-md font-semibold' placeholder="Drop Off" />
                                         <Icon width={30} className='text-gray-300' icon={"mynaui:arrow-right"} />
-                                        <input type="date" className='px-2 min-2xl:px-6 min-2xl:py-2 border border-slate-500 outline-green-400    max-sm:text-sm py-1 hover:bg-sky-100 w-full text-md font-semibold' placeholder='Pick up' />
+                                        <input value={boardingFormData.end_date} onChange={handleBoardingDetailsChange} name='end_date' type="date" className='px-2 min-2xl:px-6 min-2xl:py-2 border border-slate-500 outline-green-400    max-sm:text-sm py-1 hover:bg-sky-100 w-full text-md font-semibold' placeholder='Pick up' />
                                     </div>
                                 </div>
                             </div>

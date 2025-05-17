@@ -52,6 +52,7 @@ function Navbar() {
                 {/* <button className='p-1.5 px-5 border border-black font-semibold text-[18px]'>Login</button> */}
                 </div>
           </nav>
+
           <nav className='flex justify-between items-center max-sm:hidden'>
             <ul className='flex gap-10 font-semibold text-md p-3 '>
                 <li>Nutrition</li>
@@ -59,8 +60,6 @@ function Navbar() {
                 <li>Parenting</li>
                 <li>Health</li>
                 <li>Wellness</li>
-
-
             </ul>
             <p className='font-semibold text-md text-slate-600'> Proper nutrition is essential to keep your pet healthy and energetic</p>
           </nav>

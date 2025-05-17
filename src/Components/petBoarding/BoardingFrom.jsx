@@ -156,6 +156,7 @@ function BoardingForm() {
     }
     console.log("boardingFormData", boardingFormData)
 
+   
 
     const handleOpen = () => {
         dispatch(handleToggleModal(true))
@@ -171,14 +172,17 @@ function BoardingForm() {
 
                 <div className='First w-full'>
 
-                    <div className='logo flex text-center items-center justify-center p-2 border-1'>
-                        <div>
+                    <div className='logo flex text-center items-center h-fit justify-center mt-6 p-2'>
+                        <div className='flex'>
                         <Button sx={{
-                            mt: 3,
+                            backgroundColor: 'black',
+                            color: 'white',
+                            fontWeight: 'bold' 
+                           
                         }} onClick={() => navigate(-1)}><Icon width={25} icon={"fluent-mdl2:back"} className='text-4xl' /></Button>
                         </div>
-                        <div>
-                        <h1 className="font-semibold text-2xl flex items-center gap-1 ">PET BOARDING </h1>
+                        <div className='w-full flex justify-center'>
+                        <h1 className="font-semibold text-2xl">PET BOARDING </h1>
                         </div>
                     </div>
                     <div className='border-1 m-2 flex flex-col gap-3'>
@@ -234,15 +238,14 @@ function BoardingForm() {
                                     <label className='text-md font-sans w-10 font-semibold' htmlFor="">WHEN</label>
                                 </div>
                                 <div className='w-full'>
-                                    <select onChange={(e) => handlerOption(e)} className='w-full p-3 outline-0' name="" id="">
-                                        <option value="Now">Now</option>
-                                        <option value="Schedule">Schedule</option>
-                                    </select>
+                                    
+                                        {boardingFormData?.start_date ?<select onChange={(e) => handlerOption(e)} className='w-full p-3 outline-0' name="" id=""> <option value="Schedule">Schedule</option></select> :<select onChange={(e) => handlerOption(e)} className='w-full p-3 outline-0' name="" id=""> <option value="Now">Now</option> <option value="Schedule">Schedule</option> </select> }
+                                    
                                 </div>
                             </div>
 
                             {
-                                schedule === "Schedule" ? <div className='date-time flex justify-between px-2 gap-10 items-center bg-slate-100 '>
+                               boardingFormData.start_date || schedule === "Schedule" ? <div className='date-time flex justify-between px-2 gap-10 items-center bg-slate-100 '>
                                     <div className='w-10'>
                                         <label className='text-md font-sans w-10 font-semibold' htmlFor="">DEPART</label>
                                     </div>

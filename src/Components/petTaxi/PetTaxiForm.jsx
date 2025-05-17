@@ -251,27 +251,27 @@ function PetTaxiForm() {
     }
     console.log("ownerFormData", ownerFormData)
 
- const handlePetDetailsChange = (index, e, val, key) => {
-         const updatedPets = [...petForms];
-         const updatedPet = { ...updatedPets[index] }; // ✅ clone the specific object
- 
-         if (key) {
-             updatedPet[key] = val?.label || '';
-         } else {
-             const { name, value } = e.target;
-             updatedPet[name] = value;
-         }
- 
-         updatedPets[index] = updatedPet;
-         dispatch({ type: ADD_PET_DETAILS, payload: updatedPets });
-     };
- 
-     console.log("petFormData", petForms)
-     const handleAddPet = () => {
-         const newPet = { pet_name: '', pet_age: null, pet_type: '', pet_breed: null };
-         dispatch({ type: ADD_PET_DETAILS, payload: [...petForms, newPet] });
-     };
- 
+    const handlePetDetailsChange = (index, e, val, key) => {
+        const updatedPets = [...petForms];
+        const updatedPet = { ...updatedPets[index] }; // ✅ clone the specific object
+
+        if (key) {
+            updatedPet[key] = val?.label || '';
+        } else {
+            const { name, value } = e.target;
+            updatedPet[name] = value;
+        }
+
+        updatedPets[index] = updatedPet;
+        dispatch({ type: ADD_PET_DETAILS, payload: updatedPets });
+    };
+
+    console.log("petFormData", petForms)
+    const handleAddPet = () => {
+        const newPet = { pet_name: '', pet_age: null, pet_type: '', pet_breed: null };
+        dispatch({ type: ADD_PET_DETAILS, payload: [...petForms, newPet] });
+    };
+
 
     const handletaxiDetailsChange = (e) => {
         const { name, value } = e.target
@@ -290,13 +290,23 @@ function PetTaxiForm() {
 
     return (
         <div>
-            <Button onClick={() => navigate(-1)}>Go Back</Button>
+         
             <div className=' border-green-800 w-full flex justify-between'>
 
                 <div className='First w-full'>
 
-                    <div className='logo w-full flex justify-center p-2'>
-                        <h1 className="font-semibold text-2xl flex items-center gap-1 "><Icon width={42} icon={"solar:cat-outline"} className='text-4xl' /> Petpy.in  </h1>
+                    <div className='logo flex text-center items-center h-fit justify-center mt-7 px-2'>
+                        <div className='flex'>
+                            <Button sx={{
+                                backgroundColor: 'black',
+                                color: 'white',
+                                fontWeight: 'bold'
+
+                            }} onClick={() => navigate(-1)}><Icon width={25} icon={"fluent-mdl2:back"} className='text-4xl' /></Button>
+                        </div>
+                        <div className='w-full flex justify-center'>
+                            <h1 className="font-semibold text-2xl flex items-center gap-1 ">PET TAXI </h1>
+                        </div>
                     </div>
                     <div className='border-1 m-2 flex flex-col gap-3'>
                         <div className='px-6 mt-3'>
@@ -380,7 +390,7 @@ function PetTaxiForm() {
                                 />
 
                                 <br />
-                                <Button  variant="contained" color='outlined' onClick={fetchRoute} style={{ marginTop: "1rem" }}>
+                                <Button variant="contained" color='outlined' onClick={fetchRoute} style={{ marginTop: "1rem" }}>
                                     Get Price
                                 </Button>
                                 {distance && <p className='mt-3 font-semibold'>Distance: {distance} KM</p>}
@@ -440,7 +450,7 @@ function PetTaxiForm() {
                             <h1 className='text-xl font-semibold px-2'>Pets Details</h1>
                         </div>
                         <div>
-                        {petForms.map((pet, index) => (
+                            {petForms.map((pet, index) => (
                                 <div key={index} className="px-5 py-3  rounded flex flex-col gap-5">
                                     <div className="flex gap-5 items-center">
                                         <TextField
@@ -510,7 +520,7 @@ function PetTaxiForm() {
                     </div>
 
                     <div className='flex justify-end p-10'>
-                        <Button  variant="contained" color='primary' onClick={handleOpen}>Proceed</Button>
+                        <Button variant="contained" color='primary' onClick={handleOpen}>Proceed</Button>
                     </div>
                     <div>
                         <Modal sx={{ height: screen, display: 'flex', justifyContent: "center", alignItems: 'center', px: 30 }}
@@ -541,7 +551,7 @@ function PetTaxiForm() {
 
                 </div>
 
-                <div className='Second border-1 w-full'>
+                <div className='Second w-full'>
 
                     <MapContainer
                         center={startPos || [20.5937, 78.9629]} // fallback center (India)
