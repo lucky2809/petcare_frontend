@@ -13,7 +13,7 @@ function Header() {
 
     const ownerFormData = useSelector((state) => state.PetReducer.ownerDetails)
     const boardingFormData = useSelector((state) => state.PetReducer.boardingDetails)
-    const petDetails = useSelector((state) => state.PetReducer.petDetails)
+    // const petDetails = useSelector((state) => state.PetReducer.petDetails)
 
 
     const dispatch = useDispatch()

@@ -95,7 +95,7 @@ function PetGrooming() {
                                         </span>
                                         <p className='font-semibold text-[17px]  mt-3' >{item.subHeading}</p>
                                         <p className='price-wrapper flex gap-2  px-5 py-3'>
-                                            <s className='font-bold text-slate-500'>RS{item.orignal_Price}</s>
+                                            <s className='font-bold text-slate-500'>RS {item.orignal_Price}</s>
                                             <span className='price font-bold '>RS {item.final_Price}</span>
                                         </p>
                                         <div className='bg-gradient-to-r from-cyan-400 to-blue-500  w-[60%] h-[3px] mb-2'></div>

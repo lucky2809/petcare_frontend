@@ -1,14 +1,17 @@
-import { ADD_BOARDING_DETAILS, ADD_GROOMING_DETAILS, ADD_OWNER_DETAILS, ADD_PET_DETAILS, ADD_TAXI_DETAILS, REMOVE_PET_DETAIL, SET_ACTIVE_STEP, SET_PET_TYPE, SET_TOGGLE_MODAL } from "./actions"
+import { ADD_BOARDING_DETAILS, ADD_GROOMING_DETAILS, ADD_OWNER_DETAILS, ADD_PET_DETAILS, ADD_PET_MEDITION_DETAILS, ADD_PET_TREATMENT_DETAILS, ADD_PET_VACCINE_DETAILS, ADD_TAXI_DETAILS, REMOVE_PET_DETAIL, REMOVE_PET_MEDITION_DETAIL, REMOVE_PET_VACCINE_DETAIL, SET_ACTIVE_STEP, SET_PET_TYPE, SET_TOGGLE_MODAL } from "./actions"
 
 const initialState = {
     petDetails: [{ pet_name: '', pet_age: null, pet_breed: null }],
+    petMeditionDetails: [{ medication_name: '', description: '', dose_time: '', dosage: '' }],
+    petVaccineDetails: [{ vaccine_name: '', year: null }],
+    treatmentDetails : {spot_on_treatment_desc : "", neuter_or_spray : ""},
     boardingDetails: {},
     taxiDetails: {},
     ownerDetails: {},
-    groomingDetails: { },
+    groomingDetails: {},
     activeStep: 0,
     isOpen: false,
-    pet_type : "cat"
+    pet_type: "cat"
 
 }
 
@@ -19,11 +22,32 @@ const PetReducer = (state = initialState, action) => {
         case ADD_PET_DETAILS:
             return { ...state, ...{ petDetails: action.payload } }
 
+        case ADD_PET_MEDITION_DETAILS:
+            return { ...state, ...{ petMeditionDetails: action.payload } }
+
+        case ADD_PET_VACCINE_DETAILS:
+            return { ...state, ...{ petVaccineDetails: action.payload } }
+        
+        case ADD_PET_TREATMENT_DETAILS: 
+        return { ...state, ...{ treatmentDetails : action.payload}}    
+
         case REMOVE_PET_DETAIL:
             const updatedPetDetails = state.petDetails.filter(
                 (_, i) => i !== action.payload
             );
             return { ...state, petDetails: updatedPetDetails };
+
+        case REMOVE_PET_MEDITION_DETAIL:
+            const updatedPetMeditionDetails = state.petMeditionDetails.filter(
+                (_, i) => i !== action.payload
+            );
+            return { ...state, petMeditionDetails: updatedPetMeditionDetails };
+
+        case REMOVE_PET_VACCINE_DETAIL:
+            const updatedPetVaccineDetails = state.petVaccineDetails.filter(
+                (_, i) => i !== action.payload
+            );
+            return { ...state, petVaccineDetails: updatedPetVaccineDetails };
 
         case ADD_OWNER_DETAILS:
             return { ...state, ...{ ownerDetails: action.payload } }
@@ -39,7 +63,7 @@ const PetReducer = (state = initialState, action) => {
         case ADD_GROOMING_DETAILS:
             return { ...state, ...{ groomingDetails: action.payload } }
         case SET_PET_TYPE:
-            return { ...state, ...{pet_type: action.payload}}    
+            return { ...state, ...{ pet_type: action.payload } }
 
         default:
             return state

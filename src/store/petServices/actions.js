@@ -1,8 +1,13 @@
 export const ADD_PET_DETAILS = "ADD_PET_DETAILS"
+export const ADD_PET_MEDITION_DETAILS = "ADD_PET_MEDITION_DETAILS"
+export const ADD_PET_VACCINE_DETAILS = "ADD_PET_VACCINE_DETAILS"
+export const ADD_PET_TREATMENT_DETAILS = "ADD_PET_TREATMENT_DETAILS"
 export const ADD_OWNER_DETAILS = "ADD_OWNER_DETAILS"
 export const ADD_BOARDING_DETAILS = "ADD_BOARDING_DETAILS"
 export const ADD_TAXI_DETAILS = "ADD_TAXI_DETAILS"
 export const REMOVE_PET_DETAIL = "REMOVE_PET_DETAIL"
+export const REMOVE_PET_MEDITION_DETAIL = "REMOVE_PET_MEDITION_DETAIL"
+export const REMOVE_PET_VACCINE_DETAIL = "REMOVE_PET_VACCINE_DETAIL"
 export const ADD_GROOMING_DETAILS = "ADD_GROOMING_DETAILS"
 export const SET_ACTIVE_STEP = "SET_ACTIVE_STEP"
 export const SET_TOGGLE_MODAL = "SET_TOGGLE_MODAL"
@@ -21,7 +26,24 @@ export const setPetDetails = (payload) => {
         payload
     }
 }
-
+export const setPetMeditionDetails = (payload) => {
+    return {
+        type: ADD_PET_MEDITION_DETAILS,
+        payload
+    }
+}
+export const setPetVaccineDetails = (payload) => {
+    return {
+        type: ADD_PET_VACCINE_DETAILS,
+        payload
+    }
+}
+export const setTreatmentDetails = (payload) => {
+    return {
+        type: ADD_PET_TREATMENT_DETAILS,
+        payload
+    }
+}
 export const setOwnerDetails = (payload) => {
     return {
         type: ADD_OWNER_DETAILS,
@@ -45,6 +67,13 @@ export const setTaxiDetails = (payload) => {
 
 export const handleRemovePet = (index) => {
     return { type: REMOVE_PET_DETAIL, payload: index };
+};
+
+export const handleRemovePetMedition = (index) => {
+    return { type: REMOVE_PET_MEDITION_DETAIL, payload: index };
+};
+export const handleRemovePetVaccine = (index) => {
+    return { type: REMOVE_PET_VACCINE_DETAIL, payload: index };
 };
 
 export const setActiveStepAction = (payload) => {

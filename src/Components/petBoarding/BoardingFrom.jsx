@@ -288,7 +288,7 @@ function BoardingForm() {
                         >
                             <AnimatedCard className='h-[500px] w-full'>
                                 <Box sx={{ height: "500px", width: "100%", bgcolor: "white", outline: 0, display: "flex", }}>
-                                    {activeStep !== 3 && <div className='img-section min-w-[30%] h-full'>
+                                    {activeStep !== 0 && activeStep !== 4 && <div className='img-section min-w-[30%] h-full'>
                                         <img className='h-full w-full object-cover' src="https://t4.ftcdn.net/jpg/02/66/72/41/360_F_266724172_Iy8gdKgMa7XmrhYYxLCxyhx6J7070Pr8.jpg" alt="" />
                                     </div>}
                                     <div className='content  h-full w-full'>

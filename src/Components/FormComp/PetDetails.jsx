@@ -43,12 +43,12 @@ function PetDetails() {
             const { name, value } = e.target;
             updatedPet[name] = value;
         }
-
         updatedPets[index] = updatedPet;
         dispatch({ type: ADD_PET_DETAILS, payload: updatedPets });
     };
 
     console.log("petFormData", petForms)
+
     const handleAddPet = () => {
         if (petForms.length >= 4) {
             toast.error("Pet Limit Reached")

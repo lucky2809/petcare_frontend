@@ -18,6 +18,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleToggleModal, setActiveStepAction } from '../../store/petServices/actions';
 import { toast } from 'react-toastify';
+import PetMedicalDetails from '../FormComp/PetMedicalDetails';
 
 
 export const StepContext = createContext()
@@ -94,6 +95,9 @@ export default function BoardingStepper() {
   }
 
   const generateExtraSteps = (isPetGrooming, isPetTaxi) => {
+    let firststep = [
+      {component: <PetMedicalDetails />}
+    ]
     let steps = [
       {
         // label: 'choose service grooming or taxi',
@@ -134,7 +138,7 @@ export default function BoardingStepper() {
     //   ]
     // }
 
-    return [...steps, ...taxiSteps, ...groomingSteps]
+    return [...firststep, ...steps, ...taxiSteps, ...groomingSteps]
 
   }
 
@@ -142,7 +146,7 @@ export default function BoardingStepper() {
   const maxSteps = steps.length;
 
   return (
-    <Box sx={{ maxWidth: "100%", flexGrow: 1 }}>
+    <Box sx={{ maxWidth: "100%", maxHeight: "500px", flexGrow: 1 }}>
       <Paper
         square
         elevation={0}
