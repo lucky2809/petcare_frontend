@@ -19,6 +19,7 @@ import PetTaxi from './Components/Pages/PetTaxi';
 import 'leaflet/dist/leaflet.css';
 import BookingDetailsTable from './Components/TableComp/BookingDetailsTable';
 import PetMedicalDetails from './Components/FormComp/PetMedicalDetails';
+import CartDrawer from './Components/cart/CartDrawer';
 
 // aPP.JSX
 function App() {
@@ -26,6 +27,7 @@ function App() {
 
   return (
     <>
+      <CartDrawer />
 
       <BrowserRouter>
         <Routes>
@@ -36,7 +38,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/blogcard' element={<BlogCard />} />
           <Route path='/bloges' element={<Bloges />} />
-          <Route path='/about'  />
+          <Route path='/about' />
           <Route path='/accessories' />
           <Route path='/petdetails' element={<PetDetails />} />
           <Route path='/petfinding' element={<PetFinding />} />

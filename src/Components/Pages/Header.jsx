@@ -4,7 +4,7 @@ import { Icon } from '@iconify/react/dist/iconify.js'
 import { Button } from '@mui/material'
 import { AnimatedCard } from '../StyledComponents/Styled'
 import { useDispatch, useSelector } from 'react-redux'
-import { setBoardingDetails, setOwnerDetails, setPetDetails } from '../../store/petServices/actions'
+import { setBoardingDetails, setBookPriceAction, setOwnerDetails, setPetDetails } from '../../store/petServices/actions'
 
 
 
@@ -155,7 +155,7 @@ function Header() {
                             </div>
                             <div className='flex justify-center items-center'>
                                 <Link to={"petboarding"}>
-                                    <button className='px-2 flex gap-5 max-sm:gap-2 items-center p-1 text-lg max-sm:text-sm font-semibold rounded-lg bg-green-700 text-white hover:bg-green-950'>
+                                    <button onClick={() => dispatch(setBookPriceAction(750))} className='px-2 flex gap-5 max-sm:gap-2 items-center p-1 text-lg max-sm:text-sm font-semibold rounded-lg bg-green-700 text-white hover:bg-green-950'>
                                         <div className='flex items-center'><Icon width={20} className='text-white ' icon={"mdi:rupee"} />750/-</div>
                                         <div><Icon width={20} className='text-white' icon={"mingcute:arrow-right-fill"} /></div>
                                     </button>
@@ -173,7 +173,7 @@ function Header() {
                             </div>
                             <div className='flex justify-center items-center'>
                                 <Link to={"petboarding"}>
-                                    <button type='primary' className='px-2 flex gap-5 max-sm:gap-2 items-center p-1 text-lg max-sm:text-sm font-semibold rounded-lg bg-green-700 text-white hover:bg-green-950'>
+                                    <button onClick={() => dispatch(setBookPriceAction(550))} type='primary' className='px-2 flex gap-5 max-sm:gap-2 items-center p-1 text-lg max-sm:text-sm font-semibold rounded-lg bg-green-700 text-white hover:bg-green-950'>
                                         <div className='flex items-center'><Icon width={20} className='text-white' icon={"mdi:rupee"} />550/-</div>
                                         <div><Icon width={20} className='text-white' icon={"mingcute:arrow-right-fill"} /></div>
                                     </button>

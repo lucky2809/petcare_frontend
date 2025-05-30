@@ -44,7 +44,7 @@ function PetGrooming() {
     const handleOpen = (service, price) => {
         dispatch(setActiveStepAction(0))
         dispatch(handleToggleModal(true))
-        dispatch(setGroomingDetails({ ...groomingData, ...{ service, price} }))
+        dispatch(setGroomingDetails([{ service, price }]))
 
     };
     const handleClose = () => {

@@ -1,14 +1,15 @@
-import { ADD_BOARDING_DETAILS, ADD_GROOMING_DETAILS, ADD_OWNER_DETAILS, ADD_PET_DETAILS, ADD_PET_MEDITION_DETAILS, ADD_PET_TREATMENT_DETAILS, ADD_PET_VACCINE_DETAILS, ADD_TAXI_DETAILS, REMOVE_PET_DETAIL, REMOVE_PET_MEDITION_DETAIL, REMOVE_PET_VACCINE_DETAIL, SET_ACTIVE_STEP, SET_PET_TYPE, SET_TOGGLE_MODAL } from "./actions"
+import { ADD_BOARDING_DETAILS, ADD_GROOMING_DETAILS, ADD_OWNER_DETAILS, ADD_PET_DETAILS, ADD_PET_MEDITION_DETAILS, ADD_PET_TREATMENT_DETAILS, ADD_PET_VACCINE_DETAILS, ADD_TAXI_DETAILS, REMOVE_PET_DETAIL, REMOVE_PET_MEDITION_DETAIL, REMOVE_PET_VACCINE_DETAIL, SET_ACTIVE_STEP, SET_BOOK_PRICE, SET_PET_TYPE, SET_TOGGLE_MODAL } from "./actions"
 
 const initialState = {
+    bookPrice: 0,
     petDetails: [{ pet_name: '', pet_age: null, pet_breed: null }],
     petMeditionDetails: [{ medication_name: '', description: '', dose_time: '', dosage: '' }],
     petVaccineDetails: [{ vaccine_name: '', year: null }],
-    treatmentDetails : {spot_on_treatment_desc : "", neuter_or_spray : ""},
+    treatmentDetails: { spot_on_treatment_desc: "", neuter_or_spray: "" },
     boardingDetails: {},
     taxiDetails: {},
     ownerDetails: {},
-    groomingDetails: {},
+    groomingDetails: [],
     activeStep: 0,
     isOpen: false,
     pet_type: "cat"
@@ -19,6 +20,9 @@ const PetReducer = (state = initialState, action) => {
 
     switch (action.type) {
 
+        case SET_BOOK_PRICE:
+            return { ...state, ...{ bookPrice: action.payload } }
+
         case ADD_PET_DETAILS:
             return { ...state, ...{ petDetails: action.payload } }
 
@@ -27,9 +31,9 @@ const PetReducer = (state = initialState, action) => {
 
         case ADD_PET_VACCINE_DETAILS:
             return { ...state, ...{ petVaccineDetails: action.payload } }
-        
-        case ADD_PET_TREATMENT_DETAILS: 
-        return { ...state, ...{ treatmentDetails : action.payload}}    
+
+        case ADD_PET_TREATMENT_DETAILS:
+            return { ...state, ...{ treatmentDetails: action.payload } }
 
         case REMOVE_PET_DETAIL:
             const updatedPetDetails = state.petDetails.filter(

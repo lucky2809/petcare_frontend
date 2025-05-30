@@ -1,8 +1,13 @@
 import { Icon } from '@iconify/react/dist/iconify.js'
 import { Checkbox } from '@mui/material'
 import React, { useState } from 'react'
+import { setGroomingDetails } from '../../store/petServices/actions'
+import { useDispatch, useSelector } from 'react-redux'
 
 function ServiceCard({ index, item_data, handleNext }) {
+    const dispatch = useDispatch()
+    const groomingData = useSelector((state) => state.PetReducer.groomingDetails)
+
     const [hoverEffectCat, setHoverEffectCat] = useState(false)
     const [isChecked, setIsChecked] = useState(false)
 
@@ -16,7 +21,9 @@ function ServiceCard({ index, item_data, handleNext }) {
 
     }
 
-    const handleSelectNormal = (e) => {
+    const handleSelectNormal = (e, data) => {
+        dispatch(setGroomingDetails([...groomingData, { service: data.heading, price: data.price }]))
+
         setIsChecked(e.target.checked)
 
     }
@@ -32,7 +39,7 @@ function ServiceCard({ index, item_data, handleNext }) {
                 <p className='text-[15px] font-semibold text-yellow-700'><span className='text-sl'>RS</span> {item_data.price}</p>
             </div>
             <p className='text-[12px] font-semibold text-slate-500'>
-                <Checkbox onChange={handleSelectNormal} aria-label='Checkbox demo' sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }} checked={isChecked} /></p>
+                <Checkbox onChange={(e) => handleSelectNormal(e, item_data)} aria-label='Checkbox demo' sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }} checked={isChecked} /></p>
         </div>
     )
 }

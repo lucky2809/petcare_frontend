@@ -6,8 +6,8 @@ import { AnimatedCard } from '../StyledComponents/Styled';
 import MYStepper from '../PetGroomingSteperComp/Stepper';
 import BoardingStepper from './BoardingStepper.';
 import { useDispatch, useSelector } from 'react-redux';
-import { ADD_PET_DETAILS, handleRemovePet, handleToggleModal, setActiveStepAction, setBoardingDetails, setOwnerDetails, setPetDetails } from '../../store/petServices/actions';
-import { useNavigate } from 'react-router-dom';
+import { ADD_PET_DETAILS, handleRemovePet, handleToggleModal, setActiveStepAction, setBoardingDetails, setBookPriceAction, setOwnerDetails, setPetDetails } from '../../store/petServices/actions';
+import { Link, useNavigate } from 'react-router-dom';
 import 'leaflet/dist/leaflet.css';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import {
@@ -274,6 +274,45 @@ function BoardingForm() {
                         </div>
                         <PetDetails />
                     </div>
+
+                    <div className='px-35 max-sm:px-2 max-lg:px-10 flex max-sm:flex-col py-10 gap-10 max-sm:gap-5'>
+                                            <div className=' flex justify-between gap-3 p-5 w-full bg-white rounded-lg shadow-lg'>
+                    
+                                                <div className='flex justify-center items-center gap-4'>
+                                                    <div className='dogfood h-15 w-15 max-sm:h-12 max-sm:w-12 flex justify-center items-center'>
+                                                        <img src={`${import.meta.env.BASE_URL}WhatsApp Image 2025-04-02 at 13.04.24_6a24cd23.jpg`} ></img>
+                    
+                                                    </div>
+                                                    <p className=' flex justify-center text-center text-lg max-sm:text-sm font-semibold'>Price With Suplies</p>
+                                                </div>
+                                                <div className='flex justify-center items-center'>
+                                                    <Link to={"petboarding"}>
+                                                        <button onClick={() => dispatch(setBookPriceAction(750))} className='px-2 flex gap-5 max-sm:gap-2 items-center p-1 text-lg max-sm:text-sm font-semibold rounded-lg bg-green-700 text-white hover:bg-green-950'>
+                                                            <div className='flex items-center'><Icon width={20} className='text-white ' icon={"mdi:rupee"} />750/-</div>
+                                                            <div><Icon width={20} className='text-white' icon={"mingcute:arrow-right-fill"} /></div>
+                                                        </button>
+                                                    </Link>
+                                                </div>
+                                            </div>
+                    
+                                            <div className=' flex justify-between p-5 w-full bg-white rounded-lg shadow-lg'>
+                    
+                                                <div className='flex justify-center items-center gap-4'>
+                                                    <div className='dognofood h-15 w-15 max-sm:h-12 max-sm:w-12 flex justify-center items-center'>
+                                                        <img src={`${import.meta.env.BASE_URL}WhatsApp Image 2025-04-02 at 13.04.17_bf760103.jpg`} ></img>
+                                                    </div>
+                                                    <p className=' flex justify-center text-center text-lg max-sm:text-sm font-semibold'>Price Without Suplies</p>
+                                                </div>
+                                                <div className='flex justify-center items-center'>
+                                                    <Link to={"petboarding"}>
+                                                        <button onClick={() => dispatch(setBookPriceAction(550))} type='primary' className='px-2 flex gap-5 max-sm:gap-2 items-center p-1 text-lg max-sm:text-sm font-semibold rounded-lg bg-green-700 text-white hover:bg-green-950'>
+                                                            <div className='flex items-center'><Icon width={20} className='text-white' icon={"mdi:rupee"} />550/-</div>
+                                                            <div><Icon width={20} className='text-white' icon={"mingcute:arrow-right-fill"} /></div>
+                                                        </button>
+                                                    </Link>
+                                                </div>
+                                            </div>
+                                        </div>
 
                     <div className='flex justify-end p-10'>
 

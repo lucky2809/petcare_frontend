@@ -12,6 +12,14 @@ export const ADD_GROOMING_DETAILS = "ADD_GROOMING_DETAILS"
 export const SET_ACTIVE_STEP = "SET_ACTIVE_STEP"
 export const SET_TOGGLE_MODAL = "SET_TOGGLE_MODAL"
 export const SET_PET_TYPE = "SET_PET_TYPE"
+export const SET_BOOK_PRICE = "SET_BOOK_PRICE"
+
+export const setBookPriceAction = (payload) => {
+    return {
+        type: SET_BOOK_PRICE,
+        payload
+    }
+}
 
 export const setPetType = (payload) => {
     return {

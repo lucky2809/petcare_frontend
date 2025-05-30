@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { handleToggleModal, setActiveStepAction } from '../../store/petServices/actions';
 import { toast } from 'react-toastify';
 import PetMedicalDetails from '../FormComp/PetMedicalDetails';
+import { addBooking, toggleCart } from '../../store/slices/cartSlice';
 
 
 export const StepContext = createContext()
@@ -28,6 +29,9 @@ export default function BoardingStepper() {
   const petFormData = useSelector((state) => state.PetReducer.petDetails)
   const boardingFormData = useSelector((state) => state.PetReducer.boardingDetails)
   const activeStep = useSelector((state) => state.PetReducer.activeStep)
+  const groomingData = useSelector((state) => state.PetReducer.groomingDetails)
+  const BoadingPrice = useSelector((state) => state.PetReducer.bookPrice)
+
 
 
   const dispatch = useDispatch()
@@ -55,30 +59,35 @@ export default function BoardingStepper() {
     isPetGrooming, isPetTaxi, setIsPetGrooming, setIsPetTaxi     // props ko object me bej skte hai 
   }
 
-  const addBooking = async () => {
+  const handleAdd = () => {
+    const payload = generateCartPayload()
+    if (!payload) {
+      toast.error("booking data is not found")
+      return
+    }
+    dispatch(
+      addBooking(payload)
+    );
+    dispatch(toggleCart());
+  };
 
-    const payload = {
-      ...ownerFormData,
-      boardingDetails: boardingFormData,
-      petDetails: petFormData
-
+  const generateCartPayload = () => {
+    let petName = ""
+    let boarding = BoadingPrice ?? 0
+    let grooming = groomingData.map(p => p.price).reduce((sum, val) => sum + val, 0) ?? 0
+    let taxi = 0
+    if (petFormData[0]?.pet_name) {
+      petName = `${petFormData[0]?.pet_name} and Friends Booking`
+    } else {
+      toast.error("no pet name found")
+      return
     }
 
-    
-    try {
-      const URL = `${import.meta.env.VITE_APP_BACKEND_URL}/booking/bookingdetails`
-      const fetchData = await fetch(URL, {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      })
-      const resp = await fetchData.json()
-      alert(JSON.stringify(resp))
-    } catch (err) {
-      console.log("Incorect Details", err)
-    }
-    console.log(payload)
+    return { petName, boarding, grooming, taxi }
+
+
   }
+
 
   const handleSubmit = async () => {
     // close modal & default step 0 on modal open
@@ -88,15 +97,16 @@ export default function BoardingStepper() {
     if (isPetTaxi) {
       navigate("/pettaxi")
     } else {
-      toast.success("Service booked sucessfully")
-      
-      await addBooking()
+      handleAdd()
+      toast.success("Booking added sucessfully")
+
+
     }
   }
 
   const generateExtraSteps = (isPetGrooming, isPetTaxi) => {
     let firststep = [
-      {component: <PetMedicalDetails />}
+      { component: <PetMedicalDetails /> }
     ]
     let steps = [
       {
