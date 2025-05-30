@@ -1,6 +1,7 @@
-import { ADD_BOARDING_DETAILS, ADD_GROOMING_DETAILS, ADD_OWNER_DETAILS, ADD_PET_DETAILS, ADD_PET_MEDITION_DETAILS, ADD_PET_TREATMENT_DETAILS, ADD_PET_VACCINE_DETAILS, ADD_TAXI_DETAILS, REMOVE_PET_DETAIL, REMOVE_PET_MEDITION_DETAIL, REMOVE_PET_VACCINE_DETAIL, SET_ACTIVE_STEP, SET_BOOK_PRICE, SET_PET_TYPE, SET_TOGGLE_MODAL } from "./actions"
+import { ADD_BOARDING_DETAILS, ADD_CART_ID, ADD_GROOMING_DETAILS, ADD_OWNER_DETAILS, ADD_PET_DETAILS, ADD_PET_MEDITION_DETAILS, ADD_PET_TREATMENT_DETAILS, ADD_PET_VACCINE_DETAILS, ADD_TAXI_DETAILS, REMOVE_PET_DETAIL, REMOVE_PET_MEDITION_DETAIL, REMOVE_PET_VACCINE_DETAIL, RESET_PET_STATE, SET_ACTIVE_STEP, SET_BOOK_PRICE, SET_PET_TYPE, SET_TOGGLE_MODAL } from "./actions"
 
 const initialState = {
+    cart_id: null,
     bookPrice: 0,
     petDetails: [{ pet_name: '', pet_age: null, pet_breed: null }],
     petMeditionDetails: [{ medication_name: '', description: '', dose_time: '', dosage: '' }],
@@ -22,6 +23,10 @@ const PetReducer = (state = initialState, action) => {
 
         case SET_BOOK_PRICE:
             return { ...state, ...{ bookPrice: action.payload } }
+
+        case ADD_CART_ID:
+
+            return { ...state, ...{ cart_id: action.payload } }
 
         case ADD_PET_DETAILS:
             return { ...state, ...{ petDetails: action.payload } }
@@ -68,6 +73,10 @@ const PetReducer = (state = initialState, action) => {
             return { ...state, ...{ groomingDetails: action.payload } }
         case SET_PET_TYPE:
             return { ...state, ...{ pet_type: action.payload } }
+
+        // Reset to initialState
+        case RESET_PET_STATE:
+            return initialState;
 
         default:
             return state

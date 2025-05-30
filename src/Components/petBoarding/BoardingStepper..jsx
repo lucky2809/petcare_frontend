@@ -16,10 +16,11 @@ import CustomerInfo from '../PetGroomingSteperComp/CustomerInfo';
 import PetTaxiCard from '../petTaxi/PetTaxiCard';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { handleToggleModal, setActiveStepAction } from '../../store/petServices/actions';
+import { ADD_CART_ID, handleToggleModal, setActiveStepAction } from '../../store/petServices/actions';
 import { toast } from 'react-toastify';
 import PetMedicalDetails from '../FormComp/PetMedicalDetails';
 import { addBooking, toggleCart } from '../../store/slices/cartSlice';
+import { nanoid } from '@reduxjs/toolkit';
 
 
 export const StepContext = createContext()
@@ -65,9 +66,12 @@ export default function BoardingStepper() {
       toast.error("booking data is not found")
       return
     }
+    const cart_id = nanoid()
     dispatch(
-      addBooking(payload)
+      addBooking({ ...payload, cart_id })
     );
+    dispatch({ type: ADD_CART_ID, payload: cart_id });
+    navigate("/")
     dispatch(toggleCart());
   };
 
@@ -82,6 +86,7 @@ export default function BoardingStepper() {
       toast.error("no pet name found")
       return
     }
+
 
     return { petName, boarding, grooming, taxi }
 
