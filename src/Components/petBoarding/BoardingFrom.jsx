@@ -68,6 +68,8 @@ function BoardingForm() {
     const boardingFormData = useSelector((state) => state.PetReducer.boardingDetails)
     const activeStep = useSelector((state) => state.PetReducer.activeStep)
     const open = useSelector((state) => state.PetReducer.isOpen)
+    const BoadingPrice = useSelector((state) => state.PetReducer.bookPrice)
+
     const dispatch = useDispatch()
     const navigate = useNavigate()
     // const [open, setOpen] = useState(false);
@@ -156,14 +158,20 @@ function BoardingForm() {
     }
     console.log("boardingFormData", boardingFormData)
 
-   
+
 
     const handleOpen = () => {
         dispatch(handleToggleModal(true))
     };
     const handleClose = () => {
         dispatch(handleToggleModal(false))
+        dispatch(setBookPriceAction(0))
     };
+
+    const handleBooking = (price) => {
+        dispatch(setBookPriceAction(price))
+        handleOpen()
+    }
 
     return (
         <div>
@@ -174,15 +182,15 @@ function BoardingForm() {
 
                     <div className='logo flex text-center items-center h-fit justify-center mt-6 p-2'>
                         <div className='flex'>
-                        <Button sx={{
-                            backgroundColor: 'black',
-                            color: 'white',
-                            fontWeight: 'bold' 
-                           
-                        }} onClick={() => navigate(-1)}><Icon width={25} icon={"fluent-mdl2:back"} className='text-4xl' /></Button>
+                            <Button sx={{
+                                backgroundColor: 'black',
+                                color: 'white',
+                                fontWeight: 'bold'
+
+                            }} onClick={() => navigate(-1)}><Icon width={25} icon={"fluent-mdl2:back"} className='text-4xl' /></Button>
                         </div>
                         <div className='w-full flex justify-center'>
-                        <h1 className="font-semibold text-2xl">PET BOARDING </h1>
+                            <h1 className="font-semibold text-2xl">PET BOARDING </h1>
                         </div>
                     </div>
                     <div className='border-1 m-2 flex flex-col gap-3'>
@@ -227,7 +235,7 @@ function BoardingForm() {
                                     <label className='text-md font-semibold w-20 ' htmlFor="">ADDRESS</label>
                                 </div>
                                 <div className='w-full'>
-                                    <input value={ownerFormData.address} onChange={handleOwnerDetailsChange} name="address" type="text" className='w-full p-3 outline-0' placeholder='Search Pickup location' />
+                                    <input value={ownerFormData.address} onChange={handleOwnerDetailsChange} name="address" type="text" className='w-full p-3 outline-0' placeholder='Drop Your Location' />
                                 </div>
                             </div>
                         </div>
@@ -238,14 +246,14 @@ function BoardingForm() {
                                     <label className='text-md font-sans w-10 font-semibold' htmlFor="">WHEN</label>
                                 </div>
                                 <div className='w-full'>
-                                    
-                                        {boardingFormData?.start_date ?<select onChange={(e) => handlerOption(e)} className='w-full p-3 outline-0' name="" id=""> <option value="Schedule">Schedule</option></select> :<select onChange={(e) => handlerOption(e)} className='w-full p-3 outline-0' name="" id=""> <option value="Now">Now</option> <option value="Schedule">Schedule</option> </select> }
-                                    
+
+                                    {boardingFormData?.start_date ? <select onChange={(e) => handlerOption(e)} className='w-full p-3 outline-0' name="" id=""> <option value="Schedule">Schedule</option></select> : <select onChange={(e) => handlerOption(e)} className='w-full p-3 outline-0' name="" id=""> <option value="Now">Now</option> <option value="Schedule">Schedule</option> </select>}
+
                                 </div>
                             </div>
 
                             {
-                               boardingFormData.start_date || schedule === "Schedule" ? <div className='date-time flex justify-between px-2 gap-10 items-center bg-slate-100 '>
+                                boardingFormData.start_date || schedule === "Schedule" ? <div className='date-time flex justify-between px-2 gap-10 items-center bg-slate-100 '>
                                     <div className='w-10'>
                                         <label className='text-md font-sans w-10 font-semibold' htmlFor="">DEPART</label>
                                     </div>
@@ -274,50 +282,56 @@ function BoardingForm() {
                         </div>
                         <PetDetails />
                     </div>
+                    {BoadingPrice === 0 ?
+                        <div className='px-5 max-sm:px-2 max-lg:px-10 flex flex-col max-sm:flex-col py-10 gap-7 max-sm:gap-5'>
+                            <div className=' flex justify-between gap-3 p-5 w-full bg-white rounded-lg shadow-md'>
 
-                    <div className='px-35 max-sm:px-2 max-lg:px-10 flex max-sm:flex-col py-10 gap-10 max-sm:gap-5'>
-                                            <div className=' flex justify-between gap-3 p-5 w-full bg-white rounded-lg shadow-lg'>
-                    
-                                                <div className='flex justify-center items-center gap-4'>
-                                                    <div className='dogfood h-15 w-15 max-sm:h-12 max-sm:w-12 flex justify-center items-center'>
-                                                        <img src={`${import.meta.env.BASE_URL}WhatsApp Image 2025-04-02 at 13.04.24_6a24cd23.jpg`} ></img>
-                    
-                                                    </div>
-                                                    <p className=' flex justify-center text-center text-lg max-sm:text-sm font-semibold'>Price With Suplies</p>
-                                                </div>
-                                                <div className='flex justify-center items-center'>
-                                                    <Link to={"petboarding"}>
-                                                        <button onClick={() => dispatch(setBookPriceAction(750))} className='px-2 flex gap-5 max-sm:gap-2 items-center p-1 text-lg max-sm:text-sm font-semibold rounded-lg bg-green-700 text-white hover:bg-green-950'>
-                                                            <div className='flex items-center'><Icon width={20} className='text-white ' icon={"mdi:rupee"} />750/-</div>
-                                                            <div><Icon width={20} className='text-white' icon={"mingcute:arrow-right-fill"} /></div>
-                                                        </button>
-                                                    </Link>
-                                                </div>
-                                            </div>
-                    
-                                            <div className=' flex justify-between p-5 w-full bg-white rounded-lg shadow-lg'>
-                    
-                                                <div className='flex justify-center items-center gap-4'>
-                                                    <div className='dognofood h-15 w-15 max-sm:h-12 max-sm:w-12 flex justify-center items-center'>
-                                                        <img src={`${import.meta.env.BASE_URL}WhatsApp Image 2025-04-02 at 13.04.17_bf760103.jpg`} ></img>
-                                                    </div>
-                                                    <p className=' flex justify-center text-center text-lg max-sm:text-sm font-semibold'>Price Without Suplies</p>
-                                                </div>
-                                                <div className='flex justify-center items-center'>
-                                                    <Link to={"petboarding"}>
-                                                        <button onClick={() => dispatch(setBookPriceAction(550))} type='primary' className='px-2 flex gap-5 max-sm:gap-2 items-center p-1 text-lg max-sm:text-sm font-semibold rounded-lg bg-green-700 text-white hover:bg-green-950'>
-                                                            <div className='flex items-center'><Icon width={20} className='text-white' icon={"mdi:rupee"} />550/-</div>
-                                                            <div><Icon width={20} className='text-white' icon={"mingcute:arrow-right-fill"} /></div>
-                                                        </button>
-                                                    </Link>
-                                                </div>
-                                            </div>
-                                        </div>
+                                <div className='flex justify-center items-center gap-4'>
+                                    <div className='dogfood h-15 w-15 max-sm:h-12 max-sm:w-12 flex justify-center items-center'>
+                                        <img src={`${import.meta.env.BASE_URL}WhatsApp Image 2025-04-02 at 13.04.24_6a24cd23.jpg`} ></img>
 
-                    <div className='flex justify-end p-10'>
+                                    </div>
+                                    <p className=' flex justify-center text-center text-lg max-sm:text-sm font-semibold'>Price With Suplies</p>
+                                </div>
+                                <div className='flex justify-center items-center'>
+                                    
+                                        <button onClick={() => handleBooking(750)} className='px-2 flex gap-5 max-sm:gap-2 items-center p-1 text-lg max-sm:text-sm font-semibold rounded-lg bg-green-700 text-white hover:bg-green-950'>
+                                            <div className='flex items-center'><Icon width={20} className='text-white ' icon={"mdi:rupee"} />750/-</div>
+                                            <div><Icon width={20} className='text-white' icon={"mingcute:arrow-right-fill"} /></div>
+                                        </button>
+                                    
+                                </div>
+                            </div>
 
-                        <Button onClick={handleOpen} variant="contained" color="primary">Proceed</Button>
-                    </div>
+                            <div className=' flex justify-between p-5 w-full bg-white rounded-lg shadow-md'>
+
+                                <div className='flex justify-center items-center gap-4'>
+                                    <div className='dognofood h-15 w-15 max-sm:h-12 max-sm:w-12 flex justify-center items-center'>
+                                        <img src={`${import.meta.env.BASE_URL}WhatsApp Image 2025-04-02 at 13.04.17_bf760103.jpg`} ></img>
+                                    </div>
+                                    <p className=' flex justify-center text-center text-lg max-sm:text-sm font-semibold'>Price Without Suplies</p>
+                                </div>
+                                <div className='flex justify-center items-center'>
+                                    
+                                        <button onClick={() => handleBooking(550)} type='primary' className='px-2 flex gap-5 max-sm:gap-2 items-center p-1 text-lg max-sm:text-sm font-semibold rounded-lg bg-green-700 text-white hover:bg-green-950'>
+                                            <div className='flex items-center'><Icon width={20} className='text-white' icon={"mdi:rupee"} />550/-</div>
+                                            <div><Icon width={20} className='text-white' icon={"mingcute:arrow-right-fill"} /></div>
+                                        </button>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        : <div className='flex justify-end p-10'>
+
+                            <Button onClick={handleOpen} variant="contained" sx={{
+                                backgroundColor: "#388E3C",
+                                borderRadius: "9px",
+                                ":hover": {
+                                    backgroundColor: "#032e15"
+                                }
+                            }}>Proceed</Button>
+                        </div>
+                    }
                     <div>
                         <Modal sx={{ height: screen, display: 'flex', justifyContent: "center", alignItems: 'center', px: 30 }}
                             open={open}

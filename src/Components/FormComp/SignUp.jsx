@@ -42,7 +42,14 @@ console.log(formData)
             </div>
             <div className=' form  w-[60%]    py-5 px-16 max-sm:px-5 max-sm:py-0 max-sm:w-full '>
                 <div className='w-full font-semibold flex justify-between items-center'>
-                    <span className='text-2xl'>Petpy.in</span>
+                    <span className='text-2xl'>
+                            <div className='flex gap-2 items-center w-100'>
+                                <p className="h-15 w-15 "><img className='h-full w-full object-cover' src={`${import.meta.env.BASE_URL}logo.png`} alt="" /> </p>
+                                <div className='leading-none'>
+                                    <p className='text-sm font-bold w-25'>TOE BEANS APARTMENT</p>
+                                </div>
+                            </div>
+                        </span>
                     <span className=''>If you have an account <Link to={"/signin"} style={{color : "blue"}}>Sign in</Link></span>
 
                 </div>

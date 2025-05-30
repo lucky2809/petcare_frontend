@@ -174,7 +174,13 @@ function PetDetails() {
                         startIcon={<ControlPointIcon />
                         }
                         variant="contained"
-                        color="primary"
+                        sx={{
+                            backgroundColor: "#388E3C",
+                            borderRadius: "9px",
+                            ":hover":{
+                                backgroundColor: "#032e15"
+                            }
+                        }}
                         onClick={handleAddPet}
                         className=""
                     >

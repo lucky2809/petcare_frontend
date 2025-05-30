@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 function SignIn() {
     const [isHideShow, setIsHideShow] = useState(false)
@@ -28,6 +29,7 @@ function SignIn() {
                 alert(JSON.stringify(data.massage))
                 navigate("/")
             } else {
+                toast.warn("Please Fill Details First")
                 console.log("somthing went wrong ..!")
             }
         } catch (err) {
@@ -94,11 +96,11 @@ function SignIn() {
                                 </div>
                             </div>
                         </span>
-                        <span className=''>If you don't have an account <Link to={"/"} style={{ color: "blue" }}>sign up</Link></span>
+                        <span className=''>If you don't have an account <Link to={"/signup"} style={{ color: "blue" }}>sign up</Link></span>
 
                     </div>
                     <form className='sign-in flex flex-col justify-center items-center gap-2 h-[100%]  '>
-                        <h1 className='heading text-4xl font-bold text-black w-96 max-sm:w-full'>Sign in to Petpy.<span className='text-green-400'>in</span> </h1>
+                        <h1 className='heading text-3xl font-bold text-black w-96 text-center max-sm:w-full'>Sign in to <br/><span className='text-green-700'> TOE BEANS APARTMENT </span></h1>
 
                         <label className='flex flex-col  gap-1 w-96 mt-10 max-sm:w-full'>
                             <label for="text" className=' font-semibold text-[18px]' >Gmail or UserName</label>
@@ -113,7 +115,7 @@ function SignIn() {
                             <Link to={"/forgetpassword"} >Forgot Password</Link>
                         </p>
                         <div className='btn w-96  max-sm:w-full rounded-md border-green-600'>
-                            {/* <Link to={"/home"} className='rounded-md'> */}
+                            {/* <Link to={""} className='rounded-md'> */}
                             <button onClick={signInHandler}
                                 className='hover:bg-black bg-green-600 w-full py-2 text-white text-base rounded-md '>Sign in </button>
                             {/* </Link> */}
