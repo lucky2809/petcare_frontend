@@ -13,7 +13,8 @@ export const SET_ACTIVE_STEP = "SET_ACTIVE_STEP"
 export const SET_TOGGLE_MODAL = "SET_TOGGLE_MODAL"
 export const SET_PET_TYPE = "SET_PET_TYPE"
 export const SET_BOOK_PRICE = "SET_BOOK_PRICE"
-
+export const RESET_PET_STATE ="RESET_PET_STATE"
+export const ADD_CART_ID = "ADD_CART_ID"
 export const setBookPriceAction = (payload) => {
     return {
         type: SET_BOOK_PRICE,
@@ -101,6 +102,13 @@ export const handleToggleModal = (payload) => {
 export const setGroomingDetails = (payload) => {
     return {
         type: ADD_GROOMING_DETAILS,
+        payload
+    }
+}
+
+export const resetWholeBooking = (payload) => {
+    return {
+        type: RESET_PET_STATE,
         payload
     }
 }

@@ -19,7 +19,7 @@ const cartSlice = createSlice({
       },
       prepare: (booking) => ({
         payload: {
-          id: nanoid(),
+        //   cart_id: nanoid(),
           petName: booking.petName,
           boarding: booking.boarding,
           grooming: { enabled: true, price: booking.grooming },
@@ -28,19 +28,19 @@ const cartSlice = createSlice({
       }),
     },
     toggleGrooming: (state, action) => {
-      const booking = state.bookings.find(b => b.id === action.payload);
+      const booking = state.bookings.find(b => b.cart_id === action.payload);
       if (booking) {
         booking.grooming.enabled = !booking.grooming.enabled;
       }
     },
     toggleTaxi: (state, action) => {
-      const booking = state.bookings.find(b => b.id === action.payload);
+      const booking = state.bookings.find(b => b.cart_id === action.payload);
       if (booking) {
         booking.taxi.enabled = !booking.taxi.enabled;
       }
     },
     removeBooking: (state, action) => {
-      state.bookings = state.bookings.filter(b => b.id !== action.payload);
+      state.bookings = state.bookings.filter(b => b.cart_id !== action.payload);
     },
     clearBookings: (state) => {
       state.bookings = [];
