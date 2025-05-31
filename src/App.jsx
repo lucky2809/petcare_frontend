@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './App.css'
 import Navbar from './Components/NavComp/Navbar'
 import Home from './Components/Pages/Home'
@@ -20,13 +19,19 @@ import 'leaflet/dist/leaflet.css';
 import BookingDetailsTable from './Components/TableComp/BookingDetailsTable';
 import PetMedicalDetails from './Components/FormComp/PetMedicalDetails';
 import CartDrawer from './Components/cart/CartDrawer';
-
+import { FloatingWhatsApp } from 'react-floating-whatsapp'
 // aPP.JSX
 function App() {
 
+  console.log("Env", )
 
   return (
     <>
+
+    <FloatingWhatsApp 
+    avatar={`${import.meta.env.BASE_URL}logo.png`}
+    phoneNumber={import.meta.env.VITE_WHATSAPPNO} 
+    accountName={import.meta.env.VITE_WHATSAPPNAME} />
       <CartDrawer />
 
       <BrowserRouter>
