@@ -5,3 +5,8 @@ export const isObjEmpty = (obj) => {
         return Object.keys(obj).length <= 0
     }
 }
+
+export const getPetLength = (array = []) => {
+
+    return array.map(p => p.pet_name).filter(Boolean).length
+}

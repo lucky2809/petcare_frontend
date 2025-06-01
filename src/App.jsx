@@ -19,6 +19,8 @@ import 'leaflet/dist/leaflet.css';
 import BookingDetailsTable from './Components/TableComp/BookingDetailsTable';
 import PetMedicalDetails from './Components/FormComp/PetMedicalDetails';
 import CartDrawer from './Components/cart/CartDrawer';
+import { AuthProvider } from './Components/Auth/AuthProvider';
+import ProtectRouter from './Components/Auth/ProtectRouter';
 import { FloatingWhatsApp } from 'react-floating-whatsapp'
 // aPP.JSX
 function App() {
@@ -35,27 +37,30 @@ function App() {
       <CartDrawer />
 
       <BrowserRouter>
-        <Routes>
-          <Route path='/signup' element={<SignUp />} />
-          <Route path='/signin' element={<SignIn />} />
-          <Route path='/forgetpassword' element={<ForgetPassword />} />
-          <Route path='/addnewpassword' element={<AddnewPassword />} />
-          <Route path='/' element={<Home />} />
-          <Route path='/blogcard' element={<BlogCard />} />
-          <Route path='/bloges' element={<Bloges />} />
-          <Route path='/about' />
-          <Route path='/accessories' />
-          <Route path='/petdetails' element={<PetDetails />} />
-          <Route path='/petfinding' element={<PetFinding />} />
-          <Route path='/showmoredetails' element={<ShowMoreDetails />} />
-          <Route path='/blogdetails' element={<BlogDetails />} />
-          <Route path='/petgrooming' element={< PetGrooming />} />
-          <Route path='/petboarding' element={< PetBoarding />} />
-          <Route path='/pettaxi' element={< PetTaxi />} />
-          <Route path='/petmedicaldetails' element={<PetMedicalDetails />} />
-          <Route path='/bookingdetailstable' element={< BookingDetailsTable />} />
+        <AuthProvider>
+          <Routes>
+            <Route path='/signup' element={<SignUp />} />
+            <Route path='/signin' element={<SignIn />} />
+            <Route path='/forgetpassword' element={<ForgetPassword />} />
+            <Route path='/addnewpassword' element={<AddnewPassword />} />
+            <Route path='/' element={<Home />} />
+            <Route path='/blogcard' element={<BlogCard />} />
+            <Route path='/bloges' element={<Bloges />} />
+            <Route path='/about' />
+            <Route path='/accessories' />
+            <Route path='/petdetails' element={<PetDetails />} />
+            <Route path='/petfinding' element={<PetFinding />} />
+            <Route path='/showmoredetails' element={<ShowMoreDetails />} />
+            <Route path='/blogdetails' element={<BlogDetails />} />
+            <Route path='/petgrooming' element={< PetGrooming />} />
+            <Route path='/petboarding' element={< PetBoarding />} />
+            <Route path='/pettaxi' element={< PetTaxi />} />
+            <Route path='/petmedicaldetails' element={<PetMedicalDetails />} />
 
-        </Routes>
+            <Route path='/bookingdetailstable' element={<ProtectRouter role='admin'>< BookingDetailsTable /></ProtectRouter>} />
+
+          </Routes>
+        </AuthProvider>
       </BrowserRouter>
 
     </>

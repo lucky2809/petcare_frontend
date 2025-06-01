@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { createContext } from 'react';
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
@@ -110,9 +109,14 @@ export default function BoardingStepper() {
   }
 
   const generateExtraSteps = (isPetGrooming, isPetTaxi) => {
+
     let firststep = [
-      { component: <PetMedicalDetails /> }
+      // { component: <PetMedicalDetails /> }
     ]
+    if (petFormData?.length > 0) {
+      const petNames = petFormData.map(p => p.pet_name).filter(Boolean)
+      firststep = petNames.map((name, i) => ({ component: <PetMedicalDetails key={i} pet_name={name} /> }))
+    }
     let steps = [
       {
         // label: 'choose service grooming or taxi',
@@ -183,6 +187,7 @@ export default function BoardingStepper() {
 
       </Box>
       <MobileStepper
+
         variant="text"
         steps={maxSteps}
         position="static"

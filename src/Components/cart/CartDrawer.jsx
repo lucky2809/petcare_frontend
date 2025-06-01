@@ -17,6 +17,7 @@ import {
   clearBookings,
   toggleGrooming,
   toggleTaxi,
+  toggleBoarding,
 } from '../../store/slices/cartSlice';
 
 export default function CartDrawer() {
@@ -27,7 +28,7 @@ export default function CartDrawer() {
   const total = bookings.reduce(
     (sum, b) =>
       sum +
-      b.boarding +
+      (b.boarding.enabled ? b.boarding.price : 0) +
       (b.grooming.enabled ? b.grooming.price : 0) +
       (b.taxi.enabled ? b.taxi.price : 0),
     0
@@ -44,38 +45,50 @@ export default function CartDrawer() {
         ) : (
           bookings.map((booking) => (
             <Box key={booking.id} sx={{ mb: 2, border: '1px solid #ccc', borderRadius: 2, p: 2 }}>
-              <Typography variant="subtitle1" fontWeight="bold">
+              <Typography className='flex justify-between items-center' variant="subtitle1" fontWeight="bold">
                 {booking.petName}
+                <IconButton
+                  aria-label="delete"
+                  color="error"
+                  onClick={() => dispatch(removeBooking(booking.id))}
+                >
+                  <DeleteIcon />
+                </IconButton>
               </Typography>
-              <Typography>Boarding: ₹{booking.boarding}</Typography>
+              {/* <Typography>Boarding: ₹{booking.boarding}</Typography> */}
+              <div className='flex flex-col'>
+                {booking.boarding.price !== 0 && <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={booking.boarding.enabled}
+                      onChange={() => dispatch(toggleBoarding(booking.id))}
+                    />
+                  }
+                  label={`Boarding: ₹${booking.boarding.enabled ? booking.boarding.price : 0}`}
+                />}
 
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={booking.grooming.enabled}
-                    onChange={() => dispatch(toggleGrooming(booking.id))}
-                  />
-                }
-                label={`Grooming: ₹${booking.grooming.enabled ? booking.grooming.price : 0}`}
-              />
+                {booking.grooming.price !== 0 && <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={booking.grooming.enabled}
+                      onChange={() => dispatch(toggleGrooming(booking.id))}
+                    />
+                  }
+                  label={`Grooming: ₹${booking.grooming.enabled ? booking.grooming.price : 0}`}
+                />}
 
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={booking.taxi.enabled}
-                    onChange={() => dispatch(toggleTaxi(booking.id))}
-                  />
-                }
-                label={`Taxi: ₹${booking.taxi.enabled ? booking.taxi.price : 0}`}
-              />
+                {booking.taxi.price !== 0 && <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={booking.taxi.enabled}
+                      onChange={() => dispatch(toggleTaxi(booking.id))}
+                    />
+                  }
+                  label={`Taxi: ₹${booking.taxi.enabled ? booking.taxi.price : 0}`}
+                />}
+              </div>
 
-              <IconButton
-                aria-label="delete"
-                color="error"
-                onClick={() => dispatch(removeBooking(booking.id))}
-              >
-                <DeleteIcon />
-              </IconButton>
+
             </Box>
           ))
         )}

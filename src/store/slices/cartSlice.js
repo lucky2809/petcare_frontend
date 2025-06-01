@@ -21,11 +21,17 @@ const cartSlice = createSlice({
         payload: {
         //   cart_id: nanoid(),
           petName: booking.petName,
-          boarding: booking.boarding,
+          boarding: { enabled: true, price: booking.boarding },
           grooming: { enabled: true, price: booking.grooming },
           taxi: { enabled: true, price: booking.taxi },
         },
       }),
+    },
+    toggleBoarding: (state, action) => {
+      const booking = state.bookings.find(b => b.cart_id === action.payload);
+      if (booking) {
+        booking.boarding.enabled = !booking.boarding.enabled;
+      }
     },
     toggleGrooming: (state, action) => {
       const booking = state.bookings.find(b => b.cart_id === action.payload);
@@ -55,6 +61,7 @@ export const {
   removeBooking,
   clearBookings,
   toggleGrooming,
+  toggleBoarding,
   toggleTaxi,
 } = cartSlice.actions;
 const cartReducer = cartSlice.reducer;

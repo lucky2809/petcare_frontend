@@ -25,7 +25,7 @@ function SignIn() {
             })
             const data = await fetchData.json()
             if (fetchData.ok) {
-                localStorage.setItem("accessToken", data.token)
+                localStorage.setItem("access_token", data.token)
                 alert(JSON.stringify(data.massage))
                 navigate("/")
             } else {

@@ -40,7 +40,7 @@ const selectYear = [
 
 ]
 
-function PetMedicalDetails() {
+function PetMedicalDetails({pet_name}) {
 
     const petMeditionForms = useSelector((state) => state.PetReducer.petMeditionDetails)
     const petVaccineForms = useSelector((state) => state.PetReducer.petVaccineDetails)
@@ -112,7 +112,7 @@ function PetMedicalDetails() {
 
     return (
         <div className='px-5 overflow-auto max-h-[380px] -z-10'>
-            <h1 className='text-2xl font-bold'>MEDICATION</h1>
+            <h1 className='text-2xl font-bold'> {pet_name + "'s"} MEDICATION</h1>
             {petMeditionForms.map((pet, index) => (
                 <div className='mt-5 flex gap-5'>
                     <TextField

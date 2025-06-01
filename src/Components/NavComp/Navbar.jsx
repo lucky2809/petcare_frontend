@@ -31,12 +31,12 @@ function Navbar() {
 
             </ul>
             <div className='flex items-center gap-10'>
-            <div className='search-bar border-2 border-slate-500 flex  rounded-md  max-sm:hidden'>
+            {/* <div className='search-bar border-2 border-slate-500 flex  rounded-md  max-sm:hidden'>
                 <input className='p-2 w-72 outline-0  border-none max-w-full' type='search' placeholder='ask' />
                 <span className='font-semibold flex items-center border-none  rounded-md px-1 '><Icon width={32}  icon="iconoir:search" /> </span>
-              </div>
+              </div> */}
             <icone className="text-4xl flex ">...
-              <Icon icon='line-md:phone-call-loop'></Icon>
+          <a href={`tel:${import.meta.env.VITE_APP_CONTACT_NO}`} >    <Icon icon='line-md:phone-call-loop'></Icon></a>
             </icone>
             {/* <button className="nav-btn  bg-blue-400 text-white px-5 p-2 font-semibold text-lg rounded-md max-sm:hidden">Get Started</button> */}
             <div className="md:hidden"

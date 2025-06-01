@@ -19,6 +19,7 @@ import {
     Popup,
 } from "react-leaflet";
 import PetDetails from '../FormComp/PetDetails';
+import { getPetLength } from '../../utils/helperfunc/helper';
 
 
 
@@ -69,6 +70,9 @@ function BoardingForm() {
     const activeStep = useSelector((state) => state.PetReducer.activeStep)
     const open = useSelector((state) => state.PetReducer.isOpen)
     const BoadingPrice = useSelector((state) => state.PetReducer.bookPrice)
+    const petFormData = useSelector((state) => state.PetReducer.petDetails)
+
+    const PET_LENGTH = getPetLength(petFormData)
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -174,7 +178,7 @@ function BoardingForm() {
     }
 
     return (
-        <div>
+        <div className=''>
 
             <div className=' border-green-800 w-full flex justify-between'>
 
@@ -193,7 +197,7 @@ function BoardingForm() {
                             <h1 className="font-semibold text-2xl">PET BOARDING </h1>
                         </div>
                     </div>
-                    <div className='border-1 m-2 flex flex-col gap-3'>
+                    <div className='border-1 border-slate-400 m-2 flex flex-col gap-3'>
                         <div className='px-6 mt-3'>
                             <h1 className='text-xl font-semibold'>Pet Owner Details</h1>
                         </div>
@@ -294,12 +298,12 @@ function BoardingForm() {
                                     <p className=' flex justify-center text-center text-lg max-sm:text-sm font-semibold'>Price With Suplies</p>
                                 </div>
                                 <div className='flex justify-center items-center'>
-                                    
-                                        <button onClick={() => handleBooking(750)} className='px-2 flex gap-5 max-sm:gap-2 items-center p-1 text-lg max-sm:text-sm font-semibold rounded-lg bg-green-700 text-white hover:bg-green-950'>
-                                            <div className='flex items-center'><Icon width={20} className='text-white ' icon={"mdi:rupee"} />750/-</div>
-                                            <div><Icon width={20} className='text-white' icon={"mingcute:arrow-right-fill"} /></div>
-                                        </button>
-                                    
+
+                                    <button onClick={() => handleBooking(750)} className='px-2 flex gap-5 max-sm:gap-2 items-center p-1 text-lg max-sm:text-sm font-semibold rounded-lg bg-green-700 text-white hover:bg-green-950'>
+                                        <div className='flex items-center'><Icon width={20} className='text-white ' icon={"mdi:rupee"} />750/-</div>
+                                        <div><Icon width={20} className='text-white' icon={"mingcute:arrow-right-fill"} /></div>
+                                    </button>
+
                                 </div>
                             </div>
 
@@ -312,16 +316,16 @@ function BoardingForm() {
                                     <p className=' flex justify-center text-center text-lg max-sm:text-sm font-semibold'>Price Without Suplies</p>
                                 </div>
                                 <div className='flex justify-center items-center'>
-                                    
-                                        <button onClick={() => handleBooking(550)} type='primary' className='px-2 flex gap-5 max-sm:gap-2 items-center p-1 text-lg max-sm:text-sm font-semibold rounded-lg bg-green-700 text-white hover:bg-green-950'>
-                                            <div className='flex items-center'><Icon width={20} className='text-white' icon={"mdi:rupee"} />550/-</div>
-                                            <div><Icon width={20} className='text-white' icon={"mingcute:arrow-right-fill"} /></div>
-                                        </button>
-                                    
+
+                                    <button onClick={() => handleBooking(550)} type='primary' className='px-2 flex gap-5 max-sm:gap-2 items-center p-1 text-lg max-sm:text-sm font-semibold rounded-lg bg-green-700 text-white hover:bg-green-950'>
+                                        <div className='flex items-center'><Icon width={20} className='text-white' icon={"mdi:rupee"} />550/-</div>
+                                        <div><Icon width={20} className='text-white' icon={"mingcute:arrow-right-fill"} /></div>
+                                    </button>
+
                                 </div>
                             </div>
                         </div>
-                        : <div className='flex justify-end p-10'>
+                        : <div className='flex justify-end p-7'>
 
                             <Button onClick={handleOpen} variant="contained" sx={{
                                 backgroundColor: "#388E3C",
@@ -341,7 +345,7 @@ function BoardingForm() {
                         >
                             <AnimatedCard className='h-[500px] w-full'>
                                 <Box sx={{ height: "500px", width: "100%", bgcolor: "white", outline: 0, display: "flex", }}>
-                                    {activeStep !== 0 && activeStep !== 4 && <div className='img-section min-w-[30%] h-full'>
+                                    {activeStep !== 0 && activeStep !== PET_LENGTH - 1 && activeStep !== PET_LENGTH + 3 && <div className='img-section min-w-[30%] h-full'>
                                         <img className='h-full w-full object-cover' src="https://t4.ftcdn.net/jpg/02/66/72/41/360_F_266724172_Iy8gdKgMa7XmrhYYxLCxyhx6J7070Pr8.jpg" alt="" />
                                     </div>}
                                     <div className='content  h-full w-full'>
