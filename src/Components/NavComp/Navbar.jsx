@@ -12,20 +12,22 @@ function Navbar() {
    
         <header className="header w-full sticky top-0 px-15 bg-slate-100 max-sm:px-2 z-1001  ">
           <nav className="navbar flex justify-between items-center    p-2 py-4  border-b border-slate-300 max-sm:py-4 text-black">
-            <div className='flex gap-2 items-center'>
+           <Link to={"/"}>
+            <div className='flex gap-2 items-center text-green-700'>
             <p className="h-15 w-15 "><img className='h-full w-full object-cover' src={`${import.meta.env.BASE_URL}logo.png`} alt="" /> </p>
             <div className='leading-none'>
               <p className='text-md font-bold w-25'>TOE BEANS APARTMENT</p>
             </div>
             </div>
-            <ul className="un-order-list flex gap-10 items-center  max-sm:hidden font-medium text-[15px]" >
-            <li><Link  to={"/"}>HOME</Link></li>
-              <li><Link  to={"/petfinding"}>ABOUT</Link></li>
-              <li><Link to={"/"} >SERVICE</Link></li>
-              <li><Link to={"/bloges"}>BLOGS</Link></li>
-              <li><Link to={"/petfinding"}>ADOPTION</Link></li>
-              <li><Link to={"/petgrooming"}>PET GROOMING </Link></li>
-              <li className='flex items-center'><Link to={"/signin"}>LOGIN</Link>
+            </Link>
+            <ul className="un-order-list flex gap-10 items-center  text-green-700 max-sm:hidden font-medium text-[15px]" >
+            <li className='hover:border-b-2 hover:text-black'><Link  to={"/"}>HOME</Link></li>
+              <li className='hover:border-b-2 hover:text-black'><Link  to={"/petfinding"}>ABOUT</Link></li>
+              <li className='hover:border-b-2 hover:text-black'><Link to={"/"} >SERVICE</Link></li>
+              <li className='hover:border-b-2 hover:text-black'><Link to={"/bloges"}>BLOGS</Link></li>
+              <li className='hover:border-b-2 hover:text-black'><Link to={"/petfinding"}>ADOPTION</Link></li>
+              <li className='hover:border-b-2 hover:text-black'><Link to={"/petgrooming"}>PET GROOMING </Link></li>
+              <li className='flex items-center hover:border-b-2 hover:text-black'><Link to={"/signin"}>LOGIN</Link>
               {/* <Icon fontSize={23}  icon={"oui:arrow-down"}></Icon>  */}
               </li>
 
@@ -35,9 +37,11 @@ function Navbar() {
                 <input className='p-2 w-72 outline-0  border-none max-w-full' type='search' placeholder='ask' />
                 <span className='font-semibold flex items-center border-none  rounded-md px-1 '><Icon width={32}  icon="iconoir:search" /> </span>
               </div> */}
-            <icone className="text-4xl flex ">...
-          <a href={`tel:${import.meta.env.VITE_APP_CONTACT_NO}`} >    <Icon icon='line-md:phone-call-loop'></Icon></a>
+              <a href={`tel:${import.meta.env.VITE_APP_CONTACT_NO}`} > 
+            <icone className="text-4xl text-green-700 flex ">...
+             <Icon icon='line-md:phone-call-loop'></Icon>
             </icone>
+            </a>
             {/* <button className="nav-btn  bg-blue-400 text-white px-5 p-2 font-semibold text-lg rounded-md max-sm:hidden">Get Started</button> */}
             <div className="md:hidden"
             onClick={() => setToggleBtn(!toggleBtn)}

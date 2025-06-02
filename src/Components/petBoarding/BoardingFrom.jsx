@@ -178,26 +178,21 @@ function BoardingForm() {
     }
 
     return (
-        <div className=''>
+        <div className='pb-10'>
 
-            <div className=' border-green-800 w-full flex justify-between'>
+            <div className=' border-green-800 w-full flex justify-between px-10 '>
 
                 <div className='First w-full'>
 
-                    <div className='logo flex text-center items-center h-fit justify-center mt-6 p-2'>
+                    <div className='logo flex text-center items-center h-fit justify-center mt-6 py-6'>
                         <div className='flex'>
-                            <Button sx={{
-                                backgroundColor: 'black',
-                                color: 'white',
-                                fontWeight: 'bold'
-
-                            }} onClick={() => navigate(-1)}><Icon width={25} icon={"fluent-mdl2:back"} className='text-4xl' /></Button>
+                            <button className='rounded-full bg-black text-white p-3' onClick={() => navigate(-1)}><Icon width={20} icon={"fluent-mdl2:back"} className='text-4xl' /></button>
                         </div>
                         <div className='w-full flex justify-center'>
-                            <h1 className="font-semibold text-2xl">PET BOARDING </h1>
+                            <h1 className="font-bold text-2xl">Pet Boarding </h1>
                         </div>
                     </div>
-                    <div className='border-1 border-slate-400 m-2 flex flex-col gap-3'>
+                    <div className='border-1 border-slate-400 rounded-lg mb-4  flex flex-col gap-3 shadow-md'>
                         <div className='px-6 mt-3'>
                             <h1 className='text-xl font-semibold'>Pet Owner Details</h1>
                         </div>
@@ -229,7 +224,7 @@ function BoardingForm() {
                         </div>
 
                     </div>
-                    <div className='flex flex-col gap-5'>
+                    <div className='flex flex-col gap-5 border-2 pb-5 mb-5 border-gray-400 rounded-lg shadow-md'>
                         <div className=' px-5 flex flex-col gap-3'>
                             <div className='p-2'>
                                 <h1 className='text-xl font-semibold'>Boarding</h1>
@@ -280,18 +275,19 @@ function BoardingForm() {
                             }
                         </div>
                     </div>
-                    <div className=''>
+                    <div className='border-2 pb-5 border-gray-400 mb-5 rounded-lg shadow-md'>
                         <div className='p-5 flex flex-col gap-5'>
                             <h1 className='text-xl font-semibold px-2'>Pets Details</h1>
                         </div>
                         <PetDetails />
                     </div>
+                    <div className='border-2  border-gray-400 rounded-lg shadow-md'>
                     {BoadingPrice === 0 ?
                         <div className='px-5 max-sm:px-2 max-lg:px-10 flex flex-col max-sm:flex-col py-10 gap-7 max-sm:gap-5'>
-                            <div className=' flex justify-between gap-3 p-5 w-full bg-white rounded-lg shadow-md'>
+                            <div className=' flex justify-between gap-3 px-5 w-full bg-white rounded-lg shadow-md'>
 
                                 <div className='flex justify-center items-center gap-4'>
-                                    <div className='dogfood h-15 w-15 max-sm:h-12 max-sm:w-12 flex justify-center items-center'>
+                                    <div className='dogfood h-15 w-10 max-sm:h-12 max-sm:w-12 flex justify-center items-center'>
                                         <img src={`${import.meta.env.BASE_URL}WhatsApp Image 2025-04-02 at 13.04.24_6a24cd23.jpg`} ></img>
 
                                     </div>
@@ -307,10 +303,10 @@ function BoardingForm() {
                                 </div>
                             </div>
 
-                            <div className=' flex justify-between p-5 w-full bg-white rounded-lg shadow-md'>
+                            <div className=' flex justify-between px-5 w-full bg-white rounded-lg shadow-md'>
 
                                 <div className='flex justify-center items-center gap-4'>
-                                    <div className='dognofood h-15 w-15 max-sm:h-12 max-sm:w-12 flex justify-center items-center'>
+                                    <div className='dognofood h-15 w-10 max-sm:h-12 max-sm:w-12 flex justify-center items-center'>
                                         <img src={`${import.meta.env.BASE_URL}WhatsApp Image 2025-04-02 at 13.04.17_bf760103.jpg`} ></img>
                                     </div>
                                     <p className=' flex justify-center text-center text-lg max-sm:text-sm font-semibold'>Price Without Suplies</p>
@@ -325,7 +321,8 @@ function BoardingForm() {
                                 </div>
                             </div>
                         </div>
-                        : <div className='flex justify-end p-7'>
+                        : <div className='flex justify-end p-7 gap-6'>
+                            <span className='items-center justify-start w-full text-lg flex'>Move forward to complete the action</span>
 
                             <Button onClick={handleOpen} variant="contained" sx={{
                                 backgroundColor: "#388E3C",
@@ -336,6 +333,7 @@ function BoardingForm() {
                             }}>Proceed</Button>
                         </div>
                     }
+                    </div>
                     <div>
                         <Modal sx={{ height: screen, display: 'flex', justifyContent: "center", alignItems: 'center', px: 30 }}
                             open={open}
@@ -365,8 +363,8 @@ function BoardingForm() {
 
                 </div>
 
-                <div className='Second border-1 w-full'>
-                    <MapContainer center={[27.1767, 78.0081]} zoom={13} scrollWheelZoom={false} style={{ flex: 1, height: "100%" }}>
+                <div className='Second  rounded-xl w-full m-6'>
+                    <MapContainer center={[27.1767, 78.0081]} zoom={13} scrollWheelZoom={false} style={{ flex: 1, height: "100%", borderRadius: "10px" }}>
                         <TileLayer
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

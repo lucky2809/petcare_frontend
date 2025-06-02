@@ -30,7 +30,7 @@ function App() {
   return (
     <>
 
-    <FloatingWhatsApp 
+    <FloatingWhatsApp
     avatar={`${import.meta.env.BASE_URL}logo.png`}
     phoneNumber={import.meta.env.VITE_WHATSAPPNO} 
     accountName={import.meta.env.VITE_WHATSAPPNAME} />
