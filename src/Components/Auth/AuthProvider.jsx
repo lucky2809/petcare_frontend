@@ -1,11 +1,12 @@
 import { createContext, useContext, useEffect, useState } from "react";
+// import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true); // ⬅️ new
-
+    // const navigate = useNavigate()
     const fetchVerifyToken = async (token) => {
         try {
             const fetchData = await fetch(`${import.meta.env.VITE_APP_BACKEND_URL}/verify-token`, {
@@ -16,6 +17,9 @@ export const AuthProvider = ({ children }) => {
             });
             const data = await fetchData.json();
             setUser(data.user_data);
+            // if (data.user_data?.role === "admin") {
+            //     navigate("/admin/bookingdetailstable")
+            // }
         } catch {
             setUser(null);
         } finally {

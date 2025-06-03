@@ -57,7 +57,7 @@ function App() {
             <Route path='/pettaxi' element={< PetTaxi />} />
             <Route path='/petmedicaldetails' element={<PetMedicalDetails />} />
 
-            <Route path='/bookingdetailstable' element={<ProtectRouter role='admin'>< BookingDetailsTable /></ProtectRouter>} />
+            <Route path='/admin/bookingdetailstable' element={<ProtectRouter role='admin'>< BookingDetailsTable /></ProtectRouter>} />
 
           </Routes>
         </AuthProvider>

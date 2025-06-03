@@ -9,7 +9,7 @@ function ServiceCard({ index, item_data, handleNext }) {
     const groomingData = useSelector((state) => state.PetReducer.groomingDetails)
 
     const [hoverEffectCat, setHoverEffectCat] = useState(false)
-    const [isChecked, setIsChecked] = useState(false)
+    const [isChecked, setIsChecked] = useState(groomingData.map(g => g.service).includes(item_data.heading))
 
     const onMouseCat = () => {
 
@@ -22,9 +22,17 @@ function ServiceCard({ index, item_data, handleNext }) {
     }
 
     const handleSelectNormal = (e, data) => {
-        dispatch(setGroomingDetails([...groomingData, { service: data.heading, price: data.price }]))
+        const checked = e.target.checked
+        if (checked) {
+            dispatch(setGroomingDetails([...groomingData, { service: data.heading, price: data.price }]))
 
-        setIsChecked(e.target.checked)
+        } else {
+
+            dispatch(setGroomingDetails([...groomingData.filter(g => g.service !== data.heading)]))
+
+        }
+
+        setIsChecked(checked)
 
     }
 

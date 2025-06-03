@@ -16,6 +16,7 @@ import PetTaxiCard from '../petTaxi/PetTaxiCard';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleToggleModal, setActiveStepAction } from '../../store/petServices/actions';
+import { addBookingData } from '../../utils/APIs';
 
 
 export const StepContext = createContext()
@@ -52,29 +53,6 @@ export default function TaxiStepper() {
     isPetGrooming, isPetBoarding, setIsPetGrooming, setIsPetBoarding     // props ko object me bej skte hai 
   }
 
-  const addBooking = async () => {
-
-    const payload = {
-      ...ownerFormData,
-      boardingDetails: boardingFormData,
-      petDetails: petFormData
-
-    }
-    try {
-      const URL = `${import.meta.env.VITE_APP_BACKEND_URL}/bookingdetails`
-      const fetchData = await fetch(URL, {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      })
-      const resp = await fetchData.json()
-      alert(JSON.stringify(resp))
-    } catch (err) {
-      console.log("Incorect Details", err)
-    }
-    console.log(payload)
-  }
-
   const handleSubmit = async () => {
     // close modal & default step 0 on modal open
     dispatch(handleToggleModal(false))
@@ -83,7 +61,12 @@ export default function TaxiStepper() {
     if (isPetBoarding) {
       navigate("/pettaxi")
     } else {
-      await addBooking()
+      await addBookingData({
+        ...ownerFormData,
+        boardingDetails: boardingFormData,
+        petDetails: petFormData
+
+      })
     }
   }
 

@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { handleToggleModal, setActiveStepAction } from '../../store/petServices/actions';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
+import { addBookingData } from '../../utils/APIs';
 export const StepContext = createContext()
 
 export default function MYStepper() {
@@ -44,28 +44,7 @@ export default function MYStepper() {
   //   setActiveStep((prevActiveStep) => prevActiveStep - 1);
   // };
 
-  const addBooking = async () => {
 
-    const payload = {
-      ...ownerFormData,
-      petDetails: petFormData,
-      pet_type : petType
-
-    }
-    try {
-      const URL = `${import.meta.env.VITE_APP_BACKEND_URL}/booking/bookingdetails`
-      const fetchData = await fetch(URL, {
-        method: "POST",
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      })
-      const resp = await fetchData.json()
-      alert(JSON.stringify(resp))
-    } catch (err) {
-      console.log("Incorect Details", err)
-    }
-    console.log(payload)
-  }
 
   const handleSubmit = async () => {
 
@@ -73,7 +52,12 @@ export default function MYStepper() {
     dispatch(handleToggleModal(false))
     dispatch(setActiveStepAction(0))
     toast.success("Service booked sucessfully")
-    await addBooking()
+    await addBookingData({
+      ...ownerFormData,
+      petDetails: petFormData,
+      pet_type : petType
+
+    })
 
   }
 

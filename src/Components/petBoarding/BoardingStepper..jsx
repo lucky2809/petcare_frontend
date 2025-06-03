@@ -20,6 +20,7 @@ import { toast } from 'react-toastify';
 import PetMedicalDetails from '../FormComp/PetMedicalDetails';
 import { addBooking, toggleCart } from '../../store/slices/cartSlice';
 import { nanoid } from '@reduxjs/toolkit';
+import { getPetLength } from '../../utils/helperfunc/helper';
 
 
 export const StepContext = createContext()
@@ -27,7 +28,7 @@ export const StepContext = createContext()
 export default function BoardingStepper() {
   const ownerFormData = useSelector((state) => state.PetReducer.ownerDetails)
   const petFormData = useSelector((state) => state.PetReducer.petDetails)
-  const boardingFormData = useSelector((state) => state.PetReducer.boardingDetails)
+  const boardingDays = useSelector((state) => state.PetReducer.boardingDetails?.boarding_days) || 1
   const activeStep = useSelector((state) => state.PetReducer.activeStep)
   const groomingData = useSelector((state) => state.PetReducer.groomingDetails)
   const BoadingPrice = useSelector((state) => state.PetReducer.bookPrice)
@@ -61,6 +62,7 @@ export default function BoardingStepper() {
 
   const handleAdd = () => {
     const payload = generateCartPayload()
+    console.log("payload_redux", payload)
     if (!payload) {
       toast.error("booking data is not found")
       return
@@ -75,17 +77,19 @@ export default function BoardingStepper() {
   };
 
   const generateCartPayload = () => {
+    const PET_LENGTH = getPetLength(petFormData)
+    console.log("PET_LENGTH", PET_LENGTH, boardingDays)
     let petName = ""
-    let boarding = BoadingPrice ?? 0
-    let grooming = groomingData.map(p => p.price).reduce((sum, val) => sum + val, 0) ?? 0
-    let taxi = 0
+    let boarding = (BoadingPrice ?? 0) * boardingDays * PET_LENGTH
+    let grooming = (groomingData.map(p => p.price).reduce((sum, val) => sum + val, 0) ?? 0) * boardingDays * PET_LENGTH
+    let taxi = 0 * boardingDays * PET_LENGTH
     if (petFormData[0]?.pet_name) {
       petName = `${petFormData[0]?.pet_name} and Friends Booking`
     } else {
       toast.error("no pet name found")
       return
     }
-
+    console.log(" { petName, boarding, grooming, taxi }", { petName, boarding, grooming, taxi })
 
     return { petName, boarding, grooming, taxi }
 

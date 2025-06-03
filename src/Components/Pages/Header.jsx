@@ -5,6 +5,7 @@ import { Button } from '@mui/material'
 import { AnimatedCard } from '../StyledComponents/Styled'
 import { useDispatch, useSelector } from 'react-redux'
 import { setBoardingDetails, setBookPriceAction, setOwnerDetails, setPetDetails } from '../../store/petServices/actions'
+import { getNumberOfDays } from '../../utils/helperfunc/helper'
 
 
 
@@ -51,17 +52,30 @@ function Header() {
 
     const handleBoardingDetailsChange = (e) => {
         const { name, value } = e.target
-        console.log("{ name, value }", { name, value })
-        dispatch(setBoardingDetails({ ...boardingFormData, ...{ [name]: value } }))
+        console.log("boardingFormData.start_date && name === end_date", boardingFormData.start_date, name === "end_date", boardingFormData.start_date && name === "end_date")
+        if (boardingFormData.start_date && name === "end_date") {
+            const start_date = boardingFormData.start_date
+            const end_date = value;
+
+            const numberOfDays = getNumberOfDays(start_date, end_date);
+            
+            dispatch(setBoardingDetails({ ...boardingFormData, ...{ boarding_days: numberOfDays }, ...{ [name]: value } }))
+
+        } else {
+            dispatch(setBoardingDetails({ ...boardingFormData, ...{ [name]: value } }))
+
+        }
     }
     console.log("boardingFormData", boardingFormData)
-    
+
 
 
 
     return (
         <div>
-            <div className='w-full flex items-center h-[600px] border border-black  ' onClick={() => window.screenTop(0, 0)}>
+            <div className='w-full flex items-center h-[600px] border border-black  '
+            // onClick={() => window?.screenTop(0, 0)}
+            >
                 <div className='relative w-full '>
                     <img src={`${import.meta.env.BASE_URL}\WhatsApp Image 2025-04-05 at 14.58.09_b6086a91.jpg`} className='w-full h-[600px]' alt="" />
                 </div>
@@ -106,7 +120,7 @@ function Header() {
                                 <div className='w-full flex gap-7 items-center max-sm:flex-col'>
                                     <div className=' w-full flex gap-2'>
 
-                                        <button id='form' onClick={() => handleNoOfPets(1)}  className={`w-full items-center p-2 max-sm:p-1 min-2xl:py-2 border-1 text-xl hover:bg-sky-100 ${petselect === 1 ? "bg-sky-100 border-3 border-green-700" : " "}`}>1</button>
+                                        <button id='form' onClick={() => handleNoOfPets(1)} className={`w-full items-center p-2 max-sm:p-1 min-2xl:py-2 border-1 text-xl hover:bg-sky-100 ${petselect === 1 ? "bg-sky-100 border-3 border-green-700" : " "}`}>1</button>
 
                                         <button onClick={() => handleNoOfPets(2)} className={`w-full items-center p-2 max-sm:p-1  min-2xl:py-2 border-1 text-xl hover:bg-sky-100 ${petselect === 2 ? "bg-sky-100 border-3 border-green-600" : " "}`}>2</button>
 

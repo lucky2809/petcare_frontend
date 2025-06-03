@@ -4,9 +4,13 @@ const initialState = {
     cart_id: null,
     bookPrice: 0,
     petDetails: [{ pet_name: '', pet_age: null, pet_breed: null }],
-    petMeditionDetails: [{ medication_name: '', description: '', dose_time: '', dosage: '' }],
-    petVaccineDetails: [{ vaccine_name: '', year: null }],
-    treatmentDetails: { spot_on_treatment_desc: "", neuter_or_spray: "" },
+    // petMeditionDetails: [{ medication_name: '', description: '', dose_time: '', dosage: '' }],
+    // petVaccineDetails: [{ vaccine_name: '', year: null }],
+    // treatmentDetails: { spot_on_treatment_desc: "", neuter_or_spray: "" },
+    petMeditionDetails: {}, // { [pet_name]: [...] }
+    petVaccineDetails: {},  // { [pet_name]: [...] }
+    treatmentDetails: {},
+
     boardingDetails: {},
     taxiDetails: {},
     ownerDetails: {},
@@ -32,13 +36,31 @@ const PetReducer = (state = initialState, action) => {
             return { ...state, ...{ petDetails: action.payload } }
 
         case ADD_PET_MEDITION_DETAILS:
-            return { ...state, ...{ petMeditionDetails: action.payload } }
+      return {
+        ...state,
+        petMeditionDetails: {
+          ...state.petMeditionDetails,
+          [action.payload.pet_name]: action.payload.data,
+        },
+      };
 
-        case ADD_PET_VACCINE_DETAILS:
-            return { ...state, ...{ petVaccineDetails: action.payload } }
+    case ADD_PET_VACCINE_DETAILS:
+      return {
+        ...state,
+        petVaccineDetails: {
+          ...state.petVaccineDetails,
+          [action.payload.pet_name]: action.payload.data,
+        },
+      };
 
-        case ADD_PET_TREATMENT_DETAILS:
-            return { ...state, ...{ treatmentDetails: action.payload } }
+    case ADD_PET_TREATMENT_DETAILS:
+      return {
+        ...state,
+        treatmentDetails: {
+          ...state.treatmentDetails,
+          [action.payload.pet_name]: action.payload.data,
+        },
+      };
 
         case REMOVE_PET_DETAIL:
             const updatedPetDetails = state.petDetails.filter(
