@@ -85,22 +85,39 @@ function BoardingForm() {
         setSchedule(value)
 
     }
-    // for date
-    const getNextDate = () => {
-        const dates = []
+    // for date pick up
+    const getPickDate = () => {
+        const pickDates = []
         const today = new Date()
 
         for (let i = 0; i <= 7; i++) {
             const nextDate = new Date()
             nextDate.setDate(today.getDate() + i)
             const formatted = nextDate.toISOString().split('T')[0]
-            dates.push(formatted)
+            pickDates.push(formatted)
         }
-        return dates
+        return pickDates
     }
-    const dates = getNextDate()
+    const pickDates = getPickDate()
 
-    console.log(dates)
+    console.log(pickDates)
+
+    // for drop of date
+     const getDropDate = () => {
+        const dropDates = []
+        const today = new Date()
+        // const today = new boarding.start_date()
+
+        for (let i = 0; i <= 10; i++) {
+            const nextDate = new Date()
+            nextDate.setDate(today.getDate() + i)
+            const formatted = nextDate.toISOString().split('T')[0]
+            dropDates.push(formatted)
+        }
+        return dropDates
+    }
+    const dropDates = getDropDate()
+
 
 
     // for time
@@ -186,7 +203,7 @@ function BoardingForm() {
 
                     <div className='logo flex text-center items-center h-fit justify-center mt-6 py-6'>
                         <div className='flex'>
-                            <button className='rounded-full bg-black text-white p-3' onClick={() => navigate(-1)}><Icon width={20} icon={"fluent-mdl2:back"} className='text-4xl' /></button>
+                            <button className='rounded-full bg-black text-white p-3' onClick={() => navigate(-1)}><Icon width={20} icon={"fluent-mdl2:back"} className='' /></button>
                         </div>
                         <div className='w-full flex justify-center'>
                             <h1 className="font-bold text-2xl">Pet Boarding </h1>
@@ -252,25 +269,50 @@ function BoardingForm() {
                             </div>
 
                             {
-                                boardingFormData.start_date || schedule === "Schedule" ? <div className='date-time flex justify-between px-2 gap-10 items-center bg-slate-100 '>
-                                    <div className='w-10'>
-                                        <label className='text-md font-sans w-10 font-semibold' htmlFor="">DEPART</label>
+                                boardingFormData.start_date || schedule === "Schedule" ?
+                                    <div className='date-time flex items-center w-full bg-slate-100 '>
+                                        <div className='w-full'>
+                                            <div className='px-4 pt-2'>
+                                                <label className='text-md font-sans w-10 font-semibold' htmlFor="">PICK UP</label>
+                                            </div>
+                                            <div className='w-full flex'>
+                                                <select value={boardingFormData.start_date} onChange={handleBoardingDetailsChange} className='w-full p-3 outline-0' name="start_date" id="">
+                                                    {pickDates.map((date) => {
+                                                        return (
+                                                            <option className='p-3 text-2xl'>{date}</option>
+                                                        )
+                                                    })}
+                                                </select>
+                                                <select value={boardingFormData.booking_time} onChange={handleBoardingDetailsChange} className='w-full p-3 outline-0' name="booking_time" id="">
+                                                    {timeSlots.map((time) => (
+                                                        <option value={time} key={time}>{time}</option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div className="p-0 m-0">
+                                             <Icon height={50} width={0} icon={"ph:line-vertical-thin"} className='m-0 p-0' />
+                                        </div>
+                                        <div className='w-full pt-2'>
+                                            <div className='px-4'>
+                                                <label className='text-md font-sans w-10 font-semibold' htmlFor="">DROP OFF</label>
+                                            </div>
+                                            <div className='w-full flex'>
+                                                <select value={boardingFormData.end_date} onChange={handleBoardingDetailsChange} className='w-full p-3 outline-0' name="start_date" id="">
+                                                    {dropDates.map((date) => {
+                                                        return (
+                                                            <option className='p-3 text-2xl'>{date}</option>
+                                                        )
+                                                    })}
+                                                </select>
+                                                <select value={boardingFormData.booking_time} onChange={handleBoardingDetailsChange} className='w-full p-3 outline-0' name="booking_time" id="">
+                                                    {timeSlots.map((time) => (
+                                                        <option value={time} key={time}>{time}</option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className='w-full flex'>
-                                        <select value={boardingFormData.start_date} onChange={handleBoardingDetailsChange} className='w-full p-3 outline-0' name="start_date" id="">
-                                            {dates.map((date) => {
-                                                return (
-                                                    <option className='p-3 text-2xl'>{date}</option>
-                                                )
-                                            })}
-                                        </select>
-                                        <select value={boardingFormData.booking_time} onChange={handleBoardingDetailsChange} className='w-full p-3 outline-0' name="booking_time" id="">
-                                            {timeSlots.map((time) => (
-                                                <option value={time} key={time}>{time}</option>
-                                            ))}
-                                        </select>
-                                    </div>
-                                </div>
                                     : ""
                             }
                         </div>
@@ -282,57 +324,57 @@ function BoardingForm() {
                         <PetDetails />
                     </div>
                     <div className='border-2  border-gray-400 rounded-lg shadow-md'>
-                    {BoadingPrice === 0 ?
-                        <div className='px-5 max-sm:px-2 max-lg:px-10 flex flex-col max-sm:flex-col py-10 gap-7 max-sm:gap-5'>
-                            <div className=' flex justify-between gap-3 px-5 w-full bg-white rounded-lg shadow-md'>
+                        {BoadingPrice === 0 ?
+                            <div className='px-5 max-sm:px-2 max-lg:px-10 flex flex-col max-sm:flex-col py-10 gap-7 max-sm:gap-5'>
+                                <div className=' flex justify-between gap-3 px-5 w-full bg-white rounded-lg shadow-md'>
 
-                                <div className='flex justify-center items-center gap-4'>
-                                    <div className='dogfood h-15 w-10 max-sm:h-12 max-sm:w-12 flex justify-center items-center'>
-                                        <img src={`${import.meta.env.BASE_URL}WhatsApp Image 2025-04-02 at 13.04.24_6a24cd23.jpg`} ></img>
+                                    <div className='flex justify-center items-center gap-4'>
+                                        <div className='dogfood h-15 w-10 max-sm:h-12 max-sm:w-12 flex justify-center items-center'>
+                                            <img src={`${import.meta.env.BASE_URL}WhatsApp Image 2025-04-02 at 13.04.24_6a24cd23.jpg`} ></img>
+
+                                        </div>
+                                        <p className=' flex justify-center text-center text-lg max-sm:text-sm font-semibold'>Price With Suplies</p>
+                                    </div>
+                                    <div className='flex justify-center items-center'>
+
+                                        <button onClick={() => handleBooking(750)} className='px-2 flex gap-5 max-sm:gap-2 items-center p-1 text-lg max-sm:text-sm font-semibold rounded-lg bg-green-700 text-white hover:bg-green-950'>
+                                            <div className='flex items-center'><Icon width={20} className='text-white ' icon={"mdi:rupee"} />750/-</div>
+                                            <div><Icon width={20} className='text-white' icon={"mingcute:arrow-right-fill"} /></div>
+                                        </button>
 
                                     </div>
-                                    <p className=' flex justify-center text-center text-lg max-sm:text-sm font-semibold'>Price With Suplies</p>
                                 </div>
-                                <div className='flex justify-center items-center'>
 
-                                    <button onClick={() => handleBooking(750)} className='px-2 flex gap-5 max-sm:gap-2 items-center p-1 text-lg max-sm:text-sm font-semibold rounded-lg bg-green-700 text-white hover:bg-green-950'>
-                                        <div className='flex items-center'><Icon width={20} className='text-white ' icon={"mdi:rupee"} />750/-</div>
-                                        <div><Icon width={20} className='text-white' icon={"mingcute:arrow-right-fill"} /></div>
-                                    </button>
+                                <div className=' flex justify-between px-5 w-full bg-white rounded-lg shadow-md'>
 
-                                </div>
-                            </div>
-
-                            <div className=' flex justify-between px-5 w-full bg-white rounded-lg shadow-md'>
-
-                                <div className='flex justify-center items-center gap-4'>
-                                    <div className='dognofood h-15 w-10 max-sm:h-12 max-sm:w-12 flex justify-center items-center'>
-                                        <img src={`${import.meta.env.BASE_URL}WhatsApp Image 2025-04-02 at 13.04.17_bf760103.jpg`} ></img>
+                                    <div className='flex justify-center items-center gap-4'>
+                                        <div className='dognofood h-15 w-10 max-sm:h-12 max-sm:w-12 flex justify-center items-center'>
+                                            <img src={`${import.meta.env.BASE_URL}WhatsApp Image 2025-04-02 at 13.04.17_bf760103.jpg`} ></img>
+                                        </div>
+                                        <p className=' flex justify-center text-center text-lg max-sm:text-sm font-semibold'>Price Without Suplies</p>
                                     </div>
-                                    <p className=' flex justify-center text-center text-lg max-sm:text-sm font-semibold'>Price Without Suplies</p>
-                                </div>
-                                <div className='flex justify-center items-center'>
+                                    <div className='flex justify-center items-center'>
 
-                                    <button onClick={() => handleBooking(550)} type='primary' className='px-2 flex gap-5 max-sm:gap-2 items-center p-1 text-lg max-sm:text-sm font-semibold rounded-lg bg-green-700 text-white hover:bg-green-950'>
-                                        <div className='flex items-center'><Icon width={20} className='text-white' icon={"mdi:rupee"} />550/-</div>
-                                        <div><Icon width={20} className='text-white' icon={"mingcute:arrow-right-fill"} /></div>
-                                    </button>
+                                        <button onClick={() => handleBooking(550)} type='primary' className='px-2 flex gap-5 max-sm:gap-2 items-center p-1 text-lg max-sm:text-sm font-semibold rounded-lg bg-green-700 text-white hover:bg-green-950'>
+                                            <div className='flex items-center'><Icon width={20} className='text-white' icon={"mdi:rupee"} />550/-</div>
+                                            <div><Icon width={20} className='text-white' icon={"mingcute:arrow-right-fill"} /></div>
+                                        </button>
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        : <div className='flex justify-end p-7 gap-6'>
-                            <span className='items-center justify-start w-full text-lg flex'>Move forward to complete the action</span>
+                            : <div className='flex justify-end p-7 gap-6'>
+                                <span className='items-center justify-start w-full text-lg flex'>Move forward to complete the action</span>
 
-                            <Button onClick={handleOpen} variant="contained" sx={{
-                                backgroundColor: "#388E3C",
-                                borderRadius: "9px",
-                                ":hover": {
-                                    backgroundColor: "#032e15"
-                                }
-                            }}>Proceed</Button>
-                        </div>
-                    }
+                                <Button onClick={handleOpen} variant="contained" sx={{
+                                    backgroundColor: "#388E3C",
+                                    borderRadius: "9px",
+                                    ":hover": {
+                                        backgroundColor: "#032e15"
+                                    }
+                                }}>Proceed</Button>
+                            </div>
+                        }
                     </div>
                     <div>
                         <Modal sx={{ height: screen, display: 'flex', justifyContent: "center", alignItems: 'center', px: 30 }}
