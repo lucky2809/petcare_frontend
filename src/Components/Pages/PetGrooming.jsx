@@ -56,8 +56,14 @@ function PetGrooming() {
             <Navbar />
 
             <div onClick={() => window.scrollTo(0, 0)} className=' h-full w-full mb-10 '>
+                <div className='absolute flex h-120 justify-center w-full'>
+                    <div className='flex flex-col gap-10 text-center items-center justify-center'>
+                    <h1 className='text-5xl font-semibold text-sky-700'>"Gentle Hands. Happy Pets. Grooming Done with Love."</h1>
+                    <button className='text-xl font-semibold border-2 p-2 px-4 text-sky-700 rounded-xl border-sky-700 hover:text-white hover:bg-sky-700 cursor-pointer'>Book Now</button>
+                </div>
+                </div>
                 <div className=' h-[450px] w-full'>
-                    <img className='h-full w-full object-cover' src={`${import.meta.env.BASE_URL}manja-vitolic-gKXKBY-C-Dk-unsplash.jpg`} />
+                    <img className='h-full w-full object-cover' src={`${import.meta.env.BASE_URL}pexels-pet-foto-644780685-17802933 (1) - Copy.jpg`} />
                 </div>
                 <div className='h-full w-full py-8'>
                     <AnimatedWrapper className='text-center mb-8 font-serif text-3xl'>Explore Our Pet Grooming Services for Your Pet</AnimatedWrapper>
@@ -161,6 +167,29 @@ function PetGrooming() {
                             </Modal>
                         </div>
 
+                    </div>
+                </div>
+            </div>
+
+            <div className='flex flex-col gap-20'>
+                <div className='flex w-full px-10 gap-10'>
+                    <div className='w-full flex flex-col gap-10 justify-center'>
+                        <h1 className='text-6xl font-bold'> A Unique <br />
+                        Pet Grooming <br />Experience</h1>
+                        <p className='font-semibold text-md'>At our pet grooming website, we’re not just offering a service—we’re curating an experience that celebrates every individual pet. Our digital platform is crafted to be warm, welcoming, and user-friendly, guiding you effortlessly from appointment booking to personalized care advice. We take pride in our extensive expertise combined with modern technology that ensures every pet’s grooming session is tailored to their unique needs. From interactive service menus to virtual pet consultations, our website is designed to enhance your pet’s grooming journey and ensure their time with us is both safe and enjoyable</p>
+                    </div>
+                    <div className='w-full'>
+                    <img className='h-[500px] w-full object-cover max-sm:h-[300px]' src={`${import.meta.env.BASE_URL}pexels-rdne-7516109.jpg`}/>
+                    </div>
+                </div>
+
+                <div className='flex w-full px-10 gap-10'>
+                    <div className='w-full'>
+                        <img className='h-[500px] w-full object-cover max-sm:h-[300px]' src={`${import.meta.env.BASE_URL}pexels-tima-miroshnichenko-6130987.jpg`}/>
+                    </div>
+                    <div className='w-full flex flex-col gap-10 justify-center'>
+                        <h1 className='text-6xl font-bold'>Our Promise: <br /> Pet-Centric <br /> Excellence</h1>
+                        <p className='font-semibold text-md'>We set ourselves apart by embracing a philosophy of genuine care and transparency. Every feature on our site reflects our commitment to making pet care accessible and exceptional. With detailed service descriptions, customer testimonials, and behind-the-scenes looks at our grooming process, we provide a complete, trustworthy overview of how we treat pets like family. Our real-time booking system, expert care tips, and community forum for pet owners all work together to ensure that, beyond just a grooming appointment, you join a vibrant community dedicated to the well-being of your pet. Choose us not only because we groom but because we build confidence, trust, and love between you and your furry companion.</p>
                     </div>
                 </div>
             </div>

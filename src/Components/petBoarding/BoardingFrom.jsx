@@ -218,11 +218,11 @@ function BoardingForm() {
 
                                 <TextField sx={{
                                     width: 300,
-                                }} value={ownerFormData.first_name} onChange={handleOwnerDetailsChange} name="first_name" label="First Name" variant="outlined" size='small' />
+                                }} value={ownerFormData.first_name} onChange={handleOwnerDetailsChange} name="first_name" label="First Name" variant="outlined" size='small' required />
 
                                 <TextField sx={{
                                     width: 300,
-                                }} value={ownerFormData.last_name} onChange={handleOwnerDetailsChange} name="last_name" label="Last Name" variant="outlined" size='small' />
+                                }} value={ownerFormData.last_name} onChange={handleOwnerDetailsChange} name="last_name" label="Last Name" variant="outlined" size='small' required />
                             </div>
                             <div className='p-5 flex justify-between w-full '>
                                 <TextField sx={{
@@ -230,13 +230,13 @@ function BoardingForm() {
                                     width: 300,
 
 
-                                }} value={ownerFormData.email} onChange={handleOwnerDetailsChange} name="email" label="Email Address" variant="outlined" size='small' />
+                                }} value={ownerFormData.email} onChange={handleOwnerDetailsChange} name="email" label="Email Address" variant="outlined" size='small' required/>
                                 <TextField sx={{
 
                                     width: 300,
 
 
-                                }} value={ownerFormData.phone_no} onChange={handleOwnerDetailsChange} name="phone_no" type='number' label="Phone No." variant="outlined" size='small' />
+                                }} value={ownerFormData.phone_no} onChange={handleOwnerDetailsChange} name="phone_no" type='number' label="Phone No." variant="outlined" size='small' required/>
                             </div>
                         </div>
 
@@ -251,7 +251,7 @@ function BoardingForm() {
                                     <label className='text-md font-semibold w-20 ' htmlFor="">ADDRESS</label>
                                 </div>
                                 <div className='w-full'>
-                                    <input value={ownerFormData.address} onChange={handleOwnerDetailsChange} name="address" type="text" className='w-full p-3 outline-0' placeholder='Drop Your Location' />
+                                    <input value={ownerFormData.address} onChange={handleOwnerDetailsChange} name="address" type="text" className='w-full p-3 outline-0' placeholder='Drop Your Location' required/>
                                 </div>
                             </div>
                         </div>

@@ -85,11 +85,11 @@ console.log(formData)
                                 <p className='max-sm:text-sm '>I accept to the terms and condition and i agree to the of privecy policy </p>
                             </div>
                             <div className='btn-sign-up mt-3 '>
-                                {/* <Link to={"/signin"} > */}
+                                <Link to={"/signin"} >
                                     <button 
                                     onClick={SignUpSubmitHanlder}
                                      className='p-2 bg-green-600 border  hover:bg-black px-20 text-base text-white rounded-md font-bold'>Submit</button>
-                                {/* </Link> */}
+                                </Link>
                             </div>
                         </form>
                     </div>

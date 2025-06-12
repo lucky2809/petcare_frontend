@@ -26,8 +26,35 @@ function SignIn() {
             const data = await fetchData.json()
             if (fetchData.ok) {
                 localStorage.setItem("access_token", data.token)
-                alert(JSON.stringify(data.massage))
-                navigate("/")
+                alert(JSON.stringify(data.message))
+                const fetchVerifyToken = async (token) => {
+                    try {
+                        const fetchData = await fetch(`${import.meta.env.VITE_APP_BACKEND_URL}/verify-token`, {
+                            method: "GET",
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
+                        });
+                        const data = await fetchData.json();
+                        const role = data.user_data?.role
+                        if (role === "admin") {
+                            window.location.href = ("/admin/bookingdetailstable")
+                        } else {
+                            navigate("/")
+
+                        }
+
+
+                    } catch {
+
+                    }
+                };
+
+                const token = localStorage.getItem("access_token");
+                if (token) {
+                    fetchVerifyToken(token);
+                }
+
             } else {
                 toast.warn("Please Fill Details First")
                 console.log("somthing went wrong ..!")
@@ -100,7 +127,7 @@ function SignIn() {
 
                     </div>
                     <form className='sign-in flex flex-col justify-center items-center gap-2 h-[100%]  '>
-                        <h1 className='heading text-3xl font-bold text-black w-96 text-center max-sm:w-full'>Sign in to <br/><span className='text-green-700'> TOE BEANS APARTMENT </span></h1>
+                        <h1 className='heading text-3xl font-bold text-black w-96 text-center max-sm:w-full'>Sign in to <br /><span className='text-green-700'> TOE BEANS APARTMENT </span></h1>
 
                         <label className='flex flex-col  gap-1 w-96 mt-10 max-sm:w-full'>
                             <label for="text" className=' font-semibold text-[18px]' >Gmail or UserName</label>

@@ -21,6 +21,7 @@ import PetMedicalDetails from '../FormComp/PetMedicalDetails';
 import { addBooking, toggleCart } from '../../store/slices/cartSlice';
 import { nanoid } from '@reduxjs/toolkit';
 import { getPetLength } from '../../utils/helperfunc/helper';
+import { addBookingData } from '../../utils/APIs';
 
 
 export const StepContext = createContext()
@@ -30,6 +31,7 @@ export default function BoardingStepper() {
   const petFormData = useSelector((state) => state.PetReducer.petDetails)
   const boardingDays = useSelector((state) => state.PetReducer.boardingDetails?.boarding_days) || 1
   const activeStep = useSelector((state) => state.PetReducer.activeStep)
+  const boardingFormData = useSelector((state) => state.PetReducer.boardingDetails)
   const groomingData = useSelector((state) => state.PetReducer.groomingDetails)
   const BoadingPrice = useSelector((state) => state.PetReducer.bookPrice)
 
@@ -60,7 +62,7 @@ export default function BoardingStepper() {
     isPetGrooming, isPetTaxi, setIsPetGrooming, setIsPetTaxi     // props ko object me bej skte hai 
   }
 
-  const handleAdd = () => {
+  const handleAdd = async () => {
     const payload = generateCartPayload()
     console.log("payload_redux", payload)
     if (!payload) {
@@ -71,6 +73,14 @@ export default function BoardingStepper() {
     dispatch(
       addBooking({ ...payload, cart_id })
     );
+    
+        await addBookingData({
+      ...ownerFormData,
+      boardingDetails: boardingFormData,
+      petDetails: petFormData
+
+    })
+
     dispatch({ type: ADD_CART_ID, payload: cart_id });
     navigate("/")
     dispatch(toggleCart());
