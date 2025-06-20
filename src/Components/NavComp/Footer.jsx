@@ -16,6 +16,12 @@ function Footer() {
 
                     <div class="youtube  h-10 w-10 rounded-full flex items-center justify-center bg-white hover:bg-slate-800 hover:text-red-500 duration-700"> <Icon width={26} icon={"icon-park-solid:instagram-one"} /> </div>
                 </div>
+                <div className='text-white flex gap-2 pt-2 items-center'>
+                    <p className='text-xl font-semibold items-center'>Contact Email :- </p>
+                    <a href={`mailto:${import.meta.env.VITE_APP_CONTACT_EMAIL}`} >
+                        <p className='text-lg'>connect@toebeansapartment.com</p>
+                    </a>
+                </div>
             </div>
             {/* <!--Start service section --> */}
             <div class="Service  text-white flex flex-col w-52 max-sm:w-full border border-red-600  max-sm:flex gap-2 border-none max-sm:mt-3 ">
