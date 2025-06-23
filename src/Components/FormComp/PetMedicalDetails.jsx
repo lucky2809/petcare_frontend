@@ -135,7 +135,7 @@ function PetMedicalDetails({ pet_name }) {
     <div className="px-5 overflow-auto max-h-[380px] -z-10">
       <h1 className="text-2xl font-bold">{pet_name + "'s"} MEDICATION</h1>
       {petMeditionForms.map((pet, index) => (
-        <div key={index} className="mt-5 flex gap-5">
+        <div key={index} className="mt-5 flex max-sm:flex-col gap-5">
           <TextField
             value={pet.medication_name}
             onChange={(e) => handlePetMeditionDetailsChange(index, e)}
@@ -198,7 +198,7 @@ function PetMedicalDetails({ pet_name }) {
           Vaccination History
         </h1>
         {petVaccineForms.map((pet, index) => (
-          <div key={index} className="mt-5 flex w-full gap-5">
+          <div key={index} className="mt-5 flex max-sm:flex-col w-full gap-5">
             <TextField
               value={pet.vaccine_name}
               onChange={(e) => handlePetVaccinenDetailsChange(index, e)}

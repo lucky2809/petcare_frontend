@@ -103,7 +103,7 @@ function BoardingForm() {
     console.log(pickDates)
 
     // for drop of date
-     const getDropDate = () => {
+    const getDropDate = () => {
         const dropDates = []
         const today = new Date()
         // const today = new boarding.start_date()
@@ -195,9 +195,9 @@ function BoardingForm() {
     }
 
     return (
-        <div className='pb-10'>
+        <div className=' pb-10 max-sm:pb-40'>
 
-            <div className=' border-green-800 w-full flex justify-between px-10 '>
+            <div className=' border-green-800 w-full flex justify-between px-10 max-sm:px-5 '>
 
                 <div className='First w-full'>
 
@@ -209,41 +209,40 @@ function BoardingForm() {
                             <h1 className="font-bold text-2xl">Pet Boarding </h1>
                         </div>
                     </div>
-                    <div className='border-1 border-slate-400 rounded-lg mb-4  flex flex-col gap-3 shadow-md'>
-                        <div className='px-6 mt-3'>
+                    <div className='border-1 border-slate-400 rounded-lg mb-4  flex flex-col gap-3 p-4 shadow-md'>
+                        <div className=''>
                             <h1 className='text-xl font-semibold'>Pet Owner Details</h1>
                         </div>
-                        <div className=''>
-                            <div className='px-5 flex justify-between w-full'>
+                        <div className='flex flex-col gap-4'>
+                            <div className=' flex  max-sm:gap-3 justify-between w-full'>
 
                                 <TextField sx={{
                                     width: 300,
-                                }} value={ownerFormData.first_name} onChange={handleOwnerDetailsChange} name="first_name" label="First Name" variant="outlined" size='small' required />
+                                }}
+                                    // className='min-w-300 max-sm:w-full' 
+                                    value={ownerFormData.first_name} onChange={handleOwnerDetailsChange} name="first_name" label="First Name" variant="outlined" size='small' required />
 
                                 <TextField sx={{
                                     width: 300,
-                                }} value={ownerFormData.last_name} onChange={handleOwnerDetailsChange} name="last_name" label="Last Name" variant="outlined" size='small' required />
+                                }}
+                                    value={ownerFormData.last_name} onChange={handleOwnerDetailsChange} name="last_name" label="Last Name" variant="outlined" size='small' required />
                             </div>
-                            <div className='p-5 flex justify-between w-full '>
+                            <div className=' flex justify-between max-sm:gap-3 w-full '>
                                 <TextField sx={{
-
                                     width: 300,
-
-
-                                }} value={ownerFormData.email} onChange={handleOwnerDetailsChange} name="email" label="Email Address" variant="outlined" size='small' required/>
+                                }}
+                                    value={ownerFormData.email} onChange={handleOwnerDetailsChange} name="email" label="Email Address" variant="outlined" size='small' required />
                                 <TextField sx={{
-
                                     width: 300,
-
-
-                                }} value={ownerFormData.phone_no} onChange={handleOwnerDetailsChange} name="phone_no" type='number' label="Phone No." variant="outlined" size='small' required/>
+                                }}
+                                    value={ownerFormData.phone_no} onChange={handleOwnerDetailsChange} name="phone_no" type='number' label="Phone No." variant="outlined" size='small' required />
                             </div>
                         </div>
 
                     </div>
-                    <div className='flex flex-col gap-5 border-2 pb-5 mb-5 border-gray-400 rounded-lg shadow-md'>
-                        <div className=' px-5 flex flex-col gap-3'>
-                            <div className='p-2'>
+                    <div className='flex flex-col gap-5 border-2 p-4 mb-5 border-gray-400 rounded-lg shadow-md'>
+                        <div className=' flex flex-col gap-3'>
+                            <div className=''>
                                 <h1 className='text-xl font-semibold'>Boarding</h1>
                             </div>
                             <div className='flex justify-between gap-10 items-center px-2 bg-slate-100'>
@@ -251,12 +250,12 @@ function BoardingForm() {
                                     <label className='text-md font-semibold w-20 ' htmlFor="">ADDRESS</label>
                                 </div>
                                 <div className='w-full'>
-                                    <input value={ownerFormData.address} onChange={handleOwnerDetailsChange} name="address" type="text" className='w-full p-3 outline-0' placeholder='Drop Your Location' required/>
+                                    <input value={ownerFormData.address} onChange={handleOwnerDetailsChange} name="address" type="address" className='w-full p-3 outline-0' placeholder='Drop Your Location' required />
                                 </div>
                             </div>
                         </div>
 
-                        <div className='px-5 flex flex-col gap-5'>
+                        <div className=' flex flex-col gap-5'>
                             <div className='flex justify-between px-2 gap-10 items-center bg-slate-100'>
                                 <div className='w-25'>
                                     <label className='text-md font-sans w-10 font-semibold' htmlFor="">WHEN</label>
@@ -270,13 +269,13 @@ function BoardingForm() {
 
                             {
                                 boardingFormData.start_date || schedule === "Schedule" ?
-                                    <div className='date-time flex items-center w-full bg-slate-100 '>
+                                    <div className='date-time flex max-sm:flex max-sm:flex-col items-center w-full bg-slate-100 '>
                                         <div className='w-full'>
                                             <div className='px-4 pt-2'>
                                                 <label className='text-md font-sans w-10 font-semibold' htmlFor="">PICK UP</label>
                                             </div>
                                             <div className='w-full flex'>
-                                                <select value={boardingFormData.start_date} onChange={handleBoardingDetailsChange} className='w-full p-3 outline-0' name="start_date" id="">
+                                                <select value={boardingFormData.start_date} onChange={handleBoardingDetailsChange} className='w-full p-3  outline-0' name="start_date" id="">
                                                     {pickDates.map((date) => {
                                                         return (
                                                             <option className='p-3 text-2xl'>{date}</option>
@@ -290,8 +289,8 @@ function BoardingForm() {
                                                 </select>
                                             </div>
                                         </div>
-                                        <div className="p-0 m-0">
-                                             <Icon height={50} width={0} icon={"ph:line-vertical-thin"} className='m-0 p-0' />
+                                        <div className="p-0 m-0 max-sm:hidden">
+                                            <Icon height={50} width={0} icon={"ph:line-vertical-thin"} className='m-0 p-0' />
                                         </div>
                                         <div className='w-full pt-2'>
                                             <div className='px-4'>
@@ -317,15 +316,15 @@ function BoardingForm() {
                             }
                         </div>
                     </div>
-                    <div className='border-2 pb-5 border-gray-400 mb-5 rounded-lg shadow-md'>
-                        <div className='p-5 flex flex-col gap-5'>
-                            <h1 className='text-xl font-semibold px-2'>Pets Details</h1>
+                    <div className='border-2 p-4 border-gray-400 mb-5 rounded-lg shadow-md'>
+                        <div className='flex flex-col gap-5'>
+                            <h1 className='text-xl font-semibold'>Pets Details</h1>
                         </div>
                         <PetDetails />
                     </div>
                     <div className='border-2  border-gray-400 rounded-lg shadow-md'>
                         {BoadingPrice === 0 ?
-                            <div className='px-5 max-sm:px-2 max-lg:px-10 flex flex-col max-sm:flex-col py-10 gap-7 max-sm:gap-5'>
+                            <div className='px-5 max-sm:px-2 max-lg:px-10 flex flex-col max-sm:flex-col py-10 max-sm:py-5 gap-7 max-sm:gap-5'>
                                 <div className=' flex justify-between gap-3 px-5 w-full bg-white rounded-lg shadow-md'>
 
                                     <div className='flex justify-center items-center gap-4'>
@@ -377,24 +376,22 @@ function BoardingForm() {
                         }
                     </div>
                     <div>
-                        <Modal sx={{ height: screen, display: 'flex', justifyContent: "center", alignItems: 'center', px: 30 }}
+                        <Modal className='px-55 flex items-center h-full max-sm:px-5 max-sm:flex'
                             open={open}
                             // onClose={handleClose}
                             aria-labelledby="modal-modal-title"
                             aria-describedby="modal-modal-description"
                         >
-                            <AnimatedCard className='h-[500px] w-full'>
+                            <AnimatedCard className='h-[500px] w-full max-sm:flex max-sm:justify-center max-sm:mb-15'>
                                 <Box sx={{ height: "500px", width: "100%", bgcolor: "white", outline: 0, display: "flex", }}>
-                                    {activeStep !== 0 && activeStep !== PET_LENGTH - 1 && activeStep !== PET_LENGTH + 3 && <div className='img-section min-w-[30%] h-full'>
+                                    {activeStep !== 0 && activeStep !== PET_LENGTH - 1 && activeStep !== PET_LENGTH + 3 && <div className='img-section min-w-[30%] h-full max-sm:hidden'>
                                         <img className='h-full w-full object-cover' src="https://t4.ftcdn.net/jpg/02/66/72/41/360_F_266724172_Iy8gdKgMa7XmrhYYxLCxyhx6J7070Pr8.jpg" alt="" />
                                     </div>}
-                                    <div className='content  h-full w-full'>
+                                    <div className='content w-full'>
                                         <div className='w-full flex justify-end'> <Icon fontSize={40} icon={"basil:cross-solid"} onClick={handleClose} /> </div >
                                         {/* stepper components */}
                                         <BoardingStepper />
-
                                     </div>
-
                                 </Box>
                             </AnimatedCard>
                         </Modal>
@@ -405,7 +402,7 @@ function BoardingForm() {
 
                 </div>
 
-                <div className='Second  rounded-xl w-full m-6'>
+                <div className='Second  rounded-xl w-full m-6 max-sm:hidden'>
                     <MapContainer center={[27.1767, 78.0081]} zoom={13} scrollWheelZoom={false} style={{ flex: 1, height: "100%", borderRadius: "10px" }}>
                         <TileLayer
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'

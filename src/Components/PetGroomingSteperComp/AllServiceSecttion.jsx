@@ -31,7 +31,7 @@ function AllServiceSection({handleNext}) {
         <Fragment>
 
             <AnimatedCard className='service  w-full flex flex-col justify-center h-full gap-4 items-center'>
-                <h1 className='heading text-3xl font-bold w-[70%]'>Service Section</h1>
+                <h1 className='heading text-3xl font-bold w-[70%] max-sm:w-full'>Service Section</h1>
                 {
                     data.map((item_data, index) => <ServiceCard item_data={item_data} index={index}  handleNext={handleNext}/>)
                 }

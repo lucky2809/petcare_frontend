@@ -179,7 +179,7 @@ export default function BoardingStepper() {
   const maxSteps = steps.length;
 
   return (
-      <div className='border-2'>
+      <div className=''>
     <Box className='' sx={{ maxWidth: "100%", maxHeight: "500px", flexGrow: 1 }}>
       <Paper
         square
@@ -202,7 +202,7 @@ export default function BoardingStepper() {
 
       </Box>
       <MobileStepper
-        className='min-w-full border-1 border-red-400'
+        className='min-w-full'
         variant="text"
         steps={maxSteps}
         position="static"

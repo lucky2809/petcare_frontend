@@ -116,7 +116,8 @@ function PetDetails() {
                                     </div> */}
                 {petForms.map((pet, index) => (
                     <div key={index} className=" py-3 max-sm:py-2  rounded flex flex-col gap-5">
-                        <div className="flex gap-5 items-center max-sm:grid max-sm:grid-cols-2  max-sm:border-gray-400 max-sm:shadow-lg max-sm:p-2">
+                        <div className="flex gap-5 max-sm:flex-col  max-sm:border-gray-400 max-sm:shadow-md ">
+                            <div className='flex gap-5'>
                             <TextField
                                 className='min-w-56'
                                 // sx={{ minWidth: 50 }}
@@ -138,6 +139,7 @@ function PetDetails() {
                                     <TextField {...params} label="Age Of Your Pet" size="small" />
                                 )}
                             />
+                            </div>
                             {/* <Autocomplete
                                 disablePortal
                                 options={PetType}
@@ -149,7 +151,7 @@ function PetDetails() {
                                 )}
                             /> */}
                             <Autocomplete
-                            className='min-w-56'
+                            className='min-w-56 max-sm:w-full'
                                 disablePortal
                                 options={selectOptions}
                                 // sx={{ minWidth: 200 }}
