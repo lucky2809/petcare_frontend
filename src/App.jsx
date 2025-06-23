@@ -22,23 +22,25 @@ import CartDrawer from './Components/cart/CartDrawer';
 import { AuthProvider } from './Components/Auth/AuthProvider';
 import ProtectRouter from './Components/Auth/ProtectRouter';
 import { FloatingWhatsApp } from 'react-floating-whatsapp'
+import { useEffect } from 'react';
+import ScrollToTop from './Components/ScrollToTOP';
 // aPP.JSX
 function App() {
-
-  console.log("Env", )
 
   return (
     <>
 
-    <FloatingWhatsApp
-    avatar={`${import.meta.env.BASE_URL}logo.png`}
-    phoneNumber={import.meta.env.VITE_WHATSAPPNO} 
-    accountName={import.meta.env.VITE_WHATSAPPNAME} />
+      <FloatingWhatsApp
+        avatar={`${import.meta.env.BASE_URL}logo.png`}
+        phoneNumber={import.meta.env.VITE_WHATSAPPNO}
+        accountName={import.meta.env.VITE_WHATSAPPNAME} />
       <CartDrawer />
 
       <BrowserRouter>
+        <ScrollToTop />
         <AuthProvider>
           <Routes>
+          
             <Route path='/signup' element={<SignUp />} />
             <Route path='/signin' element={<SignIn />} />
             <Route path='/forgetpassword' element={<ForgetPassword />} />
@@ -57,7 +59,7 @@ function App() {
             <Route path='/pettaxi' element={< PetTaxi />} />
             <Route path='/petmedicaldetails' element={<PetMedicalDetails />} />
 
-            <Route path='/admin/bookingdetailstable' element={<ProtectRouter role='admin'><BookingDetailsTable /></ProtectRouter>} />
+            <Route path='/admin/bookingdetailstable' element={<BookingDetailsTable />} />
 
           </Routes>
         </AuthProvider>

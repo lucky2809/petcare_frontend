@@ -61,7 +61,7 @@ function PetDetails() {
 
     return (
         <Fragment>
-            <div>
+            <div className='overflow-auto max-h-[315px]'>
                 {/* <div className='px-5 justify-between w-full flex flex-col gap-5'>
                                         <div className='flex gap-5'>
                                             <div>
@@ -115,11 +115,11 @@ function PetDetails() {
                                         </div>
                                     </div> */}
                 {petForms.map((pet, index) => (
-                    <div key={index} className="px-5 py-3  rounded flex flex-col gap-5">
-                        <div className="flex gap-5 items-center">
+                    <div key={index} className=" py-3 max-sm:py-2  rounded flex flex-col gap-5">
+                        <div className="flex gap-5 items-center max-sm:grid max-sm:grid-cols-2  max-sm:border-gray-400 max-sm:shadow-lg max-sm:p-2">
                             <TextField
-                                className='min-w-sm'
-                                sx={{ minWidth: 50 }}
+                                className='min-w-56'
+                                // sx={{ minWidth: 50 }}
                                 value={pet.pet_name}
                                 onChange={(e) => handlePetDetailsChange(index, e)}
                                 name="pet_name"
@@ -128,9 +128,10 @@ function PetDetails() {
                                 size="small"
                             />
                             <Autocomplete
+                            className='min-w-56'
                                 disablePortal
                                 options={Age}
-                                sx={{ minWidth: 200 }}
+                                // sx={{ minWidth: 200 }}
                                 value={pet.pet_age}
                                 onChange={(e, val) => handlePetDetailsChange(index, e, val, "pet_age")}
                                 renderInput={(params) => (
@@ -148,9 +149,10 @@ function PetDetails() {
                                 )}
                             /> */}
                             <Autocomplete
+                            className='min-w-56'
                                 disablePortal
                                 options={selectOptions}
-                                sx={{ minWidth: 200 }}
+                                // sx={{ minWidth: 200 }}
                                 value={pet.pet_breed}
                                 onChange={(e, val) => handlePetDetailsChange(index, e, val, "pet_breed")}
                                 renderInput={(params) => (
@@ -169,7 +171,7 @@ function PetDetails() {
                     </div>
                 ))}
 
-                <div className=' flex justify-end mx-7'>
+                <div className=' flex justify-end mx-7 max-sm:mx-0'>
                     <Button
                         startIcon={<ControlPointIcon />
                         }

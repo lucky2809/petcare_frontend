@@ -60,9 +60,9 @@ function ServiceSection({ isDogAvailable }) {
 
     return (
         <Fragment>
-            <AnimatedCard className='service  w-full flex flex-col justify-center h-full gap-4 items-center'>
-                <h1 className='heading text-3xl font-bold w-96 flex gap-1'>Service Section<div className='text-green-600'> </div> </h1>
-                <div onMouseOver={onMouseCat} onMouseLeave={leaveMouseCat} className={`Service p-4 border  shadow-sm shadow-black/15 ${isCat ? "bg-amber-50/20 border-amber-400" : "border-black/20"}  p-2 rounded-md flex  items-center gap-5 w-96`}>
+            <AnimatedCard className='service  w-full flex flex-col justify-center h-full gap-4 items-center px-35 max-sm:px-5'>
+                <h1 className='heading text-3xl font-bold flex gap-1 w-full'>Service Section<div className='text-green-600'> </div> </h1>
+                <div onMouseOver={onMouseCat} onMouseLeave={leaveMouseCat} className={`Service p-4 border  shadow-sm shadow-black/15 ${isCat ? "bg-amber-50/20 border-amber-400" : "border-black/20"}  p-2 rounded-md flex  items-center gap-5 w-full`}>
                     <div className='img-section '>
                         <Icon fontSize={35} icon={"emojione-v1:cat-face"} />
                     </div>
@@ -75,7 +75,7 @@ function ServiceSection({ isDogAvailable }) {
 
                 </div>
 
-              { isDogAvailable && <div onMouseOver={onMouse} onMouseLeave={leaveMouse} className={`Service p-4 border shadow-sm shadow-black/15 ${isDog ? "bg-amber-50/20 border-amber-400" : "border-black/20"}  p-2 rounded-md flex  items-center gap-5 w-96`}>
+              { isDogAvailable && <div onMouseOver={onMouse} onMouseLeave={leaveMouse} className={`Service p-4 border shadow-sm shadow-black/15 ${isDog ? "bg-amber-50/20 border-amber-400" : "border-black/20"}  p-2 rounded-md flex  items-center gap-5 w-full`}>
                     <div className='img-section '>
                         <Icon fontSize={35} icon={"fluent-emoji:dog-face"} />
                     </div>

@@ -6,7 +6,7 @@ function Footer() {
     return (
 
         <footer class="footer border-b border-sky-300 flex justify-around gap-10 mt-14 bg-black max-sm:flex-col max-sm:px-3 max-sm:py-4">
-            <div class="digimax  w-[450px] h-72 max-sm:h-60 flex flex-col  max-sm:w-full">
+            <div class="digimax  w-[450px] h-72 flex flex-col  max-sm:w-full">
                 <p className='font-semibold text-3xl text-white max-sm:text-center mt-5'>Petpy.in</p>
                 <p class="pareghraph  mt-6 font-sans max-sm:text-center max-sm:px- font-semibold text-slate-400 hover:text-white">Caring for a pet requires love, patience, and responsibility. Ensure your pet has a balanced diet suited to their breed and age. Fresh water should always be available. Regular vet check-ups help detect health</p>
                 <div class="icone_box flex gap-1 mt-6 max-sm:justify-center max-sm:gap-3">
@@ -16,7 +16,7 @@ function Footer() {
 
                     <div class="youtube  h-10 w-10 rounded-full flex items-center justify-center bg-white hover:bg-slate-800 hover:text-red-500 duration-700"> <Icon width={26} icon={"icon-park-solid:instagram-one"} /> </div>
                 </div>
-                <div className='text-white flex gap-2 pt-2 items-center'>
+                <div className='text-white flex max-sm:flex-col max-sm:gap-0 gap-2 pt-2 items-center'>
                     <p className='text-xl font-semibold items-center'>Contact Email :- </p>
                     <a href={`mailto:${import.meta.env.VITE_APP_CONTACT_EMAIL}`} >
                         <p className='text-lg'>connect@toebeansapartment.com</p>

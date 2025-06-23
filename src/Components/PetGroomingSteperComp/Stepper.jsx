@@ -113,7 +113,7 @@ export default function MYStepper() {
       >
         {/* <Typography>{steps[activeStep].label}</Typography> */}
       </Paper>
-      <Box sx={{ height: 400, width: '100%', px: 2, }}>
+      <Box classname="w-full max-sm:w-2" sx={{ height: 400,  }}>
 
         <StepContext.Provider value={{ handleNext }}>
           {steps[activeStep].component}

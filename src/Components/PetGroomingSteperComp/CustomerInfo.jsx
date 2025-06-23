@@ -24,7 +24,7 @@ function CustomerInfo() {
     
     return (
         <Fragment>
-            <AnimatedCard className='service pb-4  w-full  flex flex-col justify-center h-full gap-4 items-center  px-10'>
+            <AnimatedCard className='service pb-4  w-full  flex flex-col justify-center h-full gap-4 items-center  px-10 max-sm:px-5'>
                 <h1 className='heading text-3xl font-bold w-full'>Customer Information</h1>
                 <div className='w-full flex gap-3' >
                     <TextField id="outlined-basic" value={ownerFormData.first_name} onChange={handleOwnerDetailsChange} name='first_name' label="Fisrt name" variant="outlined" sx={{ width: "100%" }} />

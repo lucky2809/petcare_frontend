@@ -28,3 +28,9 @@ html{
   color: white;
   font-weight: bold;
 } */
+
+.grooming-wrapper {
+    background-image: url(apoinment.svg);
+    background-size: cover;
+    background-repeat: no-repeat; 
+}

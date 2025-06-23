@@ -71,16 +71,20 @@ function Navbar() {
           {/* <nav className="res-nav  max-sm:border  max-sm:border-red-600  max-sm:p-2  max-sm:absolute  max-sm:mt-[-60px]  max-sm:h-full w-full"></nav> */}
         </header>
         
-        <header className="absolute w-full h-96 border border-blue-600   mt-10 p-2 border-none min-sm:hidden">
+        <header className="absolute w-full h-96 border border-blue-600   mt-10  border-none min-sm:hidden">
           {toggleBtn == true ? 
-            <nav className="res-nav w-full h-96  text-white border flex  justify-center items-center border-slate-300 rounded-md bg-black z-30 absolute">
-            <ul className="un-order-list-resp w-full flex flex-col justify-center items-center gap-5 ">
-              <li>Home</li>
-              <li>About</li>
-              <li>Skill</li>
-              <li>Portfolio</li>
-              <li>Service</li>
-              <li>Contact</li>
+            <nav className="res-nav w-full h-96 fixed text-white border flex  justify-center items-center border-slate-300 rounded-md bg-black z-30">
+            <ul className="un-order-list flex flex-col gap-5 items-center  text-white font-medium text-[17px]" >
+            <li className='hover:border-b-2 hover:text-black'><Link  to={"/"}>HOME</Link></li>
+              <li className='hover:border-b-2 hover:text-black'><Link  to={"/petfinding"}>ABOUT</Link></li>
+              <li className='hover:border-b-2 hover:text-black'><Link to={"/"} >SERVICE</Link></li>
+              <li className='hover:border-b-2 hover:text-black'><Link to={"/bloges"}>BLOGS</Link></li>
+              <li className='hover:border-b-2 hover:text-black'><Link to={"/petfinding"}>ADOPTION</Link></li>
+              <li className='hover:border-b-2 hover:text-black'><Link to={"/petgrooming"}>PET GROOMING </Link></li>
+              <li className='flex items-center hover:border-b-2 hover:text-black'><Link to={"/signin"}>LOGIN</Link>
+              {/* <Icon fontSize={23}  icon={"oui:arrow-down"}></Icon>  */}
+              </li>
+
             </ul>
           </nav>
           : <div></div>
