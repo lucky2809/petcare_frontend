@@ -140,7 +140,7 @@ function PetGrooming() {
                                             </ul> : ""}
                                         </div>
                                         <div className='flex flex-col items-center '>
-                                            <div className='btn-wrapper w-full px-25 py-3 '>
+                                            <div className='btn-wrapper w-full px-25 max-sm:px-15 py-3 '>
                                                 <button disabled={isServiceDisable} onClick={() => handleMore(item.id)} className={`w-full border-1 ${isServiceDisable ? "border-gray-400 text-gray-400" :""} px-3 rounded-md p-1`} sx={{ width: "100%", height: 32, fontSize: 14, color: "black", border: "1px solid #d1cccc" }}>View More</button>
                                             </div>
 

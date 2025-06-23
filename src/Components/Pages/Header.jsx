@@ -158,11 +158,11 @@ function Header() {
                         <div className=' w-full absolute -top-7 max-sm:-top-7 min-2xl:-top-8 px-35 max-sm:px-6 max-lg:px-7'>
 
                             <div className=' w-full flex max-sm:flex-col max-sm:gap-0 gap-6 items-center text-xl max-sm:text-sm min-2xl:text-2xl font-semibold p-5 max-sm:py-3 min-2xl:py-5 px-10 rounded-lg shadow-lg  bg-white justify-center '>
-                                <div>
+                                <div className=''>
                                     <p>I'm looking for Service for My : </p>
                                 </div>
                                 <div className='flex gap-3 items-center'>
-                                    <input type="checkbox" className='h-5 w-5 min-2xl:h-7 min-2xl:w-7' name="" id="" checked />
+                                    <input type="checkbox" className='h-5 w-5 min-2xl:h-7 min-2xl:w-7 max-sm:w-4' name="" id="" checked />
                                     <p>Cat</p>
                                 </div>
                             </div>
