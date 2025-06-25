@@ -5,37 +5,37 @@ import { ADD_PET_DETAILS, ADD_PET_MEDITION_DETAILS, ADD_PET_VACCINE_DETAILS, han
 import { toast } from 'react-toastify';
 
 const selecttime = [
-    { label: "AM" },
-    { label: "PM" }
+  { label: "AM" },
+  { label: "PM" }
 ]
 
 const selectYear = [
-    { label: "2000" },
-    { label: "2001" },
-    { label: "2002" },
-    { label: "2003" },
-    { label: "2004" },
-    { label: "2005" },
-    { label: "2006" },
-    { label: "2007" },
-    { label: "2008" },
-    { label: "2009" },
-    { label: "2010" },
-    { label: "2011" },
-    { label: "2012" },
-    { label: "2013" },
-    { label: "2014" },
-    { label: "2015" },
-    { label: "2016" },
-    { label: "2017" },
-    { label: "2018" },
-    { label: "2019" },
-    { label: "2020" },
-    { label: "2021" },
-    { label: "2022" },
-    { label: "2023" },
-    { label: "2024" },
-    { label: "2025" }
+  { label: "2000" },
+  { label: "2001" },
+  { label: "2002" },
+  { label: "2003" },
+  { label: "2004" },
+  { label: "2005" },
+  { label: "2006" },
+  { label: "2007" },
+  { label: "2008" },
+  { label: "2009" },
+  { label: "2010" },
+  { label: "2011" },
+  { label: "2012" },
+  { label: "2013" },
+  { label: "2014" },
+  { label: "2015" },
+  { label: "2016" },
+  { label: "2017" },
+  { label: "2018" },
+  { label: "2019" },
+  { label: "2020" },
+  { label: "2021" },
+  { label: "2022" },
+  { label: "2023" },
+  { label: "2024" },
+  { label: "2025" }
 
 
 ]
@@ -44,10 +44,10 @@ function PetMedicalDetails({ pet_name }) {
   const dispatch = useDispatch();
 
   const petMeditionForms = useSelector(
-    (state) => state.PetReducer.petMeditionDetails[pet_name] ||  [{ medication_name: '', description: '', dose_time: '', dosage: '' }]
+    (state) => state.PetReducer.petMeditionDetails[pet_name] || [{ medication_name: '', description: '', dose_time: '', dosage: '' }]
   );
   const petVaccineForms = useSelector(
-    (state) => state.PetReducer.petVaccineDetails[pet_name] ||  [{ vaccine_name: '', year: null }]
+    (state) => state.PetReducer.petVaccineDetails[pet_name] || [{ vaccine_name: '', year: null }]
   );
   const petTreatmentForm = useSelector(
     (state) => state.PetReducer.treatmentDetails[pet_name] || {
@@ -172,11 +172,7 @@ function PetMedicalDetails({ pet_name }) {
             size="small"
           />
           {petMeditionForms.length > 1 && (
-            <Button
-              onClick={() => dispatch(handleRemovePetMedition(index))}
-              color="error"
-              variant="outlined"
-            >
+            <Button onClick={() => dispatch(handleRemovePetMedition({ index, pet_name }))} color="error" variant="outlined">
               Remove
             </Button>
           )}
@@ -219,10 +215,7 @@ function PetMedicalDetails({ pet_name }) {
             />
             {petVaccineForms.length > 1 && (
               <Button
-                onClick={() => dispatch(handleRemovePetVaccine(index))}
-                color="error"
-                variant="outlined"
-              >
+                onClick={() => dispatch(handleRemovePetVaccine({ index, pet_name }))} color="error" variant="outlined" >
                 Remove
               </Button>
             )}

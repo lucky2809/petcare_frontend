@@ -36,31 +36,31 @@ const PetReducer = (state = initialState, action) => {
             return { ...state, ...{ petDetails: action.payload } }
 
         case ADD_PET_MEDITION_DETAILS:
-      return {
-        ...state,
-        petMeditionDetails: {
-          ...state.petMeditionDetails,
-          [action.payload.pet_name]: action.payload.data,
-        },
-      };
+            return {
+                ...state,
+                petMeditionDetails: {
+                    ...state.petMeditionDetails,
+                    [action.payload.pet_name]: action.payload.data,
+                },
+            };
 
-    case ADD_PET_VACCINE_DETAILS:
-      return {
-        ...state,
-        petVaccineDetails: {
-          ...state.petVaccineDetails,
-          [action.payload.pet_name]: action.payload.data,
-        },
-      };
+        case ADD_PET_VACCINE_DETAILS:
+            return {
+                ...state,
+                petVaccineDetails: {
+                    ...state.petVaccineDetails,
+                    [action.payload.pet_name]: action.payload.data,
+                },
+            };
 
-    case ADD_PET_TREATMENT_DETAILS:
-      return {
-        ...state,
-        treatmentDetails: {
-          ...state.treatmentDetails,
-          [action.payload.pet_name]: action.payload.data,
-        },
-      };
+        case ADD_PET_TREATMENT_DETAILS:
+            return {
+                ...state,
+                treatmentDetails: {
+                    ...state.treatmentDetails,
+                    [action.payload.pet_name]: action.payload.data,
+                },
+            };
 
         case REMOVE_PET_DETAIL:
             const updatedPetDetails = state.petDetails.filter(
@@ -69,16 +69,18 @@ const PetReducer = (state = initialState, action) => {
             return { ...state, petDetails: updatedPetDetails };
 
         case REMOVE_PET_MEDITION_DETAIL:
-            const updatedPetMeditionDetails = state.petMeditionDetails.filter(
-                (_, i) => i !== action.payload
+            console.log("updatedPetMeditionDetails", action.payload.pet_name, action.payload.index)
+            const updatedPetMeditionDetails = state.petMeditionDetails[action.payload.pet_name].filter(
+                (_, i) => i !== action.payload.index
             );
-            return { ...state, petMeditionDetails: updatedPetMeditionDetails };
+
+            return { ...state, petMeditionDetails: { ...state.petMeditionDetails, [action.payload.pet_name]: updatedPetMeditionDetails } };
 
         case REMOVE_PET_VACCINE_DETAIL:
-            const updatedPetVaccineDetails = state.petVaccineDetails.filter(
-                (_, i) => i !== action.payload
+            const updatedPetVaccineDetails = state.petVaccineDetails[action.payload.pet_name].filter(
+                (_, i) => i !== action.payload.index
             );
-            return { ...state, petVaccineDetails: updatedPetVaccineDetails };
+            return { ...state, petVaccineDetails: {...state.petVaccineDetails, [action.payload.pet_name]: updatedPetVaccineDetails } };
 
         case ADD_OWNER_DETAILS:
             return { ...state, ...{ ownerDetails: action.payload } }

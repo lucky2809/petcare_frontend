@@ -40,7 +40,7 @@ const selectYear = [
 
 ]
 
-function PetMedicalDetails({pet_name}) {
+function PetMedicalDetails({ pet_name }) {
 
     const petMeditionForms = useSelector((state) => state.PetReducer.petMeditionDetails)
     const petVaccineForms = useSelector((state) => state.PetReducer.petVaccineDetails)
@@ -74,7 +74,7 @@ function PetMedicalDetails({pet_name}) {
             updatedVaccine[name] = value;
         }
         updatedVaccines[index] = updatedVaccine;
-        dispatch(setPetVaccineDetails(updatedVaccines) );
+        dispatch(setPetVaccineDetails(updatedVaccines));
     };
 
     console.log("petMeditionForms", petVaccineForms)
@@ -101,12 +101,12 @@ function PetMedicalDetails({pet_name}) {
 
     // treatment add
 
-        const handleTreatmentDetailsChange = (e) => {
-            const { name, value } = e.target
-            console.log("{ name, value }", { name, value })
-            dispatch(setTreatmentDetails({ ...petTreatmentForm, ...{ [name]: value } }))
-        }
-        console.log("petTreatmentForm", petTreatmentForm)
+    const handleTreatmentDetailsChange = (e) => {
+        const { name, value } = e.target
+        console.log("{ name, value }", { name, value })
+        dispatch(setTreatmentDetails({ ...petTreatmentForm, ...{ [name]: value } }))
+    }
+    console.log("petTreatmentForm", petTreatmentForm)
 
 
 
@@ -156,7 +156,7 @@ function PetMedicalDetails({pet_name}) {
                         size="small"
                     />
                     {petMeditionForms.length > 1 && (
-                        <Button onClick={() => dispatch(handleRemovePetMedition(index))} color="error" variant="outlined">
+                        <Button onClick={() => dispatch(handleRemovePetMedition({ index, pet_name }))} color="error" variant="outlined">
                             Remove
                         </Button>
                     )
