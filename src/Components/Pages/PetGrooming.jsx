@@ -57,6 +57,11 @@ function PetGrooming() {
         dispatch(handleToggleModal(false))
     };
 
+    const handleBook = (e) => {
+        e.preventDefault()
+        window.location.href = "#book"
+    }
+
     return (
         <Fragment>
             <Navbar />
@@ -64,7 +69,7 @@ function PetGrooming() {
             <div className=' h-full w-full mb-10 '>
                 <div className='absolute flex h-120 justify-center w-full'>
                     <div className='flex flex-col gap-10 text-center items-center justify-end py-10'>
-                        <button className='text-xl font-semibold border-2 p-2 px-4 text-white rounded-xl border-green-700 bg-green-700  hover:bg-[#334320] hover:border-[#334320] cursor-pointer hover:scale-110 duration-400'>Book Now</button>
+                        <button onClick={(e) => handleBook(e)} className='text-xl font-semibold border-2 p-2 px-4 text-white rounded-xl border-green-700 bg-green-700  hover:bg-[#334320] hover:border-[#334320] cursor-pointer hover:scale-110 duration-400'>Book Now</button>
                     </div>
                 </div>
                 <div className=' h-[450px] w-full '>
@@ -92,7 +97,7 @@ function PetGrooming() {
                 </div>
 
                 <div className='grooming-wrapper py-6 w-full'>
-                    <div className='text-center font-serif text-3xl'>Popular Cat Grooming Package </div>
+                    <div id='book' className='text-center font-serif text-3xl'>Popular Cat Grooming Package </div>
                     <div className='grooming-cart-wrapper grid grid-cols-3 max-sm:flex max-sm:flex-col max-sm:w-full gap-5 px-40 max-sm:px-10 my-10 '>
 
                         {
@@ -146,7 +151,7 @@ function PetGrooming() {
 
                                             <div className='border border-slate-300 w-[70%] flex justify-center'> </div>
 
-                                            <div className='btn-wrapper w-full px-10 mt-5 '>
+                                            <div  className='btn-wrapper w-full px-10 mt-5 '>
                                                 <Button variant='outlined' sx={
                                                     {
                                                         p: 1,

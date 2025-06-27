@@ -220,7 +220,7 @@ function BoardingForm() {
                                     width: 300,
                                 }}
                                     // className='min-w-300 max-sm:w-full' 
-                                    value={ownerFormData.first_name} onChange={handleOwnerDetailsChange} name="first_name" label="First Name" variant="outlined" size='small' required />
+                                    value={ownerFormData.first_name} onChange={handleOwnerDetailsChange} name="first_name" label="First Name" size='small' required />
 
                                 <TextField sx={{
                                     width: 300,
@@ -256,7 +256,7 @@ function BoardingForm() {
                         </div>
 
                         <div className=' flex flex-col gap-5'>
-                            <div className='flex justify-between px-2 gap-10 items-center bg-slate-100'>
+                            <div className='flex justify-between p-2 gap-10 items-center bg-slate-100'>
                                 <div className='w-25'>
                                     <label className='text-md font-sans w-10 font-semibold' htmlFor="">WHEN</label>
                                 </div>

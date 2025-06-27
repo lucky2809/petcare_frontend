@@ -1,14 +1,24 @@
 import React from 'react'
 import { Icon } from '@iconify/react/dist/iconify.js'
+import { Link } from 'react-router-dom'
 
 
 function Footer() {
     return (
 
         <footer class="footer border-b border-sky-300 flex justify-around gap-10 mt-14 bg-black max-sm:flex-col max-sm:px-3 max-sm:py-4">
-            <div class="digimax  w-[450px] h-72 flex flex-col  max-sm:w-full">
-                <p className='font-semibold text-3xl text-white max-sm:text-center mt-5'>Petpy.in</p>
-                <p class="pareghraph  mt-6 font-sans max-sm:text-center max-sm:px- font-semibold text-slate-400 hover:text-white">Caring for a pet requires love, patience, and responsibility. Ensure your pet has a balanced diet suited to their breed and age. Fresh water should always be available. Regular vet check-ups help detect health</p>
+            <div class="digimax  w-[450px]  flex flex-col  max-sm:w-full">
+                <p className='font-semibold text-2xl text-white max-sm:text-center mt-3'>
+                    <Link className='w-fit ' to={"/"}>
+                        <div className='flex gap-2 items-center text-white'>
+                            <p className="h-20 w-20 "><img className='h-full w-full object-cover' src={`${import.meta.env.BASE_URL}logo.png`} alt="" /> </p>
+                            <div className='leading-none flex'>
+                                <p className='text-md font-bold'>TOE BEANS APARTMENT</p>
+                            </div>
+                        </div>
+                    </Link>
+                </p>
+                <p class="pareghraph  mt-3 font-sans max-sm:text-center max-sm:px- font-semibold text-slate-400 hover:text-white">Caring for a pet requires love, patience, and responsibility. Ensure your pet has a balanced diet suited to their breed and age. Fresh water should always be available. Regular vet check-ups help detect health</p>
                 <div class="icone_box flex gap-1 mt-6 max-sm:justify-center max-sm:gap-3">
                     <div class="facebook h-10 w-10 rounded-full flex items-center justify-center bg-white hover:bg-slate-800 hover:text-white duration-700"><Icon width={30} icon="mdi:facebook" /> </div>
                     <div class="world  h-10 w-10 rounded-full flex items-center justify-center bg-white hover:bg-slate-800 hover:text-white duration-700"> <Icon width={30} icon={"line-md:instagram"} /> </div>

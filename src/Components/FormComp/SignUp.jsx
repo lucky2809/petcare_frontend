@@ -3,38 +3,38 @@ import { Link } from 'react-router-dom'
 
 console.log("import.meta.env.VITE_APP_BACKEND_URL", import.meta.env.VITE_APP_BACKEND_URL, import.meta.env)
 function SignUp() {
-const [formData, setFormData] = useState({})
+    const [formData, setFormData] = useState({})
 
     const firstname = useRef("")
     const lastname = useRef("")
     const email = useRef("")
     const password = useRef("")
-const SignUpSubmitHanlder = async (e) =>{
-    e.preventDefault()
-    const object = {
-        firstname : firstname.current.value,
-        lastname : lastname.current.value ,
-        email : email.current.value ,
-        password : password.current.value
+    const SignUpSubmitHanlder = async (e) => {
+        e.preventDefault()
+        const object = {
+            firstname: firstname.current.value,
+            lastname: lastname.current.value,
+            email: email.current.value,
+            password: password.current.value
+        }
+        try {
+            const url = `${import.meta.env.VITE_APP_BACKEND_URL}/registration-api/`
+            const fetchData = await fetch(url, {
+                method: "POST",
+                headers: { "Content-type": "application/json" },
+                body: JSON.stringify(object)
+            })
+            const response = await fetchData.json()
+            alert(JSON.stringify(response))
+            console.log(response)
+
+
+        } catch (err) {
+            console.log("Something Went Wrong ..! ", err)
+        }
+
     }
-    try{
-        const url = `${import.meta.env.VITE_APP_BACKEND_URL}/registration-api/`
-        const fetchData = await fetch(url,{
-            method : "POST",
-            headers : {"Content-type" : "application/json"},
-            body : JSON.stringify(object)
-        })
-        const response = await fetchData.json()
-        alert(JSON.stringify(response))
-        console.log(response)
-
-
-    }catch(err){
-        console.log("Something Went Wrong ..! ",err)
-    }
-
-}
-console.log(formData)
+    console.log(formData)
     return (
         <div className='form-main w-full h-screen flex'>
             <div className='image   w-[40%]  h-screen max-sm:hidden'>
@@ -43,14 +43,16 @@ console.log(formData)
             <div className=' form  w-[60%]    py-5 px-16 max-sm:px-5 max-sm:py-0 max-sm:w-full '>
                 <div className='w-full font-semibold flex justify-between items-center'>
                     <span className='text-2xl'>
-                            <div className='flex gap-2 items-center w-100'>
+                        <div className='flex gap-2 items-center w-100'>
+                            <Link to={'/'} className='flex items-center'>
                                 <p className="h-15 w-15 "><img className='h-full w-full object-cover' src={`${import.meta.env.BASE_URL}logo.png`} alt="" /> </p>
                                 <div className='leading-none'>
                                     <p className='text-sm font-bold w-25'>TOE BEANS APARTMENT</p>
                                 </div>
-                            </div>
-                        </span>
-                    <span className=''>If you have an account <Link to={"/signin"} style={{color : "blue"}}>Sign in</Link></span>
+                            </Link>
+                        </div>
+                    </span>
+                    <span className='max-sm:hidden'>If you have an account <Link to={"/signin"} style={{ color: "blue" }}>Sign in</Link></span>
 
                 </div>
 
@@ -65,18 +67,18 @@ console.log(formData)
                                 </label>
                                 <label className='flex flex-col w-full gap-1  max-sm:gap-0'>
                                     <label for="text" className='font-semibold text-[18px]' >Last Name</label>
-                                    <input ref={lastname}  type='text' className='p-2 w-full border-2 border-black rounded-md ' placeholder='Enter full name' />
+                                    <input ref={lastname} type='text' className='p-2 w-full border-2 border-black rounded-md ' placeholder='Enter full name' />
                                 </label>
                             </label>
 
                             <label className='flex gap-3 mt-2  max-sm:flex-col'>
                                 <label className='flex flex-col w-full gap-1  max-sm:gap-0'>
                                     <label for="text" className='font-semibold text-[18px] ' >Email Address</label>
-                                    <input ref={email}  type='text' className='p-2 border-2 border-black rounded-md' placeholder='Enter email address' />
+                                    <input ref={email} type='text' className='p-2 border-2 border-black rounded-md' placeholder='Enter email address' />
                                 </label>
                                 <label className='flex flex-col w-full gap-1  max-sm:gap-0'>
                                     <label for="text" className='font-semibold text-[18px] ' >Password</label>
-                                    <input ref={password}  type='text' className='p-2 w-full  border-2 border-black rounded-md' placeholder='Enter password' />
+                                    <input ref={password} type='text' className='p-2 w-full  border-2 border-black rounded-md' placeholder='Enter password' />
                                 </label>
                             </label>
 
@@ -86,11 +88,12 @@ console.log(formData)
                             </div>
                             <div className='btn-sign-up mt-3 '>
                                 <Link to={"/signin"} >
-                                    <button 
-                                    onClick={SignUpSubmitHanlder}
-                                     className='p-2 bg-green-600 border  hover:bg-black px-20 text-base text-white rounded-md font-bold'>Submit</button>
+                                    <button
+                                        onClick={SignUpSubmitHanlder}
+                                        className='p-2 bg-green-600 border  hover:bg-black px-20 text-base text-white rounded-md font-bold'>Submit</button>
                                 </Link>
                             </div>
+                            <span className='min-xl:hidden min-lg:hidden min-2xl:hidden '>If you don't have an account <Link to={"/signup"} style={{ color: "blue" }}>sign up</Link></span>
                         </form>
                     </div>
                 </div>

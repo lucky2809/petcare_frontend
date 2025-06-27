@@ -93,7 +93,7 @@ function Header() {
             // onClick={() => window?.screenTop(0, 0)}
             >
                 <div className='relative w-full'>
-                    <img src={`${import.meta.env.BASE_URL}\WhatsApp Image 2025-04-05 at 14.58.09_b6086a91.jpg`} className='w-full h-[600px]' alt="" />
+                    <img src={`${import.meta.env.BASE_URL}\WhatsApp Image 2025-04-05 at 14.58.09_b6086a91.jpg`} className='w-full h-[600px] max-sm:h-fit object-cover' alt="" />
                 </div>
                 <AnimatedCard className=' px-30 max-sm:px-5 absolute max-sm:top-20 w-full  my-2 '>
                     <div className=' relative gap-4 w-full flex flex-col rounded-lg shadow-lg mt-12 my-6 bg-white opacity-95 py-10 '>
@@ -104,7 +104,7 @@ function Header() {
                                     Pet Boarding</button>
                                 <Link to={"/pettaxi"} className='max-sm:w-full'><button disabled onClick={(event) => changedata(event)} name="pet" value={'pettaxi'} className={`px-5 p-2 max-sm:p-3 border-1 border-gray-400 text-gray-400 rounded-sm bg-white items-center flex gap-2 text-lg min-2xl:text-xl max-sm:w-full max-sm:text-sm font-semibold `}>
                                     <input disabled onChange={(event) => changedata(event)} type="radio" name="pet" value={'pettaxi'} checked={select.pet == "pettaxi"} className='w-5 h-5' />
-                                    Pet Taxi</button></Link>
+                                    Pet Taxi <span className='text-gray-400 pl-4 max-sm:pl-2'>Coming Soon!</span></button></Link>
                                 <Link to={"/petgrooming"} className='max-sm:w-full'><button onClick={(event) => changedata(event)} name="pet" value={'petgrooming'} className={`px-5 p-2 max-sm:p-3 border-1 rounded-sm bg-white items-center flex gap-2 text-lg max-sm:w-full min-2xl:text-xl max-sm:text-sm font-semibold`}>
                                     <input onChange={(event) => changedata(event)} type="radio" name="pet" value={'petgrooming'} checked={select.pet == "petgrooming"} className='w-5 h-5' />
                                     Pet Grooming</button></Link>

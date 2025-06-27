@@ -55,7 +55,7 @@ function Adoptive() {
             <div className='h-full border-2 border-slate-100 rounde-lg shadow-2xl '>
               <div className='rounded-t-lg h-80 w-full bg-green-600 flex flex-col items-center justify-center gap-5'>
                 <Icon icon={"meteor-icons:paw"} fontSize={80} color='white' />
-                <p className='font-semibold text-white text-md px-10 text-center'>7 more pet availble for Petfinder</p>
+                <p className='font-semibold text-white text-md px-10 text-center'>7 more pet availble for Toe Beans Apatment</p>
               </div>
               <div className=''>
                 <div className='felx justify-center items-center rounded-b-lg bg-green-800 text-center border-1 py-5  hover:bg-green-950'>

@@ -63,6 +63,7 @@ function AddBoardingService() {
                 </div>
 
                 <div
+                
                     onMouseOver={onMouseCat} onMouseLeave={leaveMouseCat}
                     className={`Service border  shadow-sm shadow-black/15 ${isPetTaxi ? "bg-amber-50/20 border-amber-400" : "border-black/20"}  p-2 rounded-md flex  items-center gap-5 w-96 max-sm:w-full`}>
                     <div className='img-section '>
@@ -70,11 +71,11 @@ function AddBoardingService() {
                     </div>
                     <div className='flex justify-between items-center w-full'>
                         <div>
-                        <h1 className={`font-semibold text-[18px] ${hoverEffectCat ? "ml-2 " : ""} duration-700`}>For Pet Taxi</h1>
+                        <h1 className={`font-semibold text-[18px] ${hoverEffectCat ? "ml-2 " : ""} duration-700 flex gap-3`}>For Pet Taxi <span className='text-gray-400 gap-3'>coming soon!</span></h1>
                         <p className=' text-red-600 text-sm'> * Taxi only available for cats</p>
                         </div>
                         <p className='text-[12px] font-semibold text-slate-500'>
-                            <Checkbox onChange={handleSelectTaxi} aria-label='Checkbox demo' sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }} checked={isPetTaxi} /></p>
+                            <Checkbox disabled onChange={handleSelectTaxi} aria-label='Checkbox demo' sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }} checked={isPetTaxi} /></p>
                     </div>
                 </div>
 

@@ -116,14 +116,17 @@ function SignIn() {
                 <div className='sign-in  h-[97%]'>
                     <div className='w-full font-semibold flex justify-between items-center'>
                         <span className='text-2xl'>
+                            
                             <div className='flex gap-2 items-center w-100'>
+                                <Link to={'/'} className='flex items-center'>
                                 <p className="h-15 w-15 "><img className='h-full w-full object-cover' src={`${import.meta.env.BASE_URL}logo.png`} alt="" /> </p>
                                 <div className='leading-none'>
                                     <p className='text-sm font-bold w-25'>TOE BEANS APARTMENT</p>
-                                </div>
+                                </div></Link>
                             </div>
+                    
                         </span>
-                        <span className=''>If you don't have an account <Link to={"/signup"} style={{ color: "blue" }}>sign up</Link></span>
+                        <span className='max-sm:hidden'>If you don't have an account <Link to={"/signup"} style={{ color: "blue" }}>sign up</Link></span>
 
                     </div>
                     <form className='sign-in flex flex-col justify-center items-center gap-2 h-[100%]  '>
@@ -147,6 +150,7 @@ function SignIn() {
                                 className='hover:bg-black bg-green-600 w-full py-2 text-white text-base rounded-md '>Sign in </button>
                             {/* </Link> */}
                         </div>
+                        <span className='min-xl:hidden min-lg:hidden min-2xl:hidden'>If you don't have an account <Link to={"/signup"} style={{ color: "blue" }}>sign up</Link></span>
 
                     </form>
 

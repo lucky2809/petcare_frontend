@@ -16,7 +16,7 @@ function ForgetPassword() {
                         </div>
                     </div>
 
-                    <div>
+                    <div className='max-sm:hidden'>
                         <span className='text-lg'>If you have password <Link to={"/signin"} style={{ color: "blue" }}>sign in</Link></span>
                     </div>
 
