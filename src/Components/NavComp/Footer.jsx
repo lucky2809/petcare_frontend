@@ -10,7 +10,7 @@ function Footer() {
             <div class="digimax  w-[450px]  flex flex-col  max-sm:w-full">
                 <p className='font-semibold text-2xl text-white max-sm:text-center mt-3'>
                     <Link className='w-fit ' to={"/"}>
-                        <div className='flex gap-2 items-center text-white'>
+                        <div className='flex gap-2 max-sm:gap-0 items-center text-white'>
                             <p className="h-20 w-20 "><img className='h-full w-full object-cover' src={`${import.meta.env.BASE_URL}logo.png`} alt="" /> </p>
                             <div className='leading-none flex'>
                                 <p className='text-md font-bold'>TOE BEANS APARTMENT</p>
