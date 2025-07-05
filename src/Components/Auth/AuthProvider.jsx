@@ -1,9 +1,11 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import useUserStore from "../../store/userStore";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+    // const [user, setUser] = useState(null);
+    const {user, setUser} = useUserStore()
     const [loading, setLoading] = useState(true); // ⬅️ new
 
     const fetchVerifyToken = async (token) => {

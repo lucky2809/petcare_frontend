@@ -90,7 +90,7 @@ function SignUp() {
                                 <Link to={"/signin"} >
                                     <button
                                         onClick={SignUpSubmitHanlder}
-                                        className='p-2 bg-green-600 border  hover:bg-black px-20 text-base text-white rounded-md font-bold'>Submit</button>
+                                        className='p-2 bg-green-600 border  hover:bg-black px-20 text-base text-white rounded-md font-bold cursor-pointer'>Submit</button>
                                 </Link>
                             </div>
                             <span className='min-xl:hidden min-lg:hidden min-2xl:hidden '>If you don't have an account <Link to={"/signup"} style={{ color: "blue" }}>sign up</Link></span>

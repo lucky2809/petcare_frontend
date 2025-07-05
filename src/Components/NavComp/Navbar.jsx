@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import { Icon } from "@iconify/react";
 import { Link } from 'react-router-dom';
+import Logout from '../FormComp/Logout';
+import useUserStore from '../../store/userStore';
 
 
 function Navbar() {
   const [toggleBtn, setToggleBtn] = useState(false)
+    const { user, setUser } = useUserStore()
+
 
   console.log(toggleBtn)
   return (
@@ -27,12 +31,12 @@ function Navbar() {
             <li className='hover:border-b-2 hover:text-black'><Link to={"/bloges"}>BLOGS</Link></li>
             <li className='hover:border-b-2 hover:text-black'><Link to={"/petfinding"}>ADOPTION</Link></li>
             <li className='hover:border-b-2 hover:text-black'><Link to={"/petgrooming"}>PET GROOMING </Link></li>
-            <li className='flex items-center hover:border-b-2 hover:text-black'><Link to={"/signin"}>LOGIN</Link>
+            <li className='flex items-center hover:border-b-2 hover:text-black'><Logout color='#000000' />
               {/* <Icon fontSize={23}  icon={"oui:arrow-down"}></Icon>  */}
             </li>
 
           </ul>
-          <div className='flex items-center gap-10'>
+          <div className='flex items-center gap-4'>
             {/* <div className='search-bar border-2 border-slate-500 flex  rounded-md  max-sm:hidden'>
                 <input className='p-2 w-72 outline-0  border-none max-w-full' type='search' placeholder='ask' />
                 <span className='font-semibold flex items-center border-none  rounded-md px-1 '><Icon width={32}  icon="iconoir:search" /> </span>
@@ -42,6 +46,9 @@ function Navbar() {
                 <Icon icon='line-md:phone-call-loop'></Icon>
               </icone>
             </a>
+            <div className='md:hidden text-green-700'>{user ? <li className='flex items-center hover:border-b-2 hover:text-black'><Logout />
+              {/* <Icon fontSize={23}  icon={"oui:arrow-down"}></Icon>  */}
+            </li> : " "}</div>
             {/* <button className="nav-btn  bg-blue-400 text-white px-5 p-2 font-semibold text-lg rounded-md max-sm:hidden">Get Started</button> */}
             <div className="md:hidden"
               onClick={() => setToggleBtn(!toggleBtn)}
@@ -90,9 +97,9 @@ function Navbar() {
               <li className='hover:border-b-2 hover:text-black'><Link to={"/bloges"}>BLOGS</Link></li>
               <li className='hover:border-b-2 hover:text-black'><Link to={"/petfinding"}>ADOPTION</Link></li>
               <li className='hover:border-b-2 hover:text-black'><Link to={"/petgrooming"}>PET GROOMING </Link></li>
-              <li className='flex items-center hover:border-b-2 hover:text-black'><Link to={"/signin"}>LOGIN</Link>
+             {user ? "" :  <li className='flex items-center hover:border-b-2 hover:text-black'><Link to={"/signin"}>LOGIN</Link>
                 {/* <Icon fontSize={23}  icon={"oui:arrow-down"}></Icon>  */}
-              </li>
+              </li>}
 
             </ul>
           </nav>

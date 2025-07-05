@@ -1,12 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import useUserStore from '../../store/userStore'
+
+
+
+const ErrorMessage = ({ error, field }) => {
+    return error[field] && <p className='text-red-500' > {error[field]} </p>
+}
 
 function SignIn() {
     const [isHideShow, setIsHideShow] = useState(false)
     const email = useRef("")
     const password = useRef("")
     const navigate = useNavigate()
+    const [error, setError] = useState({})
+    const { user, setUser } = useUserStore()
     const signInHandler = async (e) => {
         e.preventDefault()
 
@@ -15,6 +24,18 @@ function SignIn() {
             password: password.current.value
         }
         // console.log(object)
+        if (!object.email) {
+            setError(prev => ({ ...prev, email: "Email is required" }))
+            return
+        } else {
+            setError(prev => ({ ...prev, email: "" }))
+        }
+        if (!object.password) {
+            setError(prev => ({ ...prev, password: "Password is required" }))
+            return
+        } else {
+            setError(prev => ({ ...prev, password: "" }))
+        }
 
         try {
             const url = `${import.meta.env.VITE_APP_BACKEND_URL}/login/`
@@ -29,7 +50,7 @@ function SignIn() {
                 alert(JSON.stringify(data.message))
                 const fetchVerifyToken = async (token) => {
                     try {
-                        const fetchData = await fetch(`${import.meta.env.VITE_APP_BACKEND_URL}/verify-token`, {
+                        const fetchData = await fetch(`${import.meta.env.VITE_APP_BACKEND_URL}/verify-token/`, {
                             method: "GET",
                             headers: {
                                 Authorization: `Bearer ${token}`,
@@ -37,8 +58,9 @@ function SignIn() {
                         });
                         const data = await fetchData.json();
                         const role = data.user_data?.role
+                        setUser(data.user_data)
                         if (role === "admin") {
-                            window.location.href = ("/admin/bookingdetailstable")
+                            window.location.href = ("/admin/")
                         } else {
                             navigate("/")
 
@@ -56,16 +78,29 @@ function SignIn() {
                 }
 
             } else {
-                toast.warn("Please Fill Details First")
+                toast.warn("Login error")
+                if(data.error_type === "email") {
+                setError(prev => ({ ...prev, email: data.message }))
+                }
+                if(data.error_type === "password") {
+                setError(prev => ({ ...prev, password: data.message }))
+                }
+
+
+
                 console.log("somthing went wrong ..!")
             }
         } catch (err) {
             console.log(err)
+
+
         }
     }
     useEffect(() => {
         signInHandler()
     }, [])
+
+    console.log(error)
 
     return (
         <div className='form-main w-full h-screen flex bg-white '>
@@ -135,11 +170,13 @@ function SignIn() {
                         <label className='flex flex-col  gap-1 w-96 mt-10 max-sm:w-full'>
                             <label for="text" className=' font-semibold text-[18px]' >Gmail or UserName</label>
                             <input ref={email} type='text' className='p-2 border-2 border-black rounded-md  max-sm:w-full' placeholder='Enter username' />
+                            <ErrorMessage error={error} field={"email"} />
                         </label>
 
                         <label className='flex flex-col  gap-1 w-96  max-sm:w-full'>
                             <label for="text" className=' font-semibold text-[18px]' >Password</label>
                             <input ref={password} type='password' className='p-2 border-2 border-black rounded-md w-96  max-sm:w-full' placeholder='Enter username' />
+                            <ErrorMessage error={error} field={"password"} />
                         </label>
                         <p className='w-96 flex justify-end  text-blue-500 font-serif underline  max-sm:w-full'>
                             <Link to={"/forgetpassword"} >Forgot Password</Link>
@@ -147,7 +184,7 @@ function SignIn() {
                         <div className='btn w-96  max-sm:w-full rounded-md border-green-600'>
                             {/* <Link to={""} className='rounded-md'> */}
                             <button onClick={signInHandler}
-                                className='hover:bg-black bg-green-600 w-full py-2 text-white text-base rounded-md '>Sign in </button>
+                                className='hover:bg-black bg-green-600 w-full py-2 text-white text-base cursor-pointer rounded-md '>Sign in </button>
                             {/* </Link> */}
                         </div>
                         <span className='min-xl:hidden min-lg:hidden min-2xl:hidden'>If you don't have an account <Link to={"/signup"} style={{ color: "blue" }}>sign up</Link></span>
